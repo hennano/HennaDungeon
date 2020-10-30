@@ -5,6 +5,10 @@ import net.hennabatch.hennadungeon.util.Reference;
 
 public abstract class Scene<T> {
 
+    public Scene(){
+        this.initializeScene();
+    }
+
     protected Screen screen = new Screen(Reference.SCREEN_WIDTH, Reference.SCREEN_HEIGHT);
     private Scene childScene;
 
@@ -15,10 +19,11 @@ public abstract class Scene<T> {
         SceneResult result = new SceneResult(false, null);
         if(getChildScene() != null){
             result = getChildScene().inputKey(key);
-            if(result.isChildSceneContinue()) {
+            if(!result.isChildSceneContinue()) {
                 removeChildScene();
             }
         }else{
+            Reference.logger.debug("runScreen:" + this.getClass().getSimpleName());
             result = run(key, result);
         }
         return result;
@@ -34,6 +39,7 @@ public abstract class Scene<T> {
 
     //子シーンの生成
     protected void createChildScene(Scene scene){
+        Reference.logger.debug("create child scene: " + scene.getClass().getSimpleName());
         this.childScene = scene;
         this.childScene.initializeScene();
     }
@@ -44,6 +50,7 @@ public abstract class Scene<T> {
 
     protected void removeChildScene(){
         this.childScene.finalizeScene();
+        Reference.logger.debug("remove child scene: " + childScene.getClass().getSimpleName());
         this.childScene = null;
     }
 

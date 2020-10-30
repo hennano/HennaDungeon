@@ -1,14 +1,15 @@
 package net.hennabatch.hennadungeon;
 
-import net.hennabatch.hennadungeon.config.Config;
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
 import net.hennabatch.hennadungeon.scene.RootEvent;
+import net.hennabatch.hennadungeon.scene.Screen;
 import net.hennabatch.hennadungeon.util.Reference;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
-import java.io.Console;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public class HennaDungeon {
 
@@ -18,9 +19,10 @@ public class HennaDungeon {
         RootEvent root = new RootEvent();
 
 
-        try(Terminal terminal = TerminalBuilder.terminal()){
+        try(Terminal terminal = TerminalBuilder.builder().encoding(StandardCharsets.UTF_8).terminal()){
             while (root.inputKey(getkeyInput(terminal)).isChildSceneContinue()){
-                root.draw();
+                terminal.flush();
+                Reference.logger.logScreen().overWrite(root.draw()).println();
             }
         } catch (IOException e) {
             Reference.logger.error(e.getMessage(), e);
