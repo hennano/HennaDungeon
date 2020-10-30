@@ -28,6 +28,6 @@ public class KeyConfig {
     }
 
     public char getChar(EnumKeyInput key){
-        return this.keys.entrySet().stream().filter(x -> x.getValue() == key).map(x -> x.getKey()).findFirst().orElse(null);
+        return this.keys.entrySet().stream().filter(x -> x.getValue() == key).map(Map.Entry::getKey).findFirst().orElse(null);
     }
 }

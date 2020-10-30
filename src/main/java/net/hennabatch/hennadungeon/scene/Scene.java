@@ -12,15 +12,13 @@ public abstract class Scene<T> {
     protected void finalizeScene(){}
 
     public SceneResult inputKey(EnumKeyInput key){
-        SceneResult result = new SceneResult(SceneResult.EnumResult.NEXT, null);
-        if(this.childScene != null){
-            result = childScene.inputKey(key);
-            if(result.result() != SceneResult.EnumResult.CONTINUE) {
-                this.childScene.finalizeScene();
-                this.childScene = null;
+        SceneResult result = new SceneResult(false, null);
+        if(getChildScene() != null){
+            result = getChildScene().inputKey(key);
+            if(result.isChildSceneContinue()) {
+                removeChildScene();
             }
-        }
-        if(result.result() == SceneResult.EnumResult.NEXT) {
+        }else{
             result = run(key, result);
         }
         return result;
@@ -38,6 +36,15 @@ public abstract class Scene<T> {
     protected void createChildScene(Scene scene){
         this.childScene = scene;
         this.childScene.initializeScene();
+    }
+
+    protected Scene getChildScene(){
+        return this.childScene;
+    }
+
+    protected void removeChildScene(){
+        this.childScene.finalizeScene();
+        this.childScene = null;
     }
 
 }

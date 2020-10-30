@@ -68,7 +68,9 @@ public class Screen implements Cloneable{
             for(int y = 0; y < ret.width; y++){
                 try{
                     ret.screen[x][y] = screen.screen[x][y];
-                }catch(ArrayIndexOutOfBoundsException e){}
+                }catch(ArrayIndexOutOfBoundsException e){
+                    break;
+                }
             }
         }
         return ret;
@@ -97,11 +99,9 @@ public class Screen implements Cloneable{
             try{
                 if(isFullWidthChar(message.charAt(i + 1))){
                     out.add(message.charAt(i) + " ");
-                    continue;
                 }else{
                     out.add(String.valueOf(message.charAt(i) + message.charAt(i + 1)));
                     i++;
-                    continue;
                 }
             }catch(IndexOutOfBoundsException e){
                 break;

@@ -3,7 +3,6 @@ package net.hennabatch.hennadungeon.scene;
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
 import net.hennabatch.hennadungeon.util.Reference;
 
-import java.security.Key;
 import java.util.Arrays;
 
 public class StartScene<T extends StartScene.EnumStartSceneResult> extends Scene<T>{
@@ -20,10 +19,10 @@ public class StartScene<T extends StartScene.EnumStartSceneResult> extends Scene
                 if(pointer < EnumStartSceneResult.values().length) pointer--;
                 break;
             case ENTER:
-                return new SceneResult<T>(SceneResult.EnumResult.CONTINUE, (T) EnumStartSceneResult.byPointer(pointer));
+                return new SceneResult<T>(true, (T) EnumStartSceneResult.byPointer(pointer));
 
         }
-        return new SceneResult<>(SceneResult.EnumResult.CONTINUE, null);
+        return new SceneResult<>(true, null);
     }
 
     public enum EnumStartSceneResult{
