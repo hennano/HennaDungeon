@@ -9,8 +9,8 @@ import java.util.Map;
 
 public class Config {
 
-    private EnumRunMode runMode = EnumRunMode.DEBUG;
-    private KeyConfig keyConfig = new KeyConfig().setDefault();
+    private final EnumRunMode runMode = EnumRunMode.DEBUG;
+    private final KeyConfig keyConfig = new KeyConfig().setDefault();
 
     public static Config loadConfig(String jsonPath){
         /*

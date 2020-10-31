@@ -9,7 +9,6 @@ public abstract class Scene<T> {
         this.initializeScene();
     }
 
-    protected Screen screen = new Screen(Reference.SCREEN_WIDTH, Reference.SCREEN_HEIGHT);
     private Scene childScene;
 
     protected void initializeScene(){}
@@ -30,18 +29,19 @@ public abstract class Scene<T> {
     }
 
     //シーン内ループ用メイン
-    abstract SceneResult<T> run(EnumKeyInput key, SceneResult<T> childSceneResult);
+    protected abstract SceneResult<T> run(EnumKeyInput key, SceneResult<T> childSceneResult);
+
+    public Screen drawScreen(Screen screen){
+        return this.childScene != null ? this.childScene.draw(draw(screen)): draw(screen);
+    }
 
     //描画用
-    public Screen draw(){
-        return this.childScene != null ? this.screen.overWrite(this.childScene.draw()) : this.screen;
-    }
+    protected abstract Screen draw(Screen screen);
 
     //子シーンの生成
     protected void createChildScene(Scene scene){
         Reference.logger.debug("create child scene: " + scene.getClass().getSimpleName());
         this.childScene = scene;
-        this.childScene.initializeScene();
     }
 
     protected Scene getChildScene(){

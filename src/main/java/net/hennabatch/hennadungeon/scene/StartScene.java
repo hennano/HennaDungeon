@@ -11,7 +11,7 @@ public class StartScene<T extends StartScene.EnumStartSceneResult> extends Scene
     private int pointer = 0;
 
     @Override
-    SceneResult<T> run(EnumKeyInput key, SceneResult<T> childSceneResult) {
+     protected SceneResult<T> run(EnumKeyInput key, SceneResult<T> childSceneResult) {
         System.out.println(pointer);
         switch (key){
             case UP:
@@ -24,7 +24,6 @@ public class StartScene<T extends StartScene.EnumStartSceneResult> extends Scene
                 return new SceneResult<T>(false, (T) EnumStartSceneResult.byPointer(pointer));
 
         }
-        drawTitle();
         return new SceneResult<>(true, null);
     }
 
@@ -32,7 +31,7 @@ public class StartScene<T extends StartScene.EnumStartSceneResult> extends Scene
         START(0),
         EXIT(1);
 
-        private int pointer;
+        private final int pointer;
 
         EnumStartSceneResult(int pointer){
             this.pointer = pointer;
@@ -43,15 +42,17 @@ public class StartScene<T extends StartScene.EnumStartSceneResult> extends Scene
         }
     }
 
-    private void drawTitle(){
+    @Override
+    protected Screen draw(Screen screen) {
         String title = "ダンジョンに取り残されたんだが";
         String start = "はじめる";
         String exit = "おわる";
 
-        this.screen.setRow((Reference.SCREEN_WIDTH / 2) - (title.length() / 2),Reference.SCREEN_HEIGHT / 4, title, false, false);
-        this.screen.setRow((Reference.SCREEN_WIDTH / 2) - 3,Reference.SCREEN_HEIGHT / 2, start, false, false);
-        this.screen.setRow((Reference.SCREEN_WIDTH / 2) - 3,Reference.SCREEN_HEIGHT / 2 + 1, exit, false, false);
-        if(this.pointer == 0) this.screen.setRow((Reference.SCREEN_WIDTH / 2) - 4,Reference.SCREEN_HEIGHT / 2, EnumCursor.RIGHT.getCursor(), false, false);
-        if(this.pointer == 1) this.screen.setRow((Reference.SCREEN_WIDTH / 2) - 4,Reference.SCREEN_HEIGHT / 2 + 1, EnumCursor.RIGHT.getCursor(), false, false);
+        screen.setRow((Reference.SCREEN_WIDTH / 2) - (title.length() / 2),Reference.SCREEN_HEIGHT / 4, title, false, false);
+        screen.setRow((Reference.SCREEN_WIDTH / 2) - 3,Reference.SCREEN_HEIGHT / 2, start, false, false);
+        screen.setRow((Reference.SCREEN_WIDTH / 2) - 3,Reference.SCREEN_HEIGHT / 2 + 1, exit, false, false);
+        if(this.pointer == 0) screen.setRow((Reference.SCREEN_WIDTH / 2) - 4,Reference.SCREEN_HEIGHT / 2, EnumCursor.RIGHT.getCursor(), false, false);
+        if(this.pointer == 1) screen.setRow((Reference.SCREEN_WIDTH / 2) - 4,Reference.SCREEN_HEIGHT / 2 + 1, EnumCursor.RIGHT.getCursor(), false, false);
+        return screen;
     }
 }

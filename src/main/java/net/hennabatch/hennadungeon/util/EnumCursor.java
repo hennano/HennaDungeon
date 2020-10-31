@@ -7,7 +7,7 @@ public enum EnumCursor {
     RIGHT("⯈");
 
 
-    private String cursor;
+    private final String cursor;
 
     EnumCursor(String cursor){
         this.cursor = cursor;

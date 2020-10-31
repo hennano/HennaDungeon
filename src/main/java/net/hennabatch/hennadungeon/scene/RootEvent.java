@@ -1,8 +1,9 @@
 package net.hennabatch.hennadungeon.scene;
 
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
+import net.hennabatch.hennadungeon.scene.event.EventScene;
 
-public class RootEvent extends EventScene{
+public class RootEvent extends EventScene {
 
     @Override
     protected void initializeScene(){
@@ -10,7 +11,7 @@ public class RootEvent extends EventScene{
     }
 
     @Override
-    SceneResult run(EnumKeyInput key, SceneResult childSceneResult) {
+    protected SceneResult run(EnumKeyInput key, SceneResult childSceneResult) {
         if(childSceneResult.data() instanceof StartScene.EnumStartSceneResult){
             StartScene.EnumStartSceneResult result = (StartScene.EnumStartSceneResult)(childSceneResult.data());
             switch (result){

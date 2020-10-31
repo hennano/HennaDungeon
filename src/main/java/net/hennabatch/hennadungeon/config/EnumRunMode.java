@@ -5,9 +5,9 @@ public enum EnumRunMode {
     DEBUG("debug"),
     RELEASE("release");
 
-    private String notation;
+    private final String notation;
 
-    private EnumRunMode(String notation){
+    EnumRunMode(String notation){
         this.notation = notation;
     }
 

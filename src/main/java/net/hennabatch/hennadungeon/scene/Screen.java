@@ -58,9 +58,7 @@ public class Screen implements Cloneable{
     public Screen clone(){
         Screen clone = new Screen(this.width, this.height);
         for(int x = 0; x < clone.width; x++){
-            for(int y = 0; y < clone.height; y++){
-                clone.screen[x][y] = this.screen[x][y];
-            }
+            if (clone.height >= 0) System.arraycopy(this.screen[x], 0, clone.screen[x], 0, clone.height);
         }
         return clone;
     }

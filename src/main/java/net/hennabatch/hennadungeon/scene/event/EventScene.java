@@ -1,11 +1,12 @@
-package net.hennabatch.hennadungeon.scene;
+package net.hennabatch.hennadungeon.scene.event;
 
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
+import net.hennabatch.hennadungeon.scene.Scene;
+import net.hennabatch.hennadungeon.scene.SceneResult;
+import net.hennabatch.hennadungeon.scene.Screen;
 import net.hennabatch.hennadungeon.util.Reference;
 
-import javax.swing.tree.ExpandVetoException;
-
-abstract class EventScene<T> extends Scene<T>{
+public abstract class EventScene<T> extends Scene<T> {
 
     private int eventSequence = 0;
 
@@ -24,6 +25,11 @@ abstract class EventScene<T> extends Scene<T>{
             result = run(key, result);
         }
         return result;
+    }
+
+    @Override
+    protected Screen draw(Screen screen) {
+        return screen;
     }
 
     protected int getEventSequence(){

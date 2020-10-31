@@ -4,7 +4,12 @@ import net.hennabatch.hennadungeon.config.EnumKeyInput;
 
 public class GameScene extends Scene{
     @Override
-    SceneResult run(EnumKeyInput key, SceneResult childSceneResult) {
+     protected SceneResult run(EnumKeyInput key, SceneResult childSceneResult) {
         return null;
+    }
+
+    @Override
+    protected Screen draw(Screen screen) {
+        return screen;
     }
 }

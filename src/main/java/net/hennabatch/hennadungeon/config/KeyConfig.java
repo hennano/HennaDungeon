@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class KeyConfig {
 
-    private Map<Character, EnumKeyInput> keys = new HashMap<>();
+    private final Map<Character, EnumKeyInput> keys = new HashMap<>();
 
     public KeyConfig setDefault(){
         this.keys.put('w', EnumKeyInput.UP);

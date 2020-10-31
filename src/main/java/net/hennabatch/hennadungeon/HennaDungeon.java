@@ -8,8 +8,6 @@ import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 public class HennaDungeon {
 
@@ -19,10 +17,10 @@ public class HennaDungeon {
         RootEvent root = new RootEvent();
 
 
-        try(Terminal terminal = TerminalBuilder.builder().encoding(StandardCharsets.UTF_8).terminal()){
+        try(Terminal terminal = TerminalBuilder.terminal()){
             while (root.inputKey(getkeyInput(terminal)).isChildSceneContinue()){
                 terminal.flush();
-                Reference.logger.logScreen().overWrite(root.draw()).println();
+                Reference.logger.logScreen().overWrite(root.drawScreen(new Screen(Reference.SCREEN_WIDTH, Reference.SCREEN_WIDTH))).println();
             }
         } catch (IOException e) {
             Reference.logger.error(e.getMessage(), e);
@@ -32,7 +30,7 @@ public class HennaDungeon {
     }
 
     private static EnumKeyInput getkeyInput(Terminal terminal)throws IOException{
-        int ch = 0;
+        int ch;
         EnumKeyInput input = null;
         while (input == null) {
             ch = terminal.reader().read();
