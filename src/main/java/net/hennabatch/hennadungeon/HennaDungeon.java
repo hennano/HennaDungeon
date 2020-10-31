@@ -1,7 +1,7 @@
 package net.hennabatch.hennadungeon;
 
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
-import net.hennabatch.hennadungeon.scene.RootEvent;
+import net.hennabatch.hennadungeon.scene.event.RootEvent;
 import net.hennabatch.hennadungeon.scene.Screen;
 import net.hennabatch.hennadungeon.util.Reference;
 import org.jline.terminal.Terminal;

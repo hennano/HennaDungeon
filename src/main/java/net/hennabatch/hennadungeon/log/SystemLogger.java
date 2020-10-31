@@ -3,7 +3,6 @@ package net.hennabatch.hennadungeon.log;
 import net.hennabatch.hennadungeon.HennaDungeon;
 import net.hennabatch.hennadungeon.scene.Screen;
 import net.hennabatch.hennadungeon.util.Reference;
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import java.util.*;

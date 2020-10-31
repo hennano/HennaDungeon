@@ -1,9 +1,11 @@
-package net.hennabatch.hennadungeon.scene;
+package net.hennabatch.hennadungeon.scene.event;
 
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
-import net.hennabatch.hennadungeon.scene.event.EventScene;
+import net.hennabatch.hennadungeon.scene.GameScene;
+import net.hennabatch.hennadungeon.scene.SceneResult;
+import net.hennabatch.hennadungeon.scene.StartScene;
 
-public class RootEvent extends EventScene {
+public class RootEvent extends Event {
 
     @Override
     protected void initializeScene(){

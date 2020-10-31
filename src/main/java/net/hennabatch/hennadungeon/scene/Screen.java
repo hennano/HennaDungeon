@@ -1,14 +1,9 @@
 package net.hennabatch.hennadungeon.scene;
 
-import net.hennabatch.hennadungeon.util.Reference;
-import org.jline.terminal.Terminal;
-
-import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class Screen implements Cloneable{
 

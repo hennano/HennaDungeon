@@ -1,12 +1,5 @@
 package net.hennabatch.hennadungeon.config;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import net.hennabatch.hennadungeon.util.Reference;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 public class Config {
 
     private final EnumRunMode runMode = EnumRunMode.DEBUG;
