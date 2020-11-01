@@ -5,7 +5,7 @@ import net.hennabatch.hennadungeon.scene.GameScene;
 import net.hennabatch.hennadungeon.scene.SceneResult;
 import net.hennabatch.hennadungeon.scene.StartScene;
 
-public class RootEvent extends Event {
+public class RootEvent extends Event{
 
     @Override
     protected void initializeScene(){

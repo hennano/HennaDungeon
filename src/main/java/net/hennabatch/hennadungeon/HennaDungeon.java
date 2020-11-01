@@ -13,8 +13,11 @@ public class HennaDungeon {
 
     public static void main(String[] srgs){
 
+        Reference.logger.debug("initializing game");
+
         //ゲーム初期化
         RootEvent root = new RootEvent();
+        Reference.logger.logScreen().overWrite(root.drawScreen(new Screen(Reference.SCREEN_WIDTH, Reference.SCREEN_WIDTH))).println();
 
 
         try(Terminal terminal = TerminalBuilder.terminal()){
@@ -37,6 +40,7 @@ public class HennaDungeon {
             char c = (char) ch;
             input = Reference.config.keyConfig().getByChar(c);
         }
+        Reference.logger.debug("inputkey: " + input.name());
         return input;
     }
 }

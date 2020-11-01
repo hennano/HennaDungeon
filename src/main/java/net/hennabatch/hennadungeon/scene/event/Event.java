@@ -32,6 +32,11 @@ public abstract class Event<T> extends Scene<T> {
         return screen;
     }
 
+    @Override
+    protected SceneResult<T> onExitChildScene(SceneResult<T> result) {
+        return result;
+    }
+
     protected int getEventSequence(){
         return eventSequence;
     }

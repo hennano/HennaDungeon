@@ -20,6 +20,7 @@ public abstract class Scene<T> {
             result = getChildScene().inputKey(key);
             if(!result.isChildSceneContinue()) {
                 removeChildScene();
+                result = onExitChildScene(result);
             }
         }else{
             Reference.logger.debug("runScreen:" + this.getClass().getSimpleName());
@@ -52,6 +53,11 @@ public abstract class Scene<T> {
         this.childScene.finalizeScene();
         Reference.logger.debug("remove child scene: " + childScene.getClass().getSimpleName());
         this.childScene = null;
+    }
+
+    //子シーンの処理結果を反映させる
+    protected SceneResult<T> onExitChildScene(SceneResult<T> result){
+        return result;
     }
 
 }
