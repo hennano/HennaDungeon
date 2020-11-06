@@ -1,4 +1,4 @@
-package net.hennabatch.hennadungeon.dungeon;
+package net.hennabatch.hennadungeon.dungeon.floor;
 
 import net.hennabatch.hennadungeon.vec.IVec;
 

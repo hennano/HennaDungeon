@@ -13,12 +13,12 @@ public class Vec2d implements IVec{
 
     @Override
     public int getX() {
-        return 0;
+        return this.x;
     }
 
     @Override
     public int getY() {
-        return 0;
+        return this.y;
     }
 
     public Vec2d add(IVec vec){
@@ -35,5 +35,13 @@ public class Vec2d implements IVec{
 
     public Vec2d dot(int scalar){
         return dot(new Vec2d(scalar, scalar));
+    }
+
+    public double distance(IVec vec){
+        return Math.sqrt(Math.pow(this.getX() - vec.getX(), 2) + Math.pow(this.getY() - vec.getY(), 2));
+    }
+
+    public int area(){
+        return this.getX() * this.getY();
     }
 }

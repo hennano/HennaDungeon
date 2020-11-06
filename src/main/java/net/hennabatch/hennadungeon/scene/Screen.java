@@ -103,6 +103,7 @@ public class Screen implements Cloneable{
                     i++;
                 }
             }catch(IndexOutOfBoundsException e){
+                out.add(message.charAt(i) + " ");
                 break;
             }
         }

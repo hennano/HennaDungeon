@@ -11,4 +11,12 @@ public class Reference {
     public static final SystemLogger logger = new SystemLogger();
     public static final Config config = new Config();
 
+
+    //dungeon
+    public static final int DUNGEON_WIDTH = 100;
+    public static final int DUNGEON_HEIGHT = 100;
+    public static final int DUNGEON_MAXROOMS = 25;
+    public static final int DUNGEON_MIN_ROOMWIDTH = 3;
+    public static final int DUNGEON_MIN_ROOMHEIGTH = 3;
+
 }
