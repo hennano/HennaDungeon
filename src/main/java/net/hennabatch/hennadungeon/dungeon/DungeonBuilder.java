@@ -75,7 +75,10 @@ public class DungeonBuilder {
     public Dungeon build(){
         List<Section> sections = createSections();
         sections.forEach( x-> Reference.logger.debug("section uLx: " + x.upperLeft.getX() +" uLy: " + x.upperLeft.getY() +
-                "\tlRx: " + x.lowerRight().getX() + " lRy: " + x.lowerRight().getY()));
+                "\tlRx: " + x.lowerRight.getX() + " lRy: " + x.lowerRight.getY() +
+                "\tsize x: " + x.size().getX() + " size y: " + x.size().getY() +
+                "\tarea: " + x.size().area()
+        ));
 
 
 
@@ -90,7 +93,6 @@ public class DungeonBuilder {
         List<Section> sections = new ArrayList<>();
         Section currentSection = new Section(new Vec2d(0,0), new Vec2d(this.width - 1, this.height - 1));
         EnumDirection currentDirection = EnumDirection.random();
-
         for(int i=0; i < this.maxRooms && currentSection.canSplit(this.minRoomWidth, this.minRoomHeight); i++){
             DivisionLine divLine = DivisionLine.randomDivLine(currentSection, currentDirection, this.minRoomWidth, this.minRoomHeight);
             List<Section> tmp = currentSection.split(divLine);
@@ -118,59 +120,56 @@ public class DungeonBuilder {
 
         public static DivisionLine randomDivLine(Section section, EnumDirection direction, int minRoomWidth, int minRoomHeight){
             if(direction == EnumDirection.X){
-                int chanceSize = section.size.getX() - 7 - (minRoomWidth * 2);
+                int chanceSize = section.size().getX() - 7 - (minRoomWidth * 2);
                 Random rand = new Random();
-                return new DivisionLine(rand.nextInt(chanceSize / 2) + (rand.nextInt(2) * (chanceSize / 2)) + minRoomWidth + 4, EnumDirection.X);
+                return new DivisionLine(rand.nextInt(Math.max(1, chanceSize/ 4)) + rand.nextInt(2) * (3 * chanceSize / 4) + section.upperLeft.getX() + minRoomWidth + 4, EnumDirection.X);
             }else{
-                int chanceSize = section.size.getY() - 7 - (minRoomHeight * 2);
+                int chanceSize = section.size().getY() - 7 - (minRoomHeight * 2);
                 Random rand = new Random();
-                return new DivisionLine(rand.nextInt(chanceSize / 2) + (rand.nextInt(2) * (chanceSize / 2)) + minRoomHeight + 4, EnumDirection.Y);
+                return new DivisionLine(rand.nextInt(Math.max(1, chanceSize/ 4)) + rand.nextInt(2) * (3 * chanceSize / 4) + section.upperLeft.getY() + minRoomHeight + 4, EnumDirection.Y);
             }
         }
     }
 
     private class Section{
         Vec2d upperLeft;
-        Vec2d size;
+        Vec2d lowerRight;
 
-        Section(Vec2d upperLeft, Vec2d size){
+        Section(Vec2d upperLeft, Vec2d lowerRight){
             this.upperLeft = upperLeft;
-            this.size = size;
+            this.lowerRight = lowerRight;
+        }
+
+        Vec2d size(){
+            return this.lowerRight.sub(this.upperLeft).add(new Vec2d(1, 1));
         }
 
         boolean canSplit(int minRoomWidth, int minRoomHeight){
             Vec2d minimumSectionSize = new Vec2d(minRoomWidth + 2, minRoomHeight + 2);
-            return (this.size.getX() > (minimumSectionSize.getX() * 2 + 3)) && (this.size.getY() > (minimumSectionSize.getY() * 2 + 3));
+            return (this.size().getX() > (minimumSectionSize.getX() * 2 + 4)) && (this.size().getY() > (minimumSectionSize.getY() * 2 + 4));
         }
 
         List<Section> split(DivisionLine divline){
             if(divline.direction==EnumDirection.X){
                 return new ArrayList<>(Arrays.asList(
-                        new Section(new Vec2d(this.upperLeft.getX(), this.upperLeft.getY()), new Vec2d(divline.pos, this.size.getY())),
-                        new Section(new Vec2d(divline.pos, this.upperLeft.getY()), new Vec2d(this.size.getX() - divline.pos, this.size.getY()))
+                        new Section(this.upperLeft.clone(), new Vec2d(divline.pos, this.lowerRight.getY())),
+                        new Section(new Vec2d(divline.pos, this.upperLeft.getY()), this.lowerRight.clone())
                 ));
             }else{
                 return new ArrayList<>(Arrays.asList(
-                        new Section(new Vec2d(this.upperLeft.getX(), this.upperLeft.getY()), new Vec2d(this.size.getX(), divline.pos)),
-                        new Section(new Vec2d(this.upperLeft.getX(), divline.pos), new Vec2d(this.size.getX(), this.size.getY() - divline.pos))
+                        new Section(this.upperLeft.clone(), new Vec2d(this.lowerRight.getX(), divline.pos)),
+                        new Section(new Vec2d(this.upperLeft.getX(), divline.pos), this.lowerRight.clone())
                 ));
             }
         }
 
         boolean biggerThan(Section section){
-            return (this.size.getX() * this.size.getY()) > (section.size.getX() * section.size.getY());
-        }
-
-        IVec lowerRight(){
-            return this.size.add(this.upperLeft);
+            return this.size().area() > section.size().area();
         }
 
         EnumDirection nextTo(Section section){
-            if(this.lowerRight().getY() == section.upperLeft.getY() && this.lowerRight().getX() < section.upperLeft.getX()) return EnumDirection.Y;
-            if(this.lowerRight().getX() == section.upperLeft.getX() && this.lowerRight().getY() > section.upperLeft.getY()) return EnumDirection.X;
             return null;
         }
-
     }
 
 }
