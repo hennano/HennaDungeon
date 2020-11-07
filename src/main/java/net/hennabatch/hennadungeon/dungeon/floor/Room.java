@@ -1,6 +1,5 @@
 package net.hennabatch.hennadungeon.dungeon.floor;
 
-import net.hennabatch.hennadungeon.util.EnumDifficulty;
 import net.hennabatch.hennadungeon.vec.IVec;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
@@ -22,9 +21,8 @@ public class Room extends Floor{
         return lowerRight.clone();
     }
 
-
     @Override
     public Boolean isInner(IVec vec) {
-        return false;
+        return vec.getX() >= this.getUpperLeft().getX() && vec.getX() <= this.getLowerRight().getX() && vec.getY() >= this.getUpperLeft().getY() && vec.getY() <= this.getLowerRight().getY();
     }
 }
