@@ -28,6 +28,11 @@ public enum EnumDirection {
         return byNum(num);
     }
 
+    public EnumDirection switchOtherSide(){
+        int num = (this.num + 2) % 4;
+        return byNum(num);
+    }
+
     private static EnumDirection byNum(int num) {
         return Arrays.stream(EnumDirection.values()).filter(x -> x.num == num).findFirst().orElse(EnumDirection.X);
     }

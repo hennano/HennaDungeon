@@ -21,8 +21,18 @@ public class Room extends Floor{
         return lowerRight.clone();
     }
 
+    public Vec2d size(){
+        return this.lowerRight.sub(this.upperLeft).add(new Vec2d(1, 1));
+    }
+
     @Override
     public Boolean isInner(IVec vec) {
         return vec.getX() >= this.getUpperLeft().getX() && vec.getX() <= this.getLowerRight().getX() && vec.getY() >= this.getUpperLeft().getY() && vec.getY() <= this.getLowerRight().getY();
+    }
+
+    @Override
+    public String toString() {
+        return "room uLx: " + getUpperLeft().getX() +" uLy: " + getUpperLeft().getY() +
+                "\tlRx: " + getLowerRight().getX() + " lRy: " + getLowerRight().getY();
     }
 }

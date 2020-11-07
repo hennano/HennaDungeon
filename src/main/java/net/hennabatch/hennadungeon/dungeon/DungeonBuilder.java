@@ -6,7 +6,10 @@ import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
 import java.lang.reflect.Constructor;
+import java.sql.Ref;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DungeonBuilder {
 
@@ -73,37 +76,75 @@ public class DungeonBuilder {
     }
 
     public Dungeon build(){
-        List<Section> sections = createSections();
-        sections.forEach( x-> Reference.logger.debug("section uLx: " + x.upperLeft.getX() +" uLy: " + x.upperLeft.getY() +
-                "\tlRx: " + x.lowerRight.getX() + " lRy: " + x.lowerRight.getY() +
-                "\tsize x: " + x.size().getX() + " size y: " + x.size().getY() +
-                "\tarea: " + x.size().area()
-        ));
-        sections.stream().sorted(Comparator.comparingInt(x -> x.size().area())).findFirst().get().createStartRoom();
-        sections.stream().sorted(Comparator.comparingInt(x -> - x.size().area())).findFirst().get().createExitRoom();
-        sections.parallelStream().filter(x -> x.room == null).forEach(Section::createRoom);
-        sections.forEach( x-> Reference.logger.debug("room uLx: " + x.room.getUpperLeft().getX() +" uLy: " + x.room.getUpperLeft().getY() +
-                "\tlRx: " + x.room.getLowerRight().getX() + " lRy: " + x.room.getLowerRight().getY()
-        ));
-
-
-
+        //セクション生成
+        Reference.logger.debug("Section generating...");
+        List<Section> sections = generateSections();
+        sections.forEach( x-> Reference.logger.debug(x.toString()));
+        //部屋生成
+        Reference.logger.debug("Room generating...");
+        sections.stream().sorted(Comparator.comparingInt(x -> x.size().area())).findFirst().get().generateStartRoom();
+        sections.stream().sorted(Comparator.comparingInt(x -> - x.size().area())).findFirst().get().generateExitRoom();
+        sections.parallelStream().filter(x -> x.room == null).forEach(Section::generateRoom);
+        sections.forEach( x-> Reference.logger.debug(x.toString()));
+        //通路生成
+        Reference.logger.debug("Passage generating...");
+        List<Passage> passages = generatePassages(sections);
+        passages.forEach(x -> Reference.logger.debug(x.toString()));
+        //ゴールまでの経路設定
+        setExitPath(sections.stream().map(x -> x.room).filter(x -> x instanceof ExitRoom).findFirst().get());
 
 
         return new Dungeon(this);
     }
 
-    private List<Passage> createPassages(){
+    private void setExitPath(Floor floor){
+        floor.getConnectFloors().forEach( x -> {
+            if(x.getFloor().getPathToExit() != null) return;
+            x.getFloor().setPathToExit(x.getFloor().getConnectFloors().stream().filter(y -> y.getFloor().equals(floor)).findFirst().get());
+            setExitPath(x.getFloor());
+        });
+    }
+
+    private List<Passage> generatePassages(List<Section> sections){
         List<Passage> passages = new ArrayList<>();
-
-
-
-
-
+        Random rand = new Random();
+        sections.forEach(x ->{
+            //自身の左側
+            sections.stream().filter(y -> {
+                EnumDirection direction = x.nextTo(y);
+                return direction != null && direction.equals(EnumDirection.NX);
+            }).forEach(y -> {
+                int lRx = x.room.getUpperLeft().getX();
+                int lRy = rand.nextInt(x.room.size().getY()) + x.room.getUpperLeft().getY();
+                int uLx = y.room.getLowerRight().getX();
+                int uLy = rand.nextInt(y.room.size().getY()) + y.room.getUpperLeft().getY();
+                Passage passage = new Passage(new Vec2d(uLx, uLy), new Vec2d(lRx, lRy), new Vec2d(x.upperLeft.getX(), 0));
+                connectFromRoomToRoomByPassage(x.room, y.room, passage, EnumDirection.NX);
+                passages.add(passage);
+            });
+            //自身の上側
+            sections.stream().filter(y ->{
+                EnumDirection direction = x.nextTo(y);
+                return direction != null && direction.equals(EnumDirection.NY);
+            }).forEach(y -> {
+                int lRx = rand.nextInt(x.room.size().getX()) + x.room.getUpperLeft().getX();
+                int lRy = x.room.getUpperLeft().getY();
+                int uLx = rand.nextInt(y.room.size().getX()) + y.room.getUpperLeft().getX();
+                int uLy = y.room.getLowerRight().getY();
+                Passage passage = new Passage(new Vec2d(uLx, uLy), new Vec2d(lRx, lRy), new Vec2d(0, x.upperLeft.getY()));
+                connectFromRoomToRoomByPassage(x.room, y.room, passage, EnumDirection.NY);
+                passages.add(passage);
+            });
+        });
         return passages;
     }
 
-    private List<Section> createSections(){
+    private void connectFromRoomToRoomByPassage(Room room1, Room room2, Passage passage, EnumDirection direction){
+        room1.addConnectFloor(new ConnectFloor(passage, direction));
+        room2.addConnectFloor(new ConnectFloor(passage, direction.switchOtherSide()));
+    }
+
+    private List<Section> generateSections(){
         List<Section> sections = new ArrayList<>();
         Section currentSection = new Section(new Vec2d(0,0), new Vec2d(this.width - 1, this.height - 1));
         EnumDirection currentDirection = EnumDirection.random();
@@ -188,26 +229,26 @@ public class DungeonBuilder {
                 if(this.upperLeft.getX() == section.lowerRight.getX()) return EnumDirection.NX;
                 if(this.lowerRight.getX() == section.upperLeft.getX()) return EnumDirection.X;
             }
-            if(this.upperLeft.getX() > section.lowerRight.getY() && this.lowerRight.getX() < section.upperLeft.getY()){
+            if(this.upperLeft.getX() < section.lowerRight.getX() && this.lowerRight.getX() > section.upperLeft.getX()){
                 if(this.upperLeft.getY() == section.lowerRight.getY()) return EnumDirection.NY;
                 if(this.lowerRight.getY() == section.upperLeft.getY()) return EnumDirection.Y;
             }
             return null;
         }
 
-        void createRoom(){
-            createRoom(Room.class);
+        void generateRoom(){
+            generateRoom(Room.class);
         }
 
-        void createStartRoom(){
-            createRoom(StartRoom.class);
+        void generateStartRoom(){
+            generateRoom(StartRoom.class);
         }
 
-        void createExitRoom(){
-            createRoom(ExitRoom.class);
+        void generateExitRoom(){
+            generateRoom(ExitRoom.class);
         }
 
-        private void createRoom(Class<? extends Room> clazz){
+        private void generateRoom(Class<? extends Room> clazz){
             Random rand = new Random();
             int uLxBound = this.size().getX() - minRoomWidth - 4;
             int uLyBound = this.size().getY() - minRoomHeight - 4;
@@ -224,6 +265,14 @@ public class DungeonBuilder {
             } catch (ReflectiveOperationException e){
                 Reference.logger.error(e.getMessage(), e);
             }
+        }
+
+        @Override
+        public String toString() {
+            return "section uLx: " + upperLeft.getX() +" uLy: " + upperLeft.getY() +
+                    "\tlRx: " + lowerRight.getX() + " lRy: " + lowerRight.getY() +
+                    "\tsize x: " + size().getX() + " size y: " + size().getY() +
+                    "\tarea: " + size().area();
         }
     }
 }

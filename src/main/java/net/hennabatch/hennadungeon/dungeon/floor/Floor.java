@@ -1,5 +1,6 @@
 package net.hennabatch.hennadungeon.dungeon.floor;
 
+import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.IVec;
 
 import java.util.ArrayList;
@@ -7,42 +8,34 @@ import java.util.List;
 
 public abstract class Floor {
 
-    private List<Floor> connectFloors = new ArrayList<>();
-    private Floor pathToExit;
-    private EnumDirection exitDirection;
+    private List<ConnectFloor> connectFloors = new ArrayList<>();
+    private ConnectFloor pathToExit;
 
     public abstract Boolean isInner(IVec vec);
 
-    public Floor getPathToExit(){
+    public ConnectFloor getPathToExit(){
         return this.pathToExit;
     }
 
-    public void setPathToExit(Floor floor){
+    public void setPathToExit(ConnectFloor floor){
         this.pathToExit = floor;
     }
 
-    public EnumDirection getExitDirection(){
-        return this.exitDirection;
-    }
-
-    public void  setExitDirection(EnumDirection direction){
-        this.exitDirection = exitDirection;
-    }
-
-    public void addConnectFloor(Floor floor){
-        if(connectFloors.stream().anyMatch(x -> x.equals(floor))){
+    public void addConnectFloor(ConnectFloor floor){
+        if(connectFloors.stream().noneMatch(x -> x.getFloor().equals(floor.getFloor()))){
             this.connectFloors.add(floor);
-            floor.addConnectFloor(this);
+            floor.getFloor().addConnectFloor(new ConnectFloor(this, floor.getDirection().switchOtherSide()));
         }
     }
 
     public void removeConnectFloor(Floor floor){
-        if(connectFloors.removeIf(x -> x.equals(floor))){
+        if(connectFloors.removeIf(x -> x.getFloor().equals(floor))){
             floor.removeConnectFloor(this);
         }
     }
 
-    public List<Floor> getConnectFloors() {
+    public List<ConnectFloor> getConnectFloors() {
         return connectFloors;
     }
+
 }
