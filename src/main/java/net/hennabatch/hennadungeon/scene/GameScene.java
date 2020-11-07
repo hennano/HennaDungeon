@@ -2,14 +2,14 @@ package net.hennabatch.hennadungeon.scene;
 
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
 import net.hennabatch.hennadungeon.dungeon.DungeonBuilder;
-import net.hennabatch.hennadungeon.util.Reference;
+import net.hennabatch.hennadungeon.scene.event.Event;
 
 public class GameScene extends Scene{
 
     @Override
     protected void initializeScene() {
         DungeonBuilder builder = new DungeonBuilder();
-        builder.build();
+        builder.build(this);
     }
 
     @Override
@@ -20,5 +20,9 @@ public class GameScene extends Scene{
     @Override
     protected Screen draw(Screen screen) {
         return screen;
+    }
+
+    public void executeEvent(Event event){
+        createChildScene(event);
     }
 }

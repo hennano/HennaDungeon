@@ -1,15 +1,13 @@
 package net.hennabatch.hennadungeon.dungeon;
 
 import net.hennabatch.hennadungeon.dungeon.floor.*;
+import net.hennabatch.hennadungeon.scene.GameScene;
 import net.hennabatch.hennadungeon.util.EnumDifficulty;
 import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
 import java.lang.reflect.Constructor;
-import java.sql.Ref;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class DungeonBuilder {
 
@@ -75,7 +73,7 @@ public class DungeonBuilder {
         return this;
     }
 
-    public Dungeon build(){
+    public Dungeon build(GameScene scene){
         //セクション生成
         Reference.logger.debug("Section generating...");
         List<Section> sections = generateSections();
