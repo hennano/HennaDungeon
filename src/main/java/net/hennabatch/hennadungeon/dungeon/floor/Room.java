@@ -2,17 +2,24 @@ package net.hennabatch.hennadungeon.dungeon.floor;
 
 import net.hennabatch.hennadungeon.util.EnumDifficulty;
 import net.hennabatch.hennadungeon.vec.IVec;
+import net.hennabatch.hennadungeon.vec.Vec2d;
 
 public class Room extends Floor{
 
-    IVec upperLeft;
-    IVec size;
-    EnumDifficulty difficulty;
+    Vec2d upperLeft;
+    Vec2d lowerRight;
 
-    public Room(IVec upperLeft, IVec size, EnumDifficulty difficulty){
+    public Room(Vec2d upperLeft, Vec2d lowerRight){
         this.upperLeft = upperLeft;
-        this.size = size;
-        this.difficulty = difficulty;
+        this.lowerRight = lowerRight;
+    }
+
+    public Vec2d getUpperLeft(){
+        return upperLeft.clone();
+    }
+
+    public Vec2d getLowerRight(){
+        return lowerRight.clone();
     }
 
 
