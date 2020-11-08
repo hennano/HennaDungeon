@@ -30,8 +30,13 @@ public class Passage extends Floor{
     @Override
     public Boolean isInner(IVec vec) {
         if(getConnectPos().getY() == 0){
+            if(vec.getX() >= getUpperLeft().getX() && vec.getX() <= getConnectPos().getX() && vec.getY() == getUpperLeft().getY()) return true;
+            if(vec.getX() >= getConnectPos().getX() && vec.getX() <= getLowerRight().getX() && vec.getY() == getLowerRight().getY()) return true;
+            if(vec.getY() >= getUpperLeft().getY() && vec.getY() <= getLowerRight().getY() && vec.getX() == getConnectPos().getX()) return true;
         }else{
-
+            if(vec.getY() >= getUpperLeft().getY() && vec.getY() <= getConnectPos().getY() && vec.getX() == getUpperLeft().getX()) return true;
+            if(vec.getY() >= getConnectPos().getY() && vec.getY() <= getLowerRight().getY() && vec.getX() == getLowerRight().getX()) return true;
+            if(vec.getX() >= getUpperLeft().getX() && vec.getX() <= getLowerRight().getX() && vec.getY() == getConnectPos().getY()) return true;
         }
         return false;
     }
