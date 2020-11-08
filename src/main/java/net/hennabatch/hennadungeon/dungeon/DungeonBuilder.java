@@ -18,6 +18,15 @@ public class DungeonBuilder {
     private int minRoomWidth = Reference.DUNGEON_MIN_ROOMWIDTH;
     private int minRoomHeight = Reference.DUNGEON_MIN_ROOMHEIGTH;
     private EnumDifficulty difficulty = EnumDifficulty.NORMAL;
+    private double roomConnectChance = 0.5;
+
+    public double getRoomConnectChance() {
+        return roomConnectChance;
+    }
+
+    public void setRoomConnectChance(double roomConnectChance) {
+        this.roomConnectChance = roomConnectChance;
+    }
 
     public int getMinRoomWidth() {
         return minRoomWidth;
@@ -83,13 +92,20 @@ public class DungeonBuilder {
         sections.stream().sorted(Comparator.comparingInt(x -> x.size().area())).findFirst().get().generateStartRoom();
         sections.stream().sorted(Comparator.comparingInt(x -> - x.size().area())).findFirst().get().generateExitRoom();
         sections.parallelStream().filter(x -> x.room == null).forEach(Section::generateRoom);
-        sections.forEach( x-> Reference.logger.debug(x.toString()));
+        sections.forEach( x-> Reference.logger.debug(x.room.toString()));
         //通路生成
         Reference.logger.debug("Passage generating...");
-        List<Passage> passages = generatePassages(sections);
-        passages.forEach(x -> Reference.logger.debug(x.toString()));
+        Reference.logger.debug("Main passage generating...");
+        List<Passage> mainPassages = generateAdjacentPassage(sections);
+        mainPassages.forEach(x -> Reference.logger.debug(x.toString()));
+        Reference.logger.debug("Other passage generating...");
+        List<Passage> otherPassages = generateOtherPassages(sections);
+        otherPassages.forEach(x -> Reference.logger.debug(x.toString()));
+        mainPassages.addAll(otherPassages);
         //ゴールまでの経路設定
+        Reference.logger.debug("Exit path calculating...");
         setExitPath(sections.stream().map(x -> x.room).filter(x -> x instanceof ExitRoom).findFirst().get());
+
 
 
         return new Dungeon(this);
@@ -103,38 +119,67 @@ public class DungeonBuilder {
         });
     }
 
-    private List<Passage> generatePassages(List<Section> sections){
+    private List<Passage> generateAdjacentPassage(List<Section> sections){
+        List<Passage> passages = new ArrayList<>();
+        for(int i = 0; i < sections.size() - 1; i++){
+            //Reference.logger.debug("1: " + sections.get(i).toString() + "\t\t 2: " + sections.get(i + 1).toString());
+            passages.add(generatePassage(sections.get(i), sections.get(i + 1)));
+        }
+        return passages;
+    }
+
+
+    private List<Passage> generateOtherPassages(List<Section> sections){
         List<Passage> passages = new ArrayList<>();
         Random rand = new Random();
         sections.forEach(x ->{
             //自身の左側
-            sections.stream().filter(y -> {
-                EnumDirection direction = x.nextTo(y);
-                return direction != null && direction.equals(EnumDirection.NX);
-            }).forEach(y -> {
-                int lRx = x.room.getUpperLeft().getX();
-                int lRy = rand.nextInt(x.room.size().getY()) + x.room.getUpperLeft().getY();
-                int uLx = y.room.getLowerRight().getX();
-                int uLy = rand.nextInt(y.room.size().getY()) + y.room.getUpperLeft().getY();
-                Passage passage = new Passage(new Vec2d(uLx, uLy), new Vec2d(lRx, lRy), new Vec2d(x.upperLeft.getX(), 0));
-                connectFromRoomToRoomByPassage(x.room, y.room, passage, EnumDirection.NX);
-                passages.add(passage);
-            });
-            //自身の上側
-            sections.stream().filter(y ->{
-                EnumDirection direction = x.nextTo(y);
-                return direction != null && direction.equals(EnumDirection.NY);
-            }).forEach(y -> {
-                int lRx = rand.nextInt(x.room.size().getX()) + x.room.getUpperLeft().getX();
-                int lRy = x.room.getUpperLeft().getY();
-                int uLx = rand.nextInt(y.room.size().getX()) + y.room.getUpperLeft().getX();
-                int uLy = y.room.getLowerRight().getY();
-                Passage passage = new Passage(new Vec2d(uLx, uLy), new Vec2d(lRx, lRy), new Vec2d(0, x.upperLeft.getY()));
-                connectFromRoomToRoomByPassage(x.room, y.room, passage, EnumDirection.NY);
-                passages.add(passage);
-            });
+            sections.stream()
+                .filter(y -> !x.equals(y))
+                .filter(y -> !x.room.getConnectFloors().stream().anyMatch( z -> y.room.getConnectFloors().stream().anyMatch( u -> u.equals(z))))
+                .filter(y -> {
+                    EnumDirection direction = x.nextTo(y);
+                    return direction != null && (direction.equals(EnumDirection.NX) || direction.equals(EnumDirection.NY));
+                })
+                .forEach(y -> {
+                    if(rand.nextDouble() <= roomConnectChance){
+                        passages.add(generatePassage(x, y));
+                    }
+                });
         });
         return passages;
+    }
+
+    private Passage generatePassage(Section section1, Section section2){
+        EnumDirection direction = section1.nextTo(section2);
+        if(direction == null) return null;
+        if(direction.equals(EnumDirection.X) || direction.equals(EnumDirection.Y)){
+            Section tmp = section1;
+            section1 = section2;
+            section2 = tmp;
+            direction = direction.switchOtherSide();
+        }
+
+        Random rand = new Random();
+        if(direction.equals(EnumDirection.NX)){
+            int lRx = section1.room.getUpperLeft().getX();
+            int lRy = rand.nextInt(section1.room.size().getY()) + section1.room.getUpperLeft().getY();
+            int uLx = section2.room.getLowerRight().getX();
+            int uLy = rand.nextInt(section2.room.size().getY()) + section2.room.getUpperLeft().getY();
+            Passage passage = new Passage(new Vec2d(uLx, uLy), new Vec2d(lRx, lRy), new Vec2d(section1.upperLeft.getX(), 0));
+            connectFromRoomToRoomByPassage(section1.room, section2.room, passage, EnumDirection.NX);
+            return passage;
+        }
+        if(direction.equals(EnumDirection.NY)){
+            int lRx = rand.nextInt(section1.room.size().getX()) + section1.room.getUpperLeft().getX();
+            int lRy = section1.room.getUpperLeft().getY();
+            int uLx = rand.nextInt(section2.room.size().getX()) + section2.room.getUpperLeft().getX();
+            int uLy = section2.room.getLowerRight().getY();
+            Passage passage = new Passage(new Vec2d(uLx, uLy), new Vec2d(lRx, lRy), new Vec2d(0, section1.upperLeft.getY()));
+            connectFromRoomToRoomByPassage(section1.room, section2.room, passage, EnumDirection.NY);
+            return passage;
+        }
+        return null;
     }
 
     private void connectFromRoomToRoomByPassage(Room room1, Room room2, Passage passage, EnumDirection direction){

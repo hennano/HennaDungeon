@@ -9,6 +9,12 @@ public class Passage extends Floor{
     private Vec2d lowerRight;
     private Vec2d connectPos;
 
+    public Passage(Vec2d upperLeft, Vec2d lowerRight, Vec2d connectPos){
+        this.upperLeft = upperLeft;
+        this.lowerRight = lowerRight;
+        this.connectPos = connectPos;
+    }
+
     public Vec2d getUpperLeft() {
         return upperLeft;
     }
@@ -21,14 +27,12 @@ public class Passage extends Floor{
         return connectPos;
     }
 
-    public Passage(Vec2d upperLeft, Vec2d lowerRight, Vec2d connectPos){
-        this.upperLeft = upperLeft;
-        this.lowerRight = lowerRight;
-        this.connectPos = connectPos;
-    }
-
     @Override
     public Boolean isInner(IVec vec) {
+        if(getConnectPos().getY() == 0){
+        }else{
+
+        }
         return false;
     }
 

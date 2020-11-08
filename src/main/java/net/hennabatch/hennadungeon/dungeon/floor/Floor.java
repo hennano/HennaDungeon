@@ -1,6 +1,5 @@
 package net.hennabatch.hennadungeon.dungeon.floor;
 
-import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.IVec;
 
 import java.util.ArrayList;

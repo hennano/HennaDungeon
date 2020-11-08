@@ -18,5 +18,6 @@ public class Reference {
     public static final int DUNGEON_MAXROOMS = 25;
     public static final int DUNGEON_MIN_ROOMWIDTH = 3;
     public static final int DUNGEON_MIN_ROOMHEIGTH = 3;
+    public static final double DUNGEON_CONNECT_CHANCE = 0.5;
 
 }
