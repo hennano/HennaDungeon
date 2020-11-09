@@ -1,21 +1,21 @@
-package net.hennabatch.hennadungeon.dungeon.floor;
-
-import net.hennabatch.hennadungeon.dungeon.DungeonBuilder;
+package net.hennabatch.hennadungeon.vec;
 
 import java.util.Arrays;
 import java.util.Random;
 
 public enum EnumDirection {
 
-    X(0),
-    Y(1),
-    NX(2),
-    NY(3);
+    X(0, new Vec2d(1, 0)),
+    Y(1, new Vec2d(0, 1)),
+    NX(2, new Vec2d(-1, 0)),
+    NY(3, new Vec2d(0, -1));
 
     private int num;
+    private Vec2d vec;
 
-    EnumDirection(int num) {
+    EnumDirection(int num, Vec2d vec) {
         this.num = num;
+        this.vec = vec;
     }
 
     public static EnumDirection random() {
@@ -31,6 +31,22 @@ public enum EnumDirection {
     public EnumDirection switchOtherSide(){
         int num = (this.num + 2) % 4;
         return byNum(num);
+    }
+
+    public Vec2d vec(){
+        return this.vec;
+    }
+
+    public int sin(){
+        return this.vec.getY();
+    }
+
+    public int cos(){
+        return this.vec.getX();
+    }
+
+    public EnumDirection normalize(){
+        return byNum((4 - num) % 4);
     }
 
     private static EnumDirection byNum(int num) {

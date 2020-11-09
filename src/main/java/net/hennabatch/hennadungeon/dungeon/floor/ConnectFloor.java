@@ -1,5 +1,7 @@
 package net.hennabatch.hennadungeon.dungeon.floor;
 
+import net.hennabatch.hennadungeon.vec.EnumDirection;
+
 public class ConnectFloor {
     private Floor floor;
     private EnumDirection direction;

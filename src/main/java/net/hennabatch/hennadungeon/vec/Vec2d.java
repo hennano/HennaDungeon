@@ -10,7 +10,6 @@ public class Vec2d implements IVec, Cloneable{
         this.y = y;
     }
 
-
     @Override
     public int getX() {
         return this.x;
@@ -25,8 +24,16 @@ public class Vec2d implements IVec, Cloneable{
         return new Vec2d(this.getX() + vec.getX(), this.getY() + vec.getY());
     }
 
+    public Vec2d add(int scalar){
+        return add(new Vec2d(scalar, scalar));
+    }
+
     public Vec2d sub(IVec vec){
         return add(new Vec2d(-vec.getX(), -vec.getY()));
+    }
+
+    Vec2d sub(int scalar){
+        return sub(new Vec2d(scalar, scalar));
     }
 
     public Vec2d dot(IVec vec){
@@ -45,8 +52,25 @@ public class Vec2d implements IVec, Cloneable{
         return this.getX() * this.getY();
     }
 
+    public Vec2d rotate(EnumDirection direction){
+        return new Vec2d(direction.cos() * getX() - direction.sin()*getX(), direction.sin() * getY() + direction.cos() * getY());
+    }
+
+    public Vec2d rotate(EnumDirection from, EnumDirection to){
+        return rotate(from.normalize()).rotate(to);
+    }
+
     @Override
     public Vec2d clone(){
         return new Vec2d(this.getX(), this.getY());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof IVec){
+            IVec vec = (IVec)obj;
+            return this.getX() == vec.getX() && this.getY() == vec.getY();
+        }
+        return false;
     }
 }

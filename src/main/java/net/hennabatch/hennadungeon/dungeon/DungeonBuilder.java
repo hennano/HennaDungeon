@@ -1,13 +1,18 @@
 package net.hennabatch.hennadungeon.dungeon;
 
 import net.hennabatch.hennadungeon.dungeon.floor.*;
+import net.hennabatch.hennadungeon.entity.Entity;
 import net.hennabatch.hennadungeon.scene.GameScene;
+import net.hennabatch.hennadungeon.scene.Scene;
 import net.hennabatch.hennadungeon.util.EnumDifficulty;
 import net.hennabatch.hennadungeon.util.Reference;
+import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
 import java.lang.reflect.Constructor;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DungeonBuilder {
 
@@ -18,7 +23,7 @@ public class DungeonBuilder {
     private int minRoomWidth = Reference.DUNGEON_MIN_ROOMWIDTH;
     private int minRoomHeight = Reference.DUNGEON_MIN_ROOMHEIGTH;
     private EnumDifficulty difficulty = EnumDifficulty.NORMAL;
-    private double roomConnectChance = 0.5;
+    private double roomConnectChance = Reference.DUNGEON_CONNECT_CHANCE;
 
     public double getRoomConnectChance() {
         return roomConnectChance;
@@ -106,9 +111,11 @@ public class DungeonBuilder {
         Reference.logger.debug("Exit path calculating...");
         setExitPath(sections.stream().map(x -> x.room).filter(x -> x instanceof ExitRoom).findFirst().get());
 
+        List<Entity> entities = new ArrayList<>();
 
 
-        return new Dungeon(this);
+
+        return new Dungeon(scene, new Vec2d(width, height), Stream.concat(sections.stream().map(x -> x.room), mainPassages.stream()).collect(Collectors.toList()), entities, difficulty);
     }
 
     private void setExitPath(Floor floor){

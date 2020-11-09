@@ -4,10 +4,16 @@ import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.vec.IVec;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
-public class Entity implements IVec {
+public abstract class Entity implements IVec {
 
     protected Vec2d pos;
-    protected Dungeon dungeon;
+    private Dungeon dungeon;
+    private boolean isDestroy = false;
+
+    public Entity(Vec2d pos, Dungeon dungeon){
+        this.pos = pos;
+        this.dungeon = dungeon;
+    }
 
     @Override
     public int getX() {
@@ -18,4 +24,26 @@ public class Entity implements IVec {
     public int getY() {
         return pos.getY();
     }
+
+    protected Dungeon getDungeon(){
+        return this.dungeon;
+    }
+
+    public abstract void update();
+
+    protected abstract void onTrigger(Entity triggeredEntity);
+
+    protected abstract void initilaize();
+
+    public abstract String getIcon();
+
+    public Boolean isDestroy(){
+        return this.isDestroy;
+    }
+
+    public void setDestroy(boolean destroy) {
+        isDestroy = destroy;
+    }
+
+    public abstract String name();
 }

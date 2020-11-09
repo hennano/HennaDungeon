@@ -1,7 +1,6 @@
 package net.hennabatch.hennadungeon.util;
 
 import net.hennabatch.hennadungeon.config.Config;
-import net.hennabatch.hennadungeon.log.SystemLogger;
 
 public class Reference {
 

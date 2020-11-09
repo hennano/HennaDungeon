@@ -1,4 +1,4 @@
-package net.hennabatch.hennadungeon.log;
+package net.hennabatch.hennadungeon.util;
 
 import net.hennabatch.hennadungeon.HennaDungeon;
 import net.hennabatch.hennadungeon.scene.Screen;
