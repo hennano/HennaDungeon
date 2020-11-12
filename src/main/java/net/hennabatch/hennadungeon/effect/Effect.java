@@ -1,6 +1,6 @@
 package net.hennabatch.hennadungeon.effect;
 
-import net.hennabatch.hennadungeon.entity.CharacterEntity;
+import net.hennabatch.hennadungeon.entity.BreakableEntity;
 
 public abstract class Effect {
 
@@ -23,13 +23,13 @@ public abstract class Effect {
         isDestory = destory;
     }
 
-    public void update(CharacterEntity entity){
+    public void update(BreakableEntity entity){
         updateEffect(entity);
         durationTime--;
         if(durationTime == 0) setDestory(true);
     }
 
-    public void updateEffect(CharacterEntity entity){}
+    public void updateEffect(BreakableEntity entity){}
 
     public abstract String name();
 

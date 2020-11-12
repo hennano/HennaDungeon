@@ -4,7 +4,7 @@ import net.hennabatch.hennadungeon.entity.Entity;
 
 public class ItemStack {
 
-    private Item item;
+    private final Item item;
     int stack;
 
     public ItemStack(Item item, int stack){

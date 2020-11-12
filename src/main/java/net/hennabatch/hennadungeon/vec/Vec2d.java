@@ -2,8 +2,8 @@ package net.hennabatch.hennadungeon.vec;
 
 public class Vec2d implements IVec, Cloneable{
 
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     public Vec2d(int x, int y){
         this.x = x;
@@ -72,5 +72,9 @@ public class Vec2d implements IVec, Cloneable{
             return this.getX() == vec.getX() && this.getY() == vec.getY();
         }
         return false;
+    }
+
+    public static Vec2d byIVec(IVec vec){
+        return new Vec2d(vec.getX(), vec.getY());
     }
 }

@@ -17,13 +17,13 @@ public class HennaDungeon {
 
         //ゲーム初期化
         RootEvent root = new RootEvent();
-        Reference.logger.logScreen().overWrite(root.drawScreen(new Screen(Reference.SCREEN_WIDTH, Reference.SCREEN_WIDTH))).println();
+        Reference.logger.logScreen().overWrite(root.drawScreen(new Screen(Reference.SCREEN_WIDTH, Reference.SCREEN_HEIGHT))).println();
 
 
         try(Terminal terminal = TerminalBuilder.terminal()){
             while (root.inputKey(getkeyInput(terminal)).isChildSceneContinue()){
                 terminal.flush();
-                Reference.logger.logScreen().overWrite(root.drawScreen(new Screen(Reference.SCREEN_WIDTH, Reference.SCREEN_WIDTH))).println();
+                Reference.logger.logScreen().overWrite(root.drawScreen(new Screen(Reference.SCREEN_WIDTH, Reference.SCREEN_HEIGHT))).println();
             }
         } catch (IOException e) {
             Reference.logger.error(e.getMessage(), e);

@@ -94,8 +94,8 @@ public class DungeonBuilder {
         sections.forEach( x-> Reference.logger.debug(x.toString()));
         //部屋生成
         Reference.logger.debug("Room generating...");
-        sections.stream().sorted(Comparator.comparingInt(x -> x.size().area())).findFirst().get().generateStartRoom();
-        sections.stream().sorted(Comparator.comparingInt(x -> - x.size().area())).findFirst().get().generateExitRoom();
+        sections.stream().min(Comparator.comparingInt(x -> x.size().area())).get().generateStartRoom();
+        sections.stream().min(Comparator.comparingInt(x -> -x.size().area())).get().generateExitRoom();
         sections.parallelStream().filter(x -> x.room == null).forEach(Section::generateRoom);
         sections.forEach( x-> Reference.logger.debug(x.room.toString()));
         //通路生成
@@ -143,7 +143,7 @@ public class DungeonBuilder {
             //自身の左側
             sections.stream()
                 .filter(y -> !x.equals(y))
-                .filter(y -> !x.room.getConnectFloors().stream().anyMatch( z -> y.room.getConnectFloors().stream().anyMatch( u -> u.equals(z))))
+                .filter(y -> x.room.getConnectFloors().stream().noneMatch(z -> y.room.getConnectFloors().stream().anyMatch(u -> u.equals(z))))
                 .filter(y -> {
                     EnumDirection direction = x.nextTo(y);
                     return direction != null && (direction.equals(EnumDirection.NX) || direction.equals(EnumDirection.NY));

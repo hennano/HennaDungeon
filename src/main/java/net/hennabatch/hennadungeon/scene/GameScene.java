@@ -1,15 +1,18 @@
 package net.hennabatch.hennadungeon.scene;
 
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
+import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.dungeon.DungeonBuilder;
 import net.hennabatch.hennadungeon.scene.event.Event;
 
 public class GameScene extends Scene{
 
+    private Dungeon dungeon;
+
     @Override
     protected void initializeScene() {
         DungeonBuilder builder = new DungeonBuilder();
-        builder.build(this);
+        dungeon = builder.build(this);
     }
 
     @Override

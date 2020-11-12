@@ -3,8 +3,8 @@ package net.hennabatch.hennadungeon.dungeon.floor;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 
 public class ConnectFloor {
-    private Floor floor;
-    private EnumDirection direction;
+    private final Floor floor;
+    private final EnumDirection direction;
 
     public ConnectFloor(Floor floor, EnumDirection direction) {
         this.floor = floor;

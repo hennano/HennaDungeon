@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Task {
 
-    private List<AiTask> tasks = new ArrayList<>();
+    private final List<AiTask> tasks = new ArrayList<>();
     private AiTask runningTask;
 
     public List<AiTask> getTasks(){
@@ -32,7 +32,7 @@ public class Task {
                 runningTask = x;
                 runningTask.getAi().startExecuteing();
                 runningTask.getAi().updateTask();
-            }else if(runningTask != null && x.equals(runningTask) && x.getAi().shouldContinueExecute()){
+            }else if(x.equals(runningTask) && x.getAi().shouldContinueExecute()){
                 runningTask.getAi().updateTask();
             }
         });
@@ -40,8 +40,8 @@ public class Task {
 
 
     class AiTask{
-        private int priority;
-        private AiBase ai;
+        private final int priority;
+        private final AiBase ai;
 
         AiTask(int priority, AiBase ai){
             this.priority = priority;

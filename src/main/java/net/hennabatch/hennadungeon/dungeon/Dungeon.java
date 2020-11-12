@@ -8,16 +8,18 @@ import net.hennabatch.hennadungeon.util.EnumDifficulty;
 import net.hennabatch.hennadungeon.vec.IVec;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
+import javax.management.InvalidAttributeValueException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Dungeon {
 
-    private List<Floor> floors;
-    private List<Entity> entities;
-    private HashSet<Vec2d> dungeonMap = new HashSet<>();
-    private GameScene scene;
-    private EnumDifficulty difficulty;
+    private final List<Floor> floors;
+    private final List<Entity> entities;
+    private final HashSet<Vec2d> dungeonMap = new HashSet<>();
+    private final GameScene scene;
+    private final EnumDifficulty difficulty;
 
     Dungeon(GameScene scene, IVec size, List<Floor> floors, List<Entity> entities, EnumDifficulty difficulty){
         this.floors = floors;
@@ -47,21 +49,20 @@ public class Dungeon {
         return entities;
     }
 
-    public void addEntity(Entity entity){
-        entities.add(entity);
-    }
-
-    public boolean tryAddEntity(Entity entity){
-        if(!dungeonMap.stream().anyMatch(x -> x.equals(entity))) return false;
-        addEntity(entity);
-        return true;
-    }
-
     public void executeEvent(Event event){
         scene.executeEvent(event);
     }
 
     public EnumDifficulty getDifficulty() {
         return difficulty;
+    }
+
+    public boolean isInner(IVec vec){
+        return getFloors().stream().anyMatch(x -> x.isInner(vec));
+    }
+
+    public List<Entity> getEntityByIVec(IVec vec){
+        Vec2d vec2d = Vec2d.byIVec(vec);
+        return getEntities().stream().filter(vec2d::equals).collect(Collectors.toList());
     }
 }

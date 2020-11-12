@@ -1,11 +1,11 @@
 package net.hennabatch.hennadungeon.effect;
 
-import net.hennabatch.hennadungeon.entity.CharacterEntity;
+import net.hennabatch.hennadungeon.entity.BreakableEntity;
 import net.hennabatch.hennadungeon.util.EnumDifficulty;
 
 public class BleedingEffect extends TurnEffect{
 
-    private int val;
+    private final int val;
     public BleedingEffect(int durationTime, EnumDifficulty difficulty) {
         super(durationTime);
         this.val = setValByDifficulty(difficulty);
@@ -17,7 +17,7 @@ public class BleedingEffect extends TurnEffect{
     }
 
     @Override
-    public void updateEffect(CharacterEntity entity) {
+    public void updateEffect(BreakableEntity entity) {
         entity.subHP(val);
     }
 

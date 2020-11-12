@@ -9,10 +9,5 @@ public abstract class CollidableEntity extends Entity{
         super(pos, dungeon);
     }
 
-    @Override
-    protected void onTrigger(Entity triggeredEntity) {
-        return;
-    }
-
     public abstract void onCollision(Entity collidedEntity);
 }

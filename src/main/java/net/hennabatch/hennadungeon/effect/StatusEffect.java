@@ -4,9 +4,9 @@ import net.hennabatch.hennadungeon.entity.Status;
 
 public abstract class StatusEffect extends Effect{
 
-    private Status.EnumStatus targetStatus;
-    private int val;
-    private boolean isMagnification;
+    private final Status.EnumStatus targetStatus;
+    private final int val;
+    private final boolean isMagnification;
 
     public StatusEffect(int durationTime, Status.EnumStatus targetStatus, int val, Boolean isMagnification){
         super(durationTime);

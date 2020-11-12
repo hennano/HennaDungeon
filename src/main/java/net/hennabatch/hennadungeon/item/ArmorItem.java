@@ -1,4 +1,4 @@
 package net.hennabatch.hennadungeon.item;
 
-public abstract class ArmorItem {
+public abstract class ArmorItem extends EquipmentItem{
 }

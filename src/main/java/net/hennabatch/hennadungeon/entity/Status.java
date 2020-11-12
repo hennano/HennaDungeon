@@ -4,6 +4,7 @@ import net.hennabatch.hennadungeon.effect.Effect;
 import net.hennabatch.hennadungeon.effect.StatusEffect;
 import net.hennabatch.hennadungeon.item.ArmorItem;
 import net.hennabatch.hennadungeon.item.WeaponItem;
+import net.hennabatch.hennadungeon.util.Reference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ public class Status {
     private final int DEF;
     private final int MDEF;
     private final int EVA;
-    private List<Effect> effects = new ArrayList<>();
+    private final List<Effect> effects = new ArrayList<>();
 
     public Status(int atk, int def, int mdef, int eva){
         this.ATK = atk;
@@ -26,31 +27,87 @@ public class Status {
     public int getStatus(EnumStatus status){
         switch (status){
             case ATK:
-                return getATK();
+                return getTrueATK();
             case DEF:
-                return getDEF();
+                return getTrueDEF();
             case MDEF:
-                return getMDEF();
+                return getTrueMDEF();
             case EVA:
-                return getEVA();
+                return getTrueEVA();
         }
         return -1;
     }
 
-    public int getATK() {
+    public int getTrueATK() {
         return ATK;
     }
 
-    public int getDEF() {
+    public int getATK(WeaponItem weapon, ArmorItem armor){
+        int baseATK = getTrueATK();
+        List<Effect> equipEffects = new ArrayList<>();
+        if(weapon != null) equipEffects.addAll(weapon.getEffects());
+        if(armor != null) equipEffects.addAll(armor.getEffects());
+        baseATK = calcStateValue(baseATK, EnumStatus.ATK, equipEffects);
+        return calcStateValue(baseATK, EnumStatus.ATK);
+    }
+
+    public int getTrueDEF() {
         return DEF;
     }
 
-    public int getMDEF() {
+    public int getDEF(WeaponItem weapon, ArmorItem armor){
+        int baseDEF = getTrueDEF();
+        List<Effect> equipEffects = new ArrayList<>();
+        if(weapon != null) equipEffects.addAll(weapon.getEffects());
+        if(armor != null) equipEffects.addAll(armor.getEffects());
+        baseDEF = calcStateValue(baseDEF, EnumStatus.DEF, equipEffects);
+        return calcStateValue(baseDEF, EnumStatus.DEF);
+    }
+
+    public int getTrueMDEF() {
         return MDEF;
     }
 
-    public int getEVA() {
+    public int getMDEF(WeaponItem weapon, ArmorItem armor){
+        int baseMDEF = getTrueMDEF();
+        List<Effect> equipEffects = new ArrayList<>();
+        if(weapon != null) equipEffects.addAll(weapon.getEffects());
+        if(armor != null) equipEffects.addAll(armor.getEffects());
+        baseMDEF = calcStateValue(baseMDEF, EnumStatus.MDEF, equipEffects);
+        return Math.max(Reference.MAX_MDEFEND, calcStateValue(baseMDEF, EnumStatus.MDEF));
+    }
+
+    public int getTrueEVA() {
         return EVA;
+    }
+
+    public int getEVA(WeaponItem weapon, ArmorItem armor){
+        int baseEVA = getTrueEVA();
+        List<Effect> equipEffects = new ArrayList<>();
+        if(weapon != null) equipEffects.addAll(weapon.getEffects());
+        if(armor != null) equipEffects.addAll(armor.getEffects());
+        baseEVA = calcStateValue(baseEVA, EnumStatus.EVA, equipEffects);
+        return Math.max(Reference.MAX_EVASION, calcStateValue(baseEVA, EnumStatus.EVA));
+    }
+
+    private int calcStateValue(int baseVal, EnumStatus eumStatus){
+        return calcStateValue(baseVal, eumStatus, getEffects());
+    }
+
+    private int calcStateValue(int baseVal, EnumStatus eumStatus, List<Effect> effectList){
+        final int[] val = {baseVal + effectList.stream()
+                .filter(x -> x instanceof StatusEffect)
+                .map(x -> (StatusEffect) x)
+                .filter(x -> x.getTargetStatus().equals(eumStatus))
+                .filter(x -> !x.isMagnification())
+                .mapToInt(x -> x.getVal())
+                .sum()};
+        effectList.stream()
+                .filter(x -> x instanceof StatusEffect)
+                .map(x -> (StatusEffect)x )
+                .filter(x -> x.getTargetStatus().equals(eumStatus))
+                .forEach( x -> val[0] *= x.getVal());
+        return val[0];
     }
 
     public List<Effect> getEffects() {
@@ -73,25 +130,15 @@ public class Status {
         effects.clear();
     }
 
-    public int calcDamage(WeaponItem weapon, Status status, ArmorItem armor){
-        final int[] atkTmp = {getATK()};
-        getEffects().stream().filter(x -> x instanceof StatusEffect)
-                .map(x -> (StatusEffect)x)
-                .filter( x -> x.isMagnification())
-                .forEach(x -> atkTmp[0] *= x.getVal());
-        getEffects().stream().filter(x -> x instanceof StatusEffect)
-                .map(x -> (StatusEffect)x)
-                .filter( x -> !x.isMagnification())
-                .forEach(x -> atkTmp[0] += x.getVal());
-        int atk = atkTmp[0];
-        return 0;
+    public int calcDamage(int atk, WeaponItem weapon, ArmorItem armor, boolean isMagic){
+        return isMagic ? (int)(atk * ((100 - getMDEF(weapon, armor)) / 100.0)) : atk - getDEF(weapon, armor);
     }
 
     public enum EnumStatus{
         ATK(),
         DEF(),
         MDEF(),
-        EVA();
+        EVA()
 
     }
 }

@@ -5,9 +5,9 @@ import net.hennabatch.hennadungeon.vec.Vec2d;
 
 public class Passage extends Floor{
 
-    private Vec2d upperLeft;
-    private Vec2d lowerRight;
-    private Vec2d connectPos;
+    private final Vec2d upperLeft;
+    private final Vec2d lowerRight;
+    private final Vec2d connectPos;
 
     public Passage(Vec2d upperLeft, Vec2d lowerRight, Vec2d connectPos){
         this.upperLeft = upperLeft;
@@ -32,13 +32,12 @@ public class Passage extends Floor{
         if(getConnectPos().getY() == 0){
             if(vec.getX() >= getUpperLeft().getX() && vec.getX() <= getConnectPos().getX() && vec.getY() == getUpperLeft().getY()) return true;
             if(vec.getX() >= getConnectPos().getX() && vec.getX() <= getLowerRight().getX() && vec.getY() == getLowerRight().getY()) return true;
-            if(vec.getY() >= getUpperLeft().getY() && vec.getY() <= getLowerRight().getY() && vec.getX() == getConnectPos().getX()) return true;
+            return vec.getY() >= getUpperLeft().getY() && vec.getY() <= getLowerRight().getY() && vec.getX() == getConnectPos().getX();
         }else{
             if(vec.getY() >= getUpperLeft().getY() && vec.getY() <= getConnectPos().getY() && vec.getX() == getUpperLeft().getX()) return true;
             if(vec.getY() >= getConnectPos().getY() && vec.getY() <= getLowerRight().getY() && vec.getX() == getLowerRight().getX()) return true;
-            if(vec.getX() >= getUpperLeft().getX() && vec.getX() <= getLowerRight().getX() && vec.getY() == getConnectPos().getY()) return true;
+            return vec.getX() >= getUpperLeft().getX() && vec.getX() <= getLowerRight().getX() && vec.getY() == getConnectPos().getY();
         }
-        return false;
     }
 
     @Override

@@ -4,7 +4,7 @@ import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.entity.ai.Task;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
-public abstract class AiEntity extends CharacterEntity{
+public abstract class AiEntity extends BreakableEntity {
 
     protected Task tasks = new Task();
 

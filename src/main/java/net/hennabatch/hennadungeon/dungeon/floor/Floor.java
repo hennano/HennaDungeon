@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class Floor {
 
-    private List<ConnectFloor> connectFloors = new ArrayList<>();
+    private final List<ConnectFloor> connectFloors = new ArrayList<>();
     private ConnectFloor pathToExit;
 
     public abstract Boolean isInner(IVec vec);

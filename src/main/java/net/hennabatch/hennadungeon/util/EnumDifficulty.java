@@ -4,6 +4,6 @@ public enum EnumDifficulty {
 
     EASY(),
     NORMAL(),
-    HARD();
+    HARD()
 
 }
