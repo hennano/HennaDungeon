@@ -1,6 +1,7 @@
 package net.hennabatch.hennadungeon.dungeon;
 
 import net.hennabatch.hennadungeon.dungeon.floor.*;
+import net.hennabatch.hennadungeon.entity.EventTriggerEntity;
 import net.hennabatch.hennadungeon.entity.PlayerEntity;
 import net.hennabatch.hennadungeon.scene.GameScene;
 import net.hennabatch.hennadungeon.util.EnumDifficulty;
@@ -118,6 +119,7 @@ public class DungeonBuilder {
                 .map(x -> x.room)
                 .findFirst().get();
         dungeon.spawnEntity(new PlayerEntity(startRoom.size().div(2).add(startRoom.getUpperLeft()), dungeon));
+        //dungeon.spawnEntity(new EventTriggerEntity(startRoom.size().div(2).add(startRoom.getUpperLeft()).sub(-1), dungeon));
 
         //exportFloor(dungeon);
         return dungeon;

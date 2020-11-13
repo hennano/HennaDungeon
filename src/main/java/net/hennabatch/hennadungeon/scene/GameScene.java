@@ -3,12 +3,15 @@ package net.hennabatch.hennadungeon.scene;
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.dungeon.DungeonBuilder;
+import net.hennabatch.hennadungeon.entity.CollidableEntity;
+import net.hennabatch.hennadungeon.entity.Entity;
 import net.hennabatch.hennadungeon.scene.event.Event;
 import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
 import java.sql.Ref;
+import java.util.List;
 
 public class GameScene extends Scene{
 
@@ -49,6 +52,22 @@ public class GameScene extends Scene{
     }
 
     public void drawEntity(Screen screen){
+        Vec2d playerPos = Vec2d.byIVec(dungeon.getPlayer());
+        for(int sx = 1; sx < screen.getWidth() - 1; sx++){
+            for (int sy = 2; sy < screen.getHeight() - 2; sy++){
+                List<Entity> entities = dungeon.getEntityByIVec(new Vec2d(sx - ((screen.getWidth() - 2) / 2), sy - ((screen.getHeight() - 4) / 2)).add(playerPos));
+                if(entities.size() > 0){
+                    Entity entity;
+                    if(entities.stream().anyMatch(x -> x instanceof CollidableEntity)){
+                        entity = entities.stream().filter(x -> x instanceof CollidableEntity)
+                                .findFirst().get();
+                    }else{
+                        entity = entities.stream().findFirst().get();
+                    }
+                    screen.setPos(sx, sy, entity.getIcon());
+                }
+            }
+        }
         screen.setPos(screen.getWidth() / 2 - 1, screen.getHeight() / 2 - 2, dungeon.getPlayer().getIcon());
     }
 
