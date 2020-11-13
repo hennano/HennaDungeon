@@ -77,8 +77,9 @@ public abstract class Entity implements IVec {
         IVec currentPos = this;
         List<Entity> triggeredEntities = new ArrayList<>();
         CollidableEntity collidableEntity = null;
-        for(Vec2d i = direction.vec(); !direction.vec().equals(direction.vec().dot(length)); i = i.add(direction.vec())){
+        for(Vec2d i = direction.vec(); !i.equals(direction.vec().dot(length + 1)); i = i.add(direction.vec())){
             Vec2d checkPos = i.add(this);
+            Reference.logger.debug(checkPos.toString() +": " + dungeon.isInner(checkPos));
             if(!dungeon.isInner(checkPos)) break;
             List<Entity> entities = dungeon.getEntityByIVec(checkPos);
             if(entities.stream().anyMatch(x -> x instanceof CollidableEntity)){

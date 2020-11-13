@@ -8,9 +8,9 @@ import java.util.Random;
 public enum EnumDirection {
 
     X(0, new Vec2d(1, 0), EnumKeyInput.RIGHT),
-    Y(1, new Vec2d(0, 1), EnumKeyInput.UP),
+    Y(1, new Vec2d(0, 1), EnumKeyInput.DOWN),
     NX(2, new Vec2d(-1, 0), EnumKeyInput.LEFT),
-    NY(3, new Vec2d(0, -1), EnumKeyInput.DOWN);
+    NY(3, new Vec2d(0, -1), EnumKeyInput.UP);
 
     private final int num;
     private final Vec2d vec;

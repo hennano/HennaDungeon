@@ -18,7 +18,7 @@ public class StartScene extends Scene{
                 if(pointer > 0) pointer--;
                 break;
             case DOWN:
-                if(pointer < EnumStartSceneResult.values().length) pointer++;
+                if(pointer < EnumStartSceneResult.values().length - 1) pointer++;
                 break;
             case ENTER:
                 return new SceneResult<>(false, EnumStartSceneResult.byPointer(pointer).getNext());

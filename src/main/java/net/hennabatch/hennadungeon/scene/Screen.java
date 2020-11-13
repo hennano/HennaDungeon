@@ -132,12 +132,14 @@ public class Screen implements Cloneable{
     }
 
     public void println(){
+        StringBuilder screenStr = new StringBuilder();
         for(int y = 0; y < this.height; y++) {
             for (int x = 0; x < this.width; x++) {
-                System.out.print(screen[x][y]);
+                screenStr.append(screen[x][y]);
             }
-            System.out.println();
+            screenStr.append("\n");
         }
+        System.out.print(screenStr);
     }
 
     public static Screen createBaseScreen(int width, int height){

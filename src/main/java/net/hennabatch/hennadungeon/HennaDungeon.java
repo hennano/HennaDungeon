@@ -22,7 +22,6 @@ public class HennaDungeon {
 
         try(Terminal terminal = TerminalBuilder.terminal()){
             while (root.inputKey(getkeyInput(terminal)).isChildSceneContinue()){
-                terminal.flush();
                 Reference.logger.logScreen().overWrite(root.drawScreen(new Screen(Reference.SCREEN_WIDTH, Reference.SCREEN_HEIGHT))).println();
             }
         } catch (IOException e) {

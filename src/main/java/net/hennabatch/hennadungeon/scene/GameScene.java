@@ -49,7 +49,7 @@ public class GameScene extends Scene{
     }
 
     public void drawEntity(Screen screen){
-        screen.setPos(screen.getWidth() / 2, screen.getHeight() / 2, dungeon.getPlayer().getIcon());
+        screen.setPos(screen.getWidth() / 2 - 1, screen.getHeight() / 2 - 2, dungeon.getPlayer().getIcon());
     }
 
     public void executeEvent(Event event){

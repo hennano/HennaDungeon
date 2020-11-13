@@ -22,7 +22,7 @@ public class SystemLogger {
 
 
     public void debug(String message){
-        logger.debug(message);
+        //logger.debug(message);
         logQueue.add(message);
     }
 
