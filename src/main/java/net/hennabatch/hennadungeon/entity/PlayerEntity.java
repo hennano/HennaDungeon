@@ -3,14 +3,16 @@ package net.hennabatch.hennadungeon.entity;
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.effect.BleedingEffect;
 import net.hennabatch.hennadungeon.item.ArmorItem;
+import net.hennabatch.hennadungeon.item.Item;
 import net.hennabatch.hennadungeon.item.WeaponItem;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
-public class PlayerEntity extends BreakableEntity implements ITalkable{
+public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInventory, IPickable{
 
     private WeaponItem equipmentWeapon;
     private ArmorItem equipmentArmor;
+    private Inventory inventory = new Inventory(50);
 
     public PlayerEntity(Vec2d pos, Dungeon dungeon) {
         super(pos, dungeon);
@@ -69,5 +71,15 @@ public class PlayerEntity extends BreakableEntity implements ITalkable{
     @Override
     public String name() {
         return "荷物持ち";
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    @Override
+    public boolean pick(Item item) {
+        return inventory.addItem(item);
     }
 }

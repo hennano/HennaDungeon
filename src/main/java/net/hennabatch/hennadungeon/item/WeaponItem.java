@@ -11,6 +11,6 @@ public abstract class WeaponItem extends EquipmentItem{
 
     public abstract Boolean isInnerRange(IVec vec, EnumDirection direction);
 
-    public abstract List<AdditionalEffect> getAdditionalEffects();
+    public abstract AdditionalEffect getAdditionalEffect();
 
 }
