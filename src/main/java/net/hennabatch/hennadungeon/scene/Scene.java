@@ -33,7 +33,7 @@ public abstract class Scene<T> {
     protected abstract SceneResult<T> run(EnumKeyInput key, SceneResult<T> childSceneResult);
 
     public Screen drawScreen(Screen screen){
-        return this.childScene != null ? this.childScene.draw(draw(screen)): draw(screen);
+        return this.childScene != null ? this.childScene.drawScreen(draw(screen)): draw(screen);
     }
 
     //描画用

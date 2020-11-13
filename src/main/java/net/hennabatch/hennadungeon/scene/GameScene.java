@@ -31,7 +31,15 @@ public class GameScene extends Scene{
             case LEFT:
             case RIGHT:
                 dungeon.getPlayer().move(EnumDirection.byKey(key), 1);
+                break;
+            case MENU:
+                createChildScene(new MainMenuScene());
         }
+        return new SceneResult(true, null);
+    }
+
+    @Override
+    protected SceneResult onExitChildScene(SceneResult result) {
         return new SceneResult(true, null);
     }
 
