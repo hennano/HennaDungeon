@@ -17,6 +17,23 @@ public class Screen implements Cloneable{
         this.height = height;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public boolean setPos(int row, int column, String aLetter){
+        try{
+            screen[row][column] = aLetter;
+            return true;
+        }catch (ArrayIndexOutOfBoundsException e){
+            return false;
+        }
+    }
+
     //行(横)
     public void setRow(int row, int column, String message, boolean canNext, boolean shouldPadding){
         List<String> str = formatMessage(message, shouldPadding);
@@ -26,6 +43,8 @@ public class Screen implements Cloneable{
             }catch(ArrayIndexOutOfBoundsException e){
                 if(canNext && column < height){
                     column += 1;
+                    row -= width;
+                    screen[row + i][column] = str.get(i);
                 }else{
                     return;
                 }
@@ -38,10 +57,12 @@ public class Screen implements Cloneable{
         List<String> str = formatMessage(message, shouldPadding);
         for(int i = 0; i < message.length(); i++){
             try{
-                screen[row][column + i] = str.get(i);
+                screen[row ][column + i] = str.get(i);
             }catch(ArrayIndexOutOfBoundsException e){
                 if(canNext && row < width){
                     row += 1;
+                    column -= height;
+                    screen[row ][column + i] = str.get(i);
                 }else{
                     return;
                 }

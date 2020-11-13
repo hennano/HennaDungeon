@@ -1,10 +1,10 @@
 package net.hennabatch.hennadungeon.util;
 
 public enum EnumCursor {
-    UP("⯅"),
-    DOWN("⯆"),
-    LEFT("⯇"),
-    RIGHT("⯈");
+    UP("⯅ "),
+    DOWN("⯆ "),
+    LEFT("⯇ "),
+    RIGHT(" ⯈");
 
 
     private final String cursor;

@@ -19,6 +19,7 @@ public enum EnumDirection {
     EnumDirection(int num, Vec2d vec, EnumKeyInput key) {
         this.num = num;
         this.vec = vec;
+        this.key = key;
     }
 
     public static EnumDirection random() {

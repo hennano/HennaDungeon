@@ -1,6 +1,7 @@
 package net.hennabatch.hennadungeon.entity;
 
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
+import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.IVec;
 import net.hennabatch.hennadungeon.vec.Vec2d;
@@ -87,6 +88,7 @@ public abstract class Entity implements IVec {
             currentPos = checkPos;
         }
         setPos(currentPos);
+        Reference.logger.debug(this.name() + " moveTo x: " + getX() + " y: "+ getY());
         triggeredEntities.forEach(x -> x.onTrigger(this));
         if(collidableEntity != null) collidableEntity.onCollision(this);
     }

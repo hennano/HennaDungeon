@@ -7,7 +7,7 @@ import net.hennabatch.hennadungeon.item.WeaponItem;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
-public class PlayerEntity extends BreakableEntity {
+public class PlayerEntity extends BreakableEntity implements ITalkable{
 
     private WeaponItem equipmentWeapon;
     private ArmorItem equipmentArmor;

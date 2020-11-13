@@ -1,15 +1,16 @@
 package net.hennabatch.hennadungeon.dungeon;
 
 import net.hennabatch.hennadungeon.dungeon.floor.*;
-import net.hennabatch.hennadungeon.entity.Entity;
+import net.hennabatch.hennadungeon.entity.PlayerEntity;
 import net.hennabatch.hennadungeon.scene.GameScene;
-import net.hennabatch.hennadungeon.scene.Scene;
 import net.hennabatch.hennadungeon.util.EnumDifficulty;
 import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
+import java.io.*;
 import java.lang.reflect.Constructor;
+import java.sql.Ref;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -92,6 +93,7 @@ public class DungeonBuilder {
         Reference.logger.debug("Section generating...");
         List<Section> sections = generateSections();
         sections.forEach( x-> Reference.logger.debug(x.toString()));
+        //exportSection(sections);
         //部屋生成
         Reference.logger.debug("Room generating...");
         sections.stream().min(Comparator.comparingInt(x -> x.size().area())).get().generateStartRoom();
@@ -111,11 +113,14 @@ public class DungeonBuilder {
         Reference.logger.debug("Exit path calculating...");
         setExitPath(sections.stream().map(x -> x.room).filter(x -> x instanceof ExitRoom).findFirst().get());
 
-        List<Entity> entities = new ArrayList<>();
+        Dungeon dungeon = new Dungeon(scene, new Vec2d(width, height), Stream.concat(sections.stream().map(x -> x.room), mainPassages.stream()).collect(Collectors.toList()), difficulty);
+        Room startRoom =  sections.stream().filter(x -> x.room instanceof StartRoom)
+                .map(x -> x.room)
+                .findFirst().get();
+        dungeon.spawnEntity(new PlayerEntity(startRoom.size().div(2).add(startRoom.getUpperLeft()), dungeon));
 
-
-
-        return new Dungeon(scene, new Vec2d(width, height), Stream.concat(sections.stream().map(x -> x.room), mainPassages.stream()).collect(Collectors.toList()), entities, difficulty);
+        //exportFloor(dungeon);
+        return dungeon;
     }
 
     private void setExitPath(Floor floor){
@@ -300,14 +305,14 @@ public class DungeonBuilder {
 
         private void generateRoom(Class<? extends Room> clazz){
             Random rand = new Random();
-            int uLxBound = this.size().getX() - minRoomWidth - 4;
-            int uLyBound = this.size().getY() - minRoomHeight - 4;
-            int uLx = ( uLxBound > 0 ? rand.nextInt(uLxBound) : 0 ) + this.upperLeft.getX() + 2;
-            int uLy = ( uLyBound > 0 ? rand.nextInt(uLyBound) : 0 ) + this.upperLeft.getY() + 2;
+            int uLxBound = this.size().getX() - minRoomWidth - 5;
+            int uLyBound = this.size().getY() - minRoomHeight - 5;
+            int uLx = ( uLxBound > 0 ? rand.nextInt(uLxBound) : 0 ) + this.upperLeft.getX() + 3;
+            int uLy = ( uLyBound > 0 ? rand.nextInt(uLyBound) : 0 ) + this.upperLeft.getY() + 3;
             int lRxBound = this.size().getX() - 3 - minRoomWidth - uLx;
             int lRyBound = this.size().getY() - 3 - minRoomHeight - uLy;
-            int lRx = ( lRxBound > 0 ? rand.nextInt(lRxBound) : 0 ) + uLx + 2 + minRoomWidth;
-            int lRy = ( lRyBound > 0 ? rand.nextInt(lRyBound) : 0 ) + uLy + 2 + minRoomHeight;
+            int lRx = ( lRxBound > 0 ? rand.nextInt(lRxBound) : 0 ) + uLx + minRoomWidth - 1;
+            int lRy = ( lRyBound > 0 ? rand.nextInt(lRyBound) : 0 ) + uLy + minRoomHeight - 1;
             Constructor constructor;
             try{
                 constructor = clazz.getConstructor(Vec2d.class, Vec2d.class);
@@ -323,6 +328,57 @@ public class DungeonBuilder {
                     "\tlRx: " + lowerRight.getX() + " lRy: " + lowerRight.getY() +
                     "\tsize x: " + size().getX() + " size y: " + size().getY() +
                     "\tarea: " + size().area();
+        }
+    }
+
+    public void exportSection(List<Section> sections){
+        boolean[][] map = new boolean[Reference.DUNGEON_WIDTH][Reference.DUNGEON_HEIGHT];
+        for(int y = 0; y < Reference.DUNGEON_HEIGHT; y++){
+            for(int x = 0; x < Reference.DUNGEON_WIDTH; x++){
+                map[x][y] = false;
+            }
+        }
+        sections.forEach(x -> {
+            for(int sx = x.upperLeft.getX(); sx < x.lowerRight.getX(); sx++) {
+                map[sx][x.upperLeft.getY()] = true;
+                map[sx][x.lowerRight.getY()] = true;
+            }
+            for(int sy = x.upperLeft.getY(); sy < x.lowerRight.getY(); sy++){
+                map[x.upperLeft.getX()][sy] = true;
+                map[x.lowerRight.getX()][sy] = true;
+            }
+        });
+        try{
+            File file = new File("C:\\Users\\ScTi\\Desktop\\testsection.txt");
+            PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+
+            for(int y = 0; y < Reference.DUNGEON_HEIGHT; y++){
+                for(int x = 0; x < Reference.DUNGEON_WIDTH; x++){
+                    pw.print(map[x][y] ? Reference.DUNGEON_WALL : Reference.DUNGEON_SPACE);
+                }
+                pw.println();
+            }
+            pw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void exportFloor(Dungeon dungeon){
+        try{
+            File file = new File("C:\\Users\\ScTi\\Desktop\\test.txt");
+            PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+
+            for(int y = 0; y < Reference.DUNGEON_HEIGHT; y++){
+                for(int x = 0; x < Reference.DUNGEON_WIDTH; x++){
+                    pw.print(dungeon.isInner(new Vec2d(x,y))? Reference.DUNGEON_SPACE : Reference.DUNGEON_WALL);
+                }
+                pw.println();
+            }
+            pw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

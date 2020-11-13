@@ -29,14 +29,23 @@ public class Passage extends Floor{
 
     @Override
     public Boolean isInner(IVec vec) {
+        //バグあり　修正予定
         if(getConnectPos().getY() == 0){
             if(vec.getX() >= getUpperLeft().getX() && vec.getX() <= getConnectPos().getX() && vec.getY() == getUpperLeft().getY()) return true;
             if(vec.getX() >= getConnectPos().getX() && vec.getX() <= getLowerRight().getX() && vec.getY() == getLowerRight().getY()) return true;
-            return vec.getY() >= getUpperLeft().getY() && vec.getY() <= getLowerRight().getY() && vec.getX() == getConnectPos().getX();
+            if(getUpperLeft().getY() < getLowerRight().getY()){
+                return vec.getY() >= getUpperLeft().getY() && vec.getY() <= getLowerRight().getY() && vec.getX() == getConnectPos().getX();
+            }else{
+                return vec.getY() >= getLowerRight().getY() && vec.getY() <= getUpperLeft().getY() && vec.getX() == getConnectPos().getX();
+            }
         }else{
             if(vec.getY() >= getUpperLeft().getY() && vec.getY() <= getConnectPos().getY() && vec.getX() == getUpperLeft().getX()) return true;
             if(vec.getY() >= getConnectPos().getY() && vec.getY() <= getLowerRight().getY() && vec.getX() == getLowerRight().getX()) return true;
-            return vec.getX() >= getUpperLeft().getX() && vec.getX() <= getLowerRight().getX() && vec.getY() == getConnectPos().getY();
+            if(getUpperLeft().getX() < getLowerRight().getX()){
+                return vec.getX() >= getUpperLeft().getX() && vec.getX() <= getLowerRight().getX() && vec.getY() == getConnectPos().getY();
+            }else{
+                return vec.getX() >= getLowerRight().getX() && vec.getX() <= getUpperLeft().getX() && vec.getY() == getConnectPos().getY();
+            }
         }
     }
 

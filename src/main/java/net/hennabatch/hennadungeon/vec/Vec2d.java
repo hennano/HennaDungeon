@@ -32,7 +32,7 @@ public class Vec2d implements IVec, Cloneable{
         return add(new Vec2d(-vec.getX(), -vec.getY()));
     }
 
-    Vec2d sub(int scalar){
+    public Vec2d sub(int scalar){
         return sub(new Vec2d(scalar, scalar));
     }
 
@@ -42,6 +42,14 @@ public class Vec2d implements IVec, Cloneable{
 
     public Vec2d dot(int scalar){
         return dot(new Vec2d(scalar, scalar));
+    }
+
+    public Vec2d div(IVec vec){
+        return new Vec2d(this.getX() / vec.getX(), this.getY() / vec.getY());
+    }
+
+    public Vec2d div(int scalar){
+        return div(new Vec2d(scalar, scalar));
     }
 
     public double distance(IVec vec){
@@ -62,7 +70,7 @@ public class Vec2d implements IVec, Cloneable{
 
     @Override
     public Vec2d clone(){
-        return new Vec2d(this.getX(), this.getY());
+        return Vec2d.byIVec(this);
     }
 
     @Override
@@ -76,5 +84,10 @@ public class Vec2d implements IVec, Cloneable{
 
     public static Vec2d byIVec(IVec vec){
         return new Vec2d(vec.getX(), vec.getY());
+    }
+
+    @Override
+    public String toString() {
+        return "x: " + x + " y: " + y;
     }
 }
