@@ -1,7 +1,6 @@
 package net.hennabatch.hennadungeon.scene;
 
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
-import net.hennabatch.hennadungeon.scene.event.RootEvent;
 import net.hennabatch.hennadungeon.util.EnumCursor;
 import net.hennabatch.hennadungeon.util.Reference;
 
@@ -79,6 +78,7 @@ public class MainMenuScene extends Scene{
             case 4:
                 screen.setPos(item4.length() + 2, 2, EnumCursor.RIGHT.getCursor());
         }
+
         return screen;
     }
 }

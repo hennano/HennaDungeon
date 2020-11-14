@@ -1,6 +1,7 @@
 package net.hennabatch.hennadungeon.util;
 
 import net.hennabatch.hennadungeon.config.Config;
+import net.hennabatch.hennadungeon.item.Items;
 
 public class Reference {
 
@@ -9,7 +10,6 @@ public class Reference {
 
     public static final SystemLogger logger = new SystemLogger();
     public static final Config config = new Config();
-
 
     //dungeon
     public static final int DUNGEON_WIDTH = 100;
