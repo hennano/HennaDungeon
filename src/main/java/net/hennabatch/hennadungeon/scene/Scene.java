@@ -3,7 +3,7 @@ package net.hennabatch.hennadungeon.scene;
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
 import net.hennabatch.hennadungeon.util.Reference;
 
-public abstract class Scene<T> {
+public abstract class Scene {
 
     public Scene(){
         this.initializeScene();
@@ -30,7 +30,7 @@ public abstract class Scene<T> {
     }
 
     //シーン内ループ用メイン
-    protected abstract SceneResult<T> run(EnumKeyInput key, SceneResult<T> childSceneResult);
+    protected abstract SceneResult<?> run(EnumKeyInput key, SceneResult<?> childSceneResult);
 
     public Screen drawScreen(Screen screen){
         return this.childScene != null ? this.childScene.drawScreen(draw(screen)): draw(screen);
@@ -56,7 +56,7 @@ public abstract class Scene<T> {
     }
 
     //子シーンの処理結果を反映させる
-    protected SceneResult<T> onExitChildScene(SceneResult<T> result){
+    protected SceneResult<?> onExitChildScene(SceneResult<?> result){
         return result;
     }
 

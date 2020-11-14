@@ -10,7 +10,6 @@ import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
-import java.sql.Ref;
 import java.util.List;
 
 public class GameScene extends Scene{

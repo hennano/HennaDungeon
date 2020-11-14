@@ -6,7 +6,7 @@ import net.hennabatch.hennadungeon.scene.SceneResult;
 import net.hennabatch.hennadungeon.scene.Screen;
 import net.hennabatch.hennadungeon.util.Reference;
 
-public abstract class Event<T> extends Scene<T> {
+public abstract class Event extends Scene {
 
     private int eventSequence = 0;
 
@@ -33,7 +33,7 @@ public abstract class Event<T> extends Scene<T> {
     }
 
     @Override
-    protected SceneResult<T> onExitChildScene(SceneResult<T> result) {
+    protected SceneResult<?> onExitChildScene(SceneResult<?> result) {
         return result;
     }
 
