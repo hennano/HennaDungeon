@@ -1,5 +1,11 @@
 package net.hennabatch.hennadungeon.vec;
 
+import javax.crypto.spec.IvParameterSpec;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 public class Vec2d implements IVec, Cloneable{
 
     private final int x;
@@ -8,6 +14,10 @@ public class Vec2d implements IVec, Cloneable{
     public Vec2d(int x, int y){
         this.x = x;
         this.y = y;
+    }
+
+    public Vec2d(IVec vec){
+        this(vec.getX(), vec.getY());
     }
 
     @Override
@@ -70,7 +80,7 @@ public class Vec2d implements IVec, Cloneable{
 
     @Override
     public Vec2d clone(){
-        return Vec2d.byIVec(this);
+        return new Vec2d(this);
     }
 
     @Override
@@ -82,8 +92,24 @@ public class Vec2d implements IVec, Cloneable{
         return false;
     }
 
-    public static Vec2d byIVec(IVec vec){
-        return new Vec2d(vec.getX(), vec.getY());
+    public static <T extends IVec> T max(T... vecs){
+        return Arrays.stream(vecs).max(Comparator.comparing(x -> new Vec2d(x).area())).get();
+    }
+
+    public static <T extends IVec> T min(T... vecs){
+        return Arrays.stream(vecs).min(Comparator.comparing(x -> new Vec2d(x).area())).get();
+    }
+
+    public static Vec2d maxOfCoordinates(IVec... vecs){
+        int maxX = Arrays.stream(vecs).max(Comparator.comparing(x -> x.getX())).get().getX();
+        int maxY = Arrays.stream(vecs).max(Comparator.comparing(x -> x.getY())).get().getY();
+        return new Vec2d(maxX, maxY);
+    }
+
+    public static Vec2d minOfCoordinates(IVec... vecs){
+        int minX = Arrays.stream(vecs).min(Comparator.comparing(x -> x.getX())).get().getX();
+        int minY = Arrays.stream(vecs).min(Comparator.comparing(x -> x.getY())).get().getY();
+        return new Vec2d(minX, minY);
     }
 
     @Override

@@ -7,9 +7,9 @@ public class Items {
 
     public static final Item HEAL_POTION = new HealPotionItem();
 
-    private static Items singleton = new Items();
+    private static final Items singleton = new Items();
 
-    private List<Item> items = new ArrayList<>();
+    private final List<Item> items = new ArrayList<>();
 
     private Items(){
         registerItems();

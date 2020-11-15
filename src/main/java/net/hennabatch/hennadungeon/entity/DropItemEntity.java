@@ -7,7 +7,7 @@ import net.hennabatch.hennadungeon.vec.Vec2d;
 
 public class DropItemEntity extends Entity{
 
-    private Item item;
+    private final Item item;
 
     public DropItemEntity(Vec2d pos, Dungeon dungeon, Item item) {
         super(pos, dungeon);

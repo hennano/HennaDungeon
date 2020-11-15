@@ -14,7 +14,7 @@ public enum EnumDirection {
 
     private final int num;
     private final Vec2d vec;
-    private EnumKeyInput key;
+    private final EnumKeyInput key;
 
     EnumDirection(int num, Vec2d vec, EnumKeyInput key) {
         this.num = num;

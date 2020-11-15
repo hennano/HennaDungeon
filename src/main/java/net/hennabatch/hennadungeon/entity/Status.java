@@ -100,7 +100,7 @@ public class Status {
                 .map(x -> (StatusEffect) x)
                 .filter(x -> x.getTargetStatus().equals(eumStatus))
                 .filter(x -> !x.isMagnification())
-                .mapToInt(x -> x.getVal())
+                .mapToInt(StatusEffect::getVal)
                 .sum()};
         effectList.stream()
                 .filter(x -> x instanceof StatusEffect)

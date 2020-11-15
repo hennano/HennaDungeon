@@ -12,7 +12,7 @@ public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInve
 
     private WeaponItem equipmentWeapon;
     private ArmorItem equipmentArmor;
-    private Inventory inventory = new Inventory(50);
+    private final Inventory inventory = new Inventory(50);
 
     public PlayerEntity(Vec2d pos, Dungeon dungeon) {
         super(pos, dungeon);

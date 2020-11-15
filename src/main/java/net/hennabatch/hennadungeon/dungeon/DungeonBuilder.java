@@ -2,9 +2,7 @@ package net.hennabatch.hennadungeon.dungeon;
 
 import net.hennabatch.hennadungeon.dungeon.floor.*;
 import net.hennabatch.hennadungeon.entity.DropItemEntity;
-import net.hennabatch.hennadungeon.entity.EventTriggerEntity;
 import net.hennabatch.hennadungeon.entity.PlayerEntity;
-import net.hennabatch.hennadungeon.item.HealPotionItem;
 import net.hennabatch.hennadungeon.item.Items;
 import net.hennabatch.hennadungeon.scene.GameScene;
 import net.hennabatch.hennadungeon.util.EnumDifficulty;
@@ -14,7 +12,6 @@ import net.hennabatch.hennadungeon.vec.Vec2d;
 
 import java.io.*;
 import java.lang.reflect.Constructor;
-import java.sql.Ref;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -281,7 +278,7 @@ public class DungeonBuilder {
         }
 
         boolean biggerThan(Section section){
-            return this.size().area() > section.size().area();
+            return Vec2d.max(this.size() ,section.size()) == this.size();
         }
 
         EnumDirection nextTo(Section section){

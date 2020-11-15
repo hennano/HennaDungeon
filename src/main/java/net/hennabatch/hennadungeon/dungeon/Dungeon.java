@@ -47,7 +47,7 @@ public class Dungeon {
     }
 
     public List<Entity> getEntityByIVec(IVec vec){
-        Vec2d vec2d = Vec2d.byIVec(vec);
+        Vec2d vec2d = new Vec2d(vec);
         return getEntities().stream().filter(vec2d::equals).collect(Collectors.toList());
     }
 

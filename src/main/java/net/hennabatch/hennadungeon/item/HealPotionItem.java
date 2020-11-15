@@ -5,7 +5,7 @@ import net.hennabatch.hennadungeon.entity.Entity;
 
 public class HealPotionItem extends Item{
 
-    private int heal = 250;
+    private final int heal = 250;
     @Override
     public boolean onUse(Entity entity) {
         if(!(entity instanceof BreakableEntity)) return false;

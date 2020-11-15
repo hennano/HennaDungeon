@@ -85,10 +85,7 @@ public class Screen implements Cloneable{
             for(int y = 0; y < ret.width; y++){
                 try{
                     if(screen.screen[x][y] != null) ret.screen[x][y] = screen.screen[x][y];
-                }catch(ArrayIndexOutOfBoundsException e){
-                    break;
-                }
-                catch(NullPointerException e){
+                }catch(ArrayIndexOutOfBoundsException | NullPointerException e){
                     break;
                 }
             }
@@ -150,5 +147,17 @@ public class Screen implements Cloneable{
             }
         }
         return ret;
+    }
+
+    public void replaceRect(int uLx, int ulY, int lRx, int lRy, String replace){
+        for(int x = uLx; x < lRx; x++) {
+            for (int y = ulY; y < lRy; y++) {
+                try{
+                    screen[x][y] = replace;
+                }catch (ArrayIndexOutOfBoundsException e){
+                    continue;
+                }
+            }
+        }
     }
 }

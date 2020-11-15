@@ -32,7 +32,7 @@ public class RootEvent extends Event{
         ShowRule(ShowRuleScene.class),
         Exit(null);
 
-        private Class clazz;
+        private final Class clazz;
 
         SceneTransition(Class<? extends Scene> scene){
             this.clazz = scene;

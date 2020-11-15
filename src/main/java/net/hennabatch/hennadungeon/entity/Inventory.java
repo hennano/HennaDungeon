@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Inventory {
 
-    private List<Item> items = new ArrayList<>();
+    private final List<Item> items = new ArrayList<>();
     private final int capacity;
 
     public Inventory(int capacity){
@@ -34,7 +34,7 @@ public class Inventory {
 
     public int getItemIndex(Item item){
         for(int i = 0; i < items.size(); i++){
-            if(items.get(i).equals(i)) return i;
+            if(items.get(i).equals(item)) return i;
         }
         return -1;
     }
