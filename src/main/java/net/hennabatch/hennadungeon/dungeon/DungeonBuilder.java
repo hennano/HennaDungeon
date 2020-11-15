@@ -307,14 +307,16 @@ public class DungeonBuilder {
 
         private void generateRoom(Class<? extends Room> clazz){
             Random rand = new Random();
-            int uLxBound = this.size().getX() - minRoomWidth - 5;
-            int uLyBound = this.size().getY() - minRoomHeight - 5;
+            int minRoomWidthBySection = Math.max(minRoomWidth, this.size().getX() / 3);
+            int minRoomHeightBySection = Math.max(minRoomHeight, this.size().getY() / 3);
+            int uLxBound = this.size().getX() - minRoomWidthBySection - 5;
+            int uLyBound = this.size().getY() - minRoomHeightBySection - 5;
             int uLx = ( uLxBound > 0 ? rand.nextInt(uLxBound) : 0 ) + this.upperLeft.getX() + 3;
             int uLy = ( uLyBound > 0 ? rand.nextInt(uLyBound) : 0 ) + this.upperLeft.getY() + 3;
-            int lRxBound = this.size().getX() - 3 - minRoomWidth - uLx;
-            int lRyBound = this.size().getY() - 3 - minRoomHeight - uLy;
-            int lRx = ( lRxBound > 0 ? rand.nextInt(lRxBound) : 0 ) + uLx + minRoomWidth - 1;
-            int lRy = ( lRyBound > 0 ? rand.nextInt(lRyBound) : 0 ) + uLy + minRoomHeight - 1;
+            int lRxBound = this.size().getX() - 3 - minRoomWidthBySection - uLx;
+            int lRyBound = this.size().getY() - 3 - minRoomHeightBySection - uLy;
+            int lRx = ( lRxBound > 0 ? rand.nextInt(lRxBound) : 0 ) + uLx + minRoomWidthBySection - 1;
+            int lRy = ( lRyBound > 0 ? rand.nextInt(lRyBound) : 0 ) + uLy + minRoomHeightBySection - 1;
             Constructor constructor;
             try{
                 constructor = clazz.getConstructor(Vec2d.class, Vec2d.class);
