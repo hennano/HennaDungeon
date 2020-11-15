@@ -121,7 +121,7 @@ public class DungeonBuilder {
         dungeon.spawnEntity(new PlayerEntity(startRoom.size().div(2).add(startRoom.getUpperLeft()), dungeon));
         dungeon.spawnEntity(new DropItemEntity(startRoom.size().div(2).add(startRoom.getUpperLeft()).sub(-1), dungeon, Items.HEAL_POTION));
 
-        //exportFloor(dungeon);
+        exportFloor(dungeon);
         return dungeon;
     }
 
@@ -150,7 +150,7 @@ public class DungeonBuilder {
             //自身の左側
             sections.stream()
                 .filter(y -> !x.equals(y))
-                .filter(y -> x.room.getConnectFloors().stream().noneMatch(z -> y.room.getConnectFloors().stream().anyMatch(u -> u.equals(z))))
+                .filter(y -> x.room.getConnectFloors().stream().noneMatch(z -> y.room.getConnectFloors().stream().anyMatch(u -> u.getFloor().equals(z.getFloor()))))
                 .filter(y -> {
                     EnumDirection direction = x.nextTo(y);
                     return direction != null && (direction.equals(EnumDirection.NX) || direction.equals(EnumDirection.NY));
