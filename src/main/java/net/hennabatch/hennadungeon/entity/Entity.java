@@ -102,6 +102,6 @@ public abstract class Entity implements IVec {
             if(dungeon.getEntityByIVec(checkPos).stream().anyMatch(x -> x instanceof CollidableEntity)) break;
             currentPos = i;
         }
-        return Math.abs(Vec2d.byIVec(currentPos).add(1).area() - 1);
+        return Math.abs(new Vec2d(currentPos).add(1).area() - 1);
     }
 }

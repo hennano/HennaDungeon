@@ -44,10 +44,11 @@ public class MessageScene extends Scene{
         return drawingMessageLines(message).size();
     }
 
+
     private List<String> drawingMessageLines(String message){
         List<String> messageLines = spritCRLF(message);
         return messageLines.stream()
-                .flatMap(x -> Stream.of(Pattern.compile("[\\s\\S]{1," + windowWidth - 2 + "}").matcher(x).group()))
+                .flatMap(x -> Stream.of(Pattern.compile("[\\s\\S]{1," + (windowWidth - 2) + "}").matcher(x).group()))
                 .collect(Collectors.toList());
     }
 

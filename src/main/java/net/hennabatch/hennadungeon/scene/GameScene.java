@@ -50,7 +50,7 @@ public class GameScene extends Scene{
     }
 
     private void drawMap(Screen screen){
-        Vec2d playerPos = Vec2d.byIVec(dungeon.getPlayer());
+        Vec2d playerPos = new Vec2d(dungeon.getPlayer());
         for(int sx = 1; sx < screen.getWidth() - 1; sx++){
             for (int sy = 2; sy < screen.getHeight() - 2; sy++){
                 screen.setPos(sx, sy, dungeon.isInner(new Vec2d(sx - ((screen.getWidth() - 2) / 2), sy - ((screen.getHeight() - 4) / 2)).add(playerPos)) ? Reference.DUNGEON_SPACE : Reference.DUNGEON_WALL);
@@ -59,7 +59,7 @@ public class GameScene extends Scene{
     }
 
     public void drawEntity(Screen screen){
-        Vec2d playerPos = Vec2d.byIVec(dungeon.getPlayer());
+        Vec2d playerPos = new Vec2d(dungeon.getPlayer());
         for(int sx = 1; sx < screen.getWidth() - 1; sx++){
             for (int sy = 2; sy < screen.getHeight() - 2; sy++){
                 List<Entity> entities = dungeon.getEntityByIVec(new Vec2d(sx - ((screen.getWidth() - 2) / 2), sy - ((screen.getHeight() - 4) / 2)).add(playerPos));
