@@ -278,7 +278,7 @@ public class DungeonBuilder {
         }
 
         boolean biggerThan(Section section){
-            return Vec2d.max(this.size() ,section.size()) == this.size();
+            return this.size().area() > section.size().area();
         }
 
         EnumDirection nextTo(Section section){
