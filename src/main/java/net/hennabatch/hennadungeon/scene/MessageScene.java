@@ -1,14 +1,9 @@
 package net.hennabatch.hennadungeon.scene;
 
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
-import net.hennabatch.hennadungeon.entity.PlayerEntity;
-import net.hennabatch.hennadungeon.scene.event.RootEvent;
 import net.hennabatch.hennadungeon.util.Reference;
 
 import java.util.*;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class MessageScene extends Scene{
 
@@ -34,25 +29,21 @@ public class MessageScene extends Scene{
 
     @Override
     protected Screen draw(Screen screen) {
-
-        
-
-        return null;
+        String mes = messages.peekFirst();
+        if(canStretch){
+            screen.fillRect(0, screen.getHeight() -  Math.max(defaultWindowHeight, calcHeigth(mes)) - 2, windowWidth - 1, screen.getHeight() - 1, "　", true);
+            screen.setRow(1, screen.getHeight() -  Math.max(defaultWindowHeight, calcHeigth(mes)) - 1, windowWidth - 1, mes, true, false);
+        }else{
+            screen.fillRect(0, screen.getHeight() -  defaultWindowHeight - 2, windowWidth - 1, screen.getHeight() - 1, "　", true);
+            screen.setRow(1, screen.getHeight() -  defaultWindowHeight - 1, windowWidth - 1, mes, true, false);
+        }
+        return screen;
     }
 
     private int calcHeigth(String message){
-        return drawingMessageLines(message).size();
-    }
-
-
-    private List<String> drawingMessageLines(String message){
-        List<String> messageLines = spritCRLF(message);
-        return messageLines.stream()
-                .flatMap(x -> Stream.of(Pattern.compile("[\\s\\S]{1," + (windowWidth - 2) + "}").matcher(x).group()))
-                .collect(Collectors.toList());
-    }
-
-    private List<String> spritCRLF(String message){
-        return new ArrayList<>(Arrays.asList(message.split("\n")));
+        List<String> mesList =  new ArrayList<>(Arrays.asList(message.split("\n")));
+        return mesList.stream()
+                .mapToInt(x -> x.length() / (windowWidth - 2))
+                .sum();
     }
 }

@@ -5,6 +5,7 @@ import net.hennabatch.hennadungeon.vec.Vec2d;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,16 +39,16 @@ public class Screen implements Cloneable{
         }
     }
 
-    public Vec2d setRow(IVec startPos, String message, boolean canNext, boolean shouldPadding){
-        return setRow(startPos.getX(), startPos.getY(), message, canNext, shouldPadding);
+    public Vec2d setRow(int row, int column, String message, boolean canNext, boolean shouldPadding){
+        return setRow(row, column, this.width + 1, message, canNext, shouldPadding);
     }
 
     //行(横)
-    public Vec2d setRow(int row, int column, String message, boolean canNext, boolean shouldPadding){
+    public Vec2d setRow(int row, int column, int rowMax, String message, boolean canNext, boolean shouldPadding){
         List<String> str = formatMessage(message, shouldPadding);
         int pos = row;
         for(int i = 0; i < str.size(); i++, pos++){
-            if(str.get(i).equals("\n")){
+            if(str.get(i).equals("\n") || pos >= rowMax){
                 pos = row - 1;
                 column++;
                 continue;
@@ -67,16 +68,16 @@ public class Screen implements Cloneable{
         return new Vec2d(pos, column);
     }
 
-    public Vec2d setColumn(IVec startPos, String message, boolean canNext, boolean shouldPadding){
-        return setColumn(startPos.getX(), startPos.getY(), message, canNext, shouldPadding);
-    }
-
     //列(縦)
     public Vec2d setColumn(int row, int column, String message, boolean canNext, boolean shouldPadding){
+        return setColumn(row, column, this.height + 1, message, canNext, shouldPadding);
+    }
+
+    public Vec2d setColumn(int row, int column, int columnMax, String message, boolean canNext, boolean shouldPadding){
         List<String> str = formatMessage(message, shouldPadding);
         int pos = column;
         for(int i = 0; i < str.size(); i++, pos++){
-            if(str.get(i).equals("\n")){
+            if(str.get(i).equals("\n") || column >= columnMax){
                 pos = column - 1;
                 row++;
                 continue;
@@ -215,5 +216,14 @@ public class Screen implements Cloneable{
         try {
             screen[lRx][lRy] = "＋";
         }catch (ArrayIndexOutOfBoundsException e){}
+    }
+
+    public void drawGauge(int row, int column, int length, int current, int max, String fill, String empty, boolean hasEndDecoration){
+        int gaugeLength = (int) (((double)current / max) * length);
+        if(hasEndDecoration){
+            setRow(row, column, "［" + String.join("", Collections.nCopies(gaugeLength, fill)) + String.join("", Collections.nCopies( max - gaugeLength, empty)) + "］", false, false);
+        }else{
+            setRow(row, column, String.join("", Collections.nCopies(gaugeLength, fill)) + String.join("", Collections.nCopies( max - gaugeLength, empty)), false, false);
+        }
     }
 }
