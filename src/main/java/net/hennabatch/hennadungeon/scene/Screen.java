@@ -1,5 +1,9 @@
 package net.hennabatch.hennadungeon.scene;
 
+import net.hennabatch.hennadungeon.vec.IVec;
+import net.hennabatch.hennadungeon.vec.Vec2d;
+
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -34,40 +38,62 @@ public class Screen implements Cloneable{
         }
     }
 
+    public Vec2d setRow(IVec startPos, String message, boolean canNext, boolean shouldPadding){
+        return setRow(startPos.getX(), startPos.getY(), message, canNext, shouldPadding);
+    }
+
     //行(横)
-    public void setRow(int row, int column, String message, boolean canNext, boolean shouldPadding){
+    public Vec2d setRow(int row, int column, String message, boolean canNext, boolean shouldPadding){
         List<String> str = formatMessage(message, shouldPadding);
-        for(int i = 0; i < str.size(); i++){
+        int pos = row;
+        for(int i = 0; i < str.size(); i++, pos++){
+            if(str.get(i).equals("\n")){
+                pos = row - 1;
+                column++;
+                continue;
+            }
             try{
-                screen[row + i][column] = str.get(i);
+                screen[pos][column] = str.get(i);
             }catch(ArrayIndexOutOfBoundsException e){
                 if(canNext && column < height){
-                    column += 1;
-                    row -= width;
-                    screen[row + i][column] = str.get(i);
+                    pos = row;
+                    column++;
+                    screen[pos][column] = str.get(i);
                 }else{
-                    return;
+                    return new Vec2d(pos, column);
                 }
             }
         }
+        return new Vec2d(pos, column);
+    }
+
+    public Vec2d setColumn(IVec startPos, String message, boolean canNext, boolean shouldPadding){
+        return setColumn(startPos.getX(), startPos.getY(), message, canNext, shouldPadding);
     }
 
     //列(縦)
-    public void setColumn(int row, int column, String message, boolean canNext, boolean shouldPadding){
+    public Vec2d setColumn(int row, int column, String message, boolean canNext, boolean shouldPadding){
         List<String> str = formatMessage(message, shouldPadding);
-        for(int i = 0; i < message.length(); i++){
+        int pos = column;
+        for(int i = 0; i < str.size(); i++, pos++){
+            if(str.get(i).equals("\n")){
+                pos = column - 1;
+                row++;
+                continue;
+            }
             try{
-                screen[row ][column + i] = str.get(i);
+                screen[row][pos] = str.get(i);
             }catch(ArrayIndexOutOfBoundsException e){
                 if(canNext && row < width){
-                    row += 1;
-                    column -= height;
-                    screen[row ][column + i] = str.get(i);
+                    pos = column;
+                    row++;
+                    screen[row][pos] = str.get(i);
                 }else{
-                    return;
+                    return new Vec2d(row, pos);
                 }
             }
         }
+        return new Vec2d(row, pos);
     }
 
     @Override
