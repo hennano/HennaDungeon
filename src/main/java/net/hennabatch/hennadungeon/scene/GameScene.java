@@ -32,7 +32,7 @@ public class GameScene extends Scene{
                 dungeon.getPlayer().move(EnumDirection.byKey(key), 1);
                 break;
             case MENU:
-                createChildScene(new MainMenuScene2());
+                createChildScene(new MainMenuScene());
         }
         return new SceneResult(true, null);
     }

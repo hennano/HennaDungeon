@@ -1,66 +1,40 @@
 package net.hennabatch.hennadungeon.scene;
 
-import net.hennabatch.hennadungeon.config.EnumKeyInput;
-import net.hennabatch.hennadungeon.util.Reference;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.List;
 
-public class MainMenuScene extends Scene{
-
-    private int pointer = 0;
-
+public class MainMenuScene extends TwoColumnMenuScene{
     @Override
-    protected SceneResult run(EnumKeyInput key, SceneResult childSceneResult) {
-        switch (key){
-            case LEFT:
-                if(pointer > 0) pointer--;
-                break;
-            case RIGHT:
-                if(pointer < MainMenuScene.EnumMainMenuSceneResult.values().length - 1) pointer++;
-                break;
-            case ENTER:
-                createChildScene(new MessageScene(new ArrayList<>(Arrays.asList("そんなことよりおうどん食べたい", "ながたにえんでも可"))));
-                return new SceneResult<>(true, MainMenuScene.EnumMainMenuSceneResult.byPointer(pointer));
-
-        }
-        return new SceneResult<>(true, null);
-    }
-
-    public enum EnumMainMenuSceneResult{
-        BACK(0),
-        SHOWSTATUS(1),
-        ITEM(2),
-        EQUIP(3),
-        EXIT(4);
-
-        private final int pointer;
-
-        EnumMainMenuSceneResult(int pointer){
-            this.pointer = pointer;
-        }
-
-        public static MainMenuScene.EnumMainMenuSceneResult byPointer(int pointer){
-            return Arrays.stream(MainMenuScene.EnumMainMenuSceneResult.values()).filter(x -> x.pointer == pointer).findFirst().orElse(null);
-        }
-
+    protected String getTitle() {
+        return "メニュー";
     }
 
     @Override
-    protected Screen draw(Screen screen) {
+    protected List<String> getOptions() {
+        return new ArrayList<>(Arrays.asList("戻る",
+                "ステータス",
+                "アイテム",
+                "そうび",
+                "やめる"));
+    }
 
-        String title = "メニュー";
-        String item1 = "戻る";
-        String item2 = "ステータス";
-        String item3 = "アイテム";
-        String item4 = "装備";
-        String item5 = "やめる";
+    @Override
+    protected int getDivPos(Screen screen) {
+        return 7;
+    }
 
-        screen = new Screen(screen.getWidth(), screen.getHeight());
-        screen.setRow((Reference.SCREEN_WIDTH / 2) - (title.length() / 2), 0, title, false, false);
-        screen.setRow(0, 1, String.join("", Collections.nCopies(screen.getWidth(), "―")), false, false);
-        screen.setColumn(screen.getWidth() /2, 2, String.join("", Collections.nCopies(screen.getWidth(), "―")), false, false);
+    @Override
+    protected SceneResult onSelected(int pointer) {
+        return new SceneResult(false, null);
+    }
+
+    @Override
+    protected void onCursor(int pointer) {
+    }
+
+    @Override
+    protected Screen drawRightContent(Screen screen) {
         return screen;
     }
 }
