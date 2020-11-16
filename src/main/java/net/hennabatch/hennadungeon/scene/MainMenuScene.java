@@ -1,11 +1,11 @@
 package net.hennabatch.hennadungeon.scene;
 
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
-import net.hennabatch.hennadungeon.util.EnumCursor;
 import net.hennabatch.hennadungeon.util.Reference;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class MainMenuScene extends Scene{
 
@@ -21,7 +21,8 @@ public class MainMenuScene extends Scene{
                 if(pointer < MainMenuScene.EnumMainMenuSceneResult.values().length - 1) pointer++;
                 break;
             case ENTER:
-                return new SceneResult<>(false, MainMenuScene.EnumMainMenuSceneResult.byPointer(pointer));
+                createChildScene(new MessageScene(new ArrayList<>(Arrays.asList("そんなことよりおうどん食べたい", "ながたにえんでも可"))));
+                return new SceneResult<>(true, MainMenuScene.EnumMainMenuSceneResult.byPointer(pointer));
 
         }
         return new SceneResult<>(true, null);
@@ -58,28 +59,8 @@ public class MainMenuScene extends Scene{
 
         screen = new Screen(screen.getWidth(), screen.getHeight());
         screen.setRow((Reference.SCREEN_WIDTH / 2) - (title.length() / 2), 0, title, false, false);
-        screen.setRow(1, 1, item1, false, false);
-        screen.setRow(item1.length() + 3, 1, item2, false, false);
-        screen.setRow(item1.length() + item2.length() + 5, 1, item3, false, false);
-        screen.setRow(1, 2, item4, false, false);
-        screen.setRow(item4.length() + 3, 2, item5, false, false);
-        switch (pointer){
-            case 0:
-                screen.setPos(0, 1, EnumCursor.RIGHT.getCursor());
-                break;
-            case 1:
-                screen.setPos(item1.length() + 2, 1, EnumCursor.RIGHT.getCursor());
-                break;
-            case 2:
-                screen.setPos(item1.length() + item2.length() + 4, 1, EnumCursor.RIGHT.getCursor());
-                break;
-            case 3:
-                screen.setPos(0, 2, EnumCursor.RIGHT.getCursor());
-                break;
-            case 4:
-                screen.setPos(item4.length() + 2, 2, EnumCursor.RIGHT.getCursor());
-        }
-
+        screen.setRow(0, 1, String.join("", Collections.nCopies(screen.getWidth(), "―")), false, false);
+        screen.setColumn(screen.getWidth() /2, 2, String.join("", Collections.nCopies(screen.getWidth(), "―")), false, false);
         return screen;
     }
 }

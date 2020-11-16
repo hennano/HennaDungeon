@@ -1,10 +1,11 @@
 package net.hennabatch.hennadungeon.scene;
 
-import net.hennabatch.hennadungeon.vec.IVec;
+import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
-import javax.swing.*;
+import java.sql.Ref;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -48,10 +49,14 @@ public class Screen implements Cloneable{
         List<String> str = formatMessage(message, shouldPadding);
         int pos = row;
         for(int i = 0; i < str.size(); i++, pos++){
-            if(str.get(i).equals("\n") || pos >= rowMax){
+            if(str.get(i).equals("\n")){
                 pos = row - 1;
                 column++;
                 continue;
+            }
+            if(pos >= rowMax){
+                pos = row;
+                column++;
             }
             try{
                 screen[pos][column] = str.get(i);
@@ -107,11 +112,15 @@ public class Screen implements Cloneable{
     }
 
     public Screen overWrite(Screen screen){
+        return overWrite(screen, 0 ,0);
+    }
+
+    public Screen overWrite(Screen screen, int offsetRow, int offsetColumn){
         Screen ret = this.clone();
         for(int x = 0; x < ret.width; x++){
             for(int y = 0; y < ret.width; y++){
                 try{
-                    if(screen.screen[x][y] != null) ret.screen[x][y] = screen.screen[x][y];
+                    if(screen.screen[x][y] != null) ret.screen[x + offsetRow][y + offsetColumn] = screen.screen[x][y];
                 }catch(ArrayIndexOutOfBoundsException | NullPointerException e){
                     break;
                 }
@@ -170,7 +179,7 @@ public class Screen implements Cloneable{
         Screen ret = new Screen(width, height);
         for(int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                ret.screen[x][y] = "　";
+                ret.screen[x][y] = Reference.SCREEN_EMPTY;
             }
         }
         return ret;
@@ -190,31 +199,31 @@ public class Screen implements Cloneable{
 
         for(int x = uLx; x <= lRx; x++) {
             try{
-                screen[x][uLy] = "―";
-                screen[x][lRy] = "―";
+                screen[x][uLy] = Reference.HORIZONTAL_LINE;
+                screen[x][lRy] = Reference.HORIZONTAL_LINE;
             }catch (ArrayIndexOutOfBoundsException e){
                 continue;
             }
         }
         for(int y = uLy; y <= lRy; y++) {
             try{
-                screen[uLx][y] = "｜";
-                screen[lRx][y] = "｜";
+                screen[uLx][y] = Reference.VERTICAL_LINE;
+                screen[lRx][y] = Reference.VERTICAL_LINE;
             }catch (ArrayIndexOutOfBoundsException e){
                 continue;
             }
         }
         try {
-            screen[uLx][uLy] = "＋";
+            screen[uLx][uLy] = Reference.CROSS;
         }catch (ArrayIndexOutOfBoundsException e){}
         try {
-            screen[uLx][lRy] = "＋";
+            screen[uLx][lRy] = Reference.CROSS;
         }catch (ArrayIndexOutOfBoundsException e){}
         try {
-            screen[lRx][uLy] = "＋";
+            screen[lRx][uLy] = Reference.CROSS;
         }catch (ArrayIndexOutOfBoundsException e){}
         try {
-            screen[lRx][lRy] = "＋";
+            screen[lRx][lRy] = Reference.CROSS;
         }catch (ArrayIndexOutOfBoundsException e){}
     }
 
@@ -225,5 +234,12 @@ public class Screen implements Cloneable{
         }else{
             setRow(row, column, String.join("", Collections.nCopies(gaugeLength, fill)) + String.join("", Collections.nCopies( max - gaugeLength, empty)), false, false);
         }
+    }
+
+    public int calcMessageHeight(String message, int offset){
+        List<String> mesList =  new ArrayList<>(Arrays.asList(message.split("\n")));
+        return mesList.stream()
+                .mapToInt(x -> x.length() / (width - offset))
+                .sum();
     }
 }

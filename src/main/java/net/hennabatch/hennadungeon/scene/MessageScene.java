@@ -7,10 +7,10 @@ import java.util.*;
 
 public class MessageScene extends Scene{
 
-    private int windowWidth;
-    private int defaultWindowHeight = 3;
-    private Deque<String> messages;
-    private boolean canStretch;
+    private final int windowWidth;
+    private final int defaultWindowHeight = 3;
+    private final Deque<String> messages;
+    private final boolean canStretch;
 
     public MessageScene(List<String> messages){
         this(Reference.SCREEN_WIDTH, messages, false);
@@ -24,26 +24,20 @@ public class MessageScene extends Scene{
 
     @Override
     protected SceneResult<?> run(EnumKeyInput key, SceneResult<?> childSceneResult) {
-        return new SceneResult(messages.size() <= 0, null);
+        return new SceneResult(messages.size() > 0, null);
     }
 
     @Override
     protected Screen draw(Screen screen) {
-        String mes = messages.peekFirst();
+        String mes = messages.pollFirst();
+        Reference.logger.info(mes);
         if(canStretch){
-            screen.fillRect(0, screen.getHeight() -  Math.max(defaultWindowHeight, calcHeigth(mes)) - 2, windowWidth - 1, screen.getHeight() - 1, "　", true);
-            screen.setRow(1, screen.getHeight() -  Math.max(defaultWindowHeight, calcHeigth(mes)) - 1, windowWidth - 1, mes, true, false);
+            screen.fillRect(0, screen.getHeight() -  Math.max(defaultWindowHeight, screen.calcMessageHeight(mes, 2)) - 2, windowWidth - 1, screen.getHeight() - 1, Reference.SCREEN_EMPTY, true);
+            screen.setRow(1, screen.getHeight() -  Math.max(defaultWindowHeight, screen.calcMessageHeight(mes, 2)) - 1, windowWidth - 1, mes, true, false);
         }else{
-            screen.fillRect(0, screen.getHeight() -  defaultWindowHeight - 2, windowWidth - 1, screen.getHeight() - 1, "　", true);
+            screen.fillRect(0, screen.getHeight() -  defaultWindowHeight - 2, windowWidth - 1, screen.getHeight() - 1, Reference.SCREEN_EMPTY, true);
             screen.setRow(1, screen.getHeight() -  defaultWindowHeight - 1, windowWidth - 1, mes, true, false);
         }
         return screen;
-    }
-
-    private int calcHeigth(String message){
-        List<String> mesList =  new ArrayList<>(Arrays.asList(message.split("\n")));
-        return mesList.stream()
-                .mapToInt(x -> x.length() / (windowWidth - 2))
-                .sum();
     }
 }
