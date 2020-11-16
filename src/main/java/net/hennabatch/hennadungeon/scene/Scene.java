@@ -6,6 +6,7 @@ import net.hennabatch.hennadungeon.util.Reference;
 public abstract class Scene {
 
     public Scene(){
+        Reference.logger.debug("create child scene: " + this.getClass().getSimpleName());
         this.initializeScene();
     }
 
@@ -41,7 +42,6 @@ public abstract class Scene {
 
     //子シーンの生成
     protected void createChildScene(Scene scene){
-        Reference.logger.debug("create child scene: " + scene.getClass().getSimpleName());
         this.childScene = scene;
     }
 

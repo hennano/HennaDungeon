@@ -149,9 +149,9 @@ public class Screen implements Cloneable{
         return ret;
     }
 
-    public void replaceRect(int uLx, int ulY, int lRx, int lRy, String replace){
-        for(int x = uLx; x < lRx; x++) {
-            for (int y = ulY; y < lRy; y++) {
+    public void fillRect(int uLx, int uLy, int lRx, int lRy, String replace, boolean hasFrame){
+        for(int x = uLx; x <= lRx; x++) {
+            for (int y = uLy; y <= lRy; y++) {
                 try{
                     screen[x][y] = replace;
                 }catch (ArrayIndexOutOfBoundsException e){
@@ -159,5 +159,35 @@ public class Screen implements Cloneable{
                 }
             }
         }
+        if(!hasFrame) return;
+
+        for(int x = uLx; x <= lRx; x++) {
+            try{
+                screen[x][uLy] = "―";
+                screen[x][lRy] = "―";
+            }catch (ArrayIndexOutOfBoundsException e){
+                continue;
+            }
+        }
+        for(int y = uLy; y <= lRy; y++) {
+            try{
+                screen[uLx][y] = "｜";
+                screen[lRx][y] = "｜";
+            }catch (ArrayIndexOutOfBoundsException e){
+                continue;
+            }
+        }
+        try {
+            screen[uLx][uLy] = "＋";
+        }catch (ArrayIndexOutOfBoundsException e){}
+        try {
+            screen[uLx][lRy] = "＋";
+        }catch (ArrayIndexOutOfBoundsException e){}
+        try {
+            screen[lRx][uLy] = "＋";
+        }catch (ArrayIndexOutOfBoundsException e){}
+        try {
+            screen[lRx][lRy] = "＋";
+        }catch (ArrayIndexOutOfBoundsException e){}
     }
 }
