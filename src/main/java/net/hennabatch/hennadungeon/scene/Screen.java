@@ -118,7 +118,7 @@ public class Screen implements Cloneable{
     public Screen overWrite(Screen screen, int offsetRow, int offsetColumn){
         Screen ret = this.clone();
         for(int x = 0; x < ret.width; x++){
-            for(int y = 0; y < ret.width; y++){
+            for(int y = 0; y < ret.height; y++){
                 try{
                     if(screen.screen[x][y] != null) ret.screen[x + offsetRow][y + offsetColumn] = screen.screen[x][y];
                 }catch(ArrayIndexOutOfBoundsException | NullPointerException e){

@@ -36,6 +36,8 @@ public class MainMenuScene extends TwoColumnMenuScene{
         switch (MainMenuSceneResult.byPointer(pointer)){
             case STATUS:
             case ITEM:
+                createChildScene(new ItemMenuScene(dungeon));
+                break;
             case EQUIP:
                 createChildScene(new StatusScene());
                 break;
@@ -45,10 +47,6 @@ public class MainMenuScene extends TwoColumnMenuScene{
                 return new SceneResult(false, RootEvent.SceneTransition.Exit);
         }
         return new SceneResult(true, null);
-    }
-
-    @Override
-    protected void onCursor(int pointer) {
     }
 
     @Override
@@ -63,8 +61,6 @@ public class MainMenuScene extends TwoColumnMenuScene{
         ITEM(2, "アイテム"),
         EQUIP(3, "装備"),
         EXIT(4, "やめる");
-
-
 
         private int pointer;
         private String name;

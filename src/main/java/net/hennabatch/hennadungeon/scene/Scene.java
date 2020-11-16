@@ -57,7 +57,7 @@ public abstract class Scene {
 
     //子シーンの処理結果を反映させる
     protected SceneResult<?> onExitChildScene(SceneResult<?> result){
-        return result;
+        return new SceneResult<>(true, false);
     }
 
 }
