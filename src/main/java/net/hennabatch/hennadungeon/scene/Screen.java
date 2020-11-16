@@ -230,7 +230,7 @@ public class Screen implements Cloneable{
     public void drawGauge(int row, int column, int length, int current, int max, String fill, String empty, boolean hasEndDecoration){
         int gaugeLength = (int) (((double)current / max) * length);
         if(hasEndDecoration){
-            setRow(row, column, "［" + String.join("", Collections.nCopies(gaugeLength, fill)) + String.join("", Collections.nCopies( max - gaugeLength, empty)) + "］", false, false);
+            setRow(row, column, "［" + String.join("", Collections.nCopies(gaugeLength, fill)) + String.join("", Collections.nCopies( length - gaugeLength, empty)) + "］", false, false);
         }else{
             setRow(row, column, String.join("", Collections.nCopies(gaugeLength, fill)) + String.join("", Collections.nCopies( max - gaugeLength, empty)), false, false);
         }

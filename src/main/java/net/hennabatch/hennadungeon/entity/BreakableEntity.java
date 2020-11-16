@@ -12,6 +12,7 @@ public abstract class BreakableEntity extends CollidableEntity{
 
     public BreakableEntity(Vec2d pos, Dungeon dungeon) {
         super(pos, dungeon);
+        currentHP = getMaxHP();
     }
 
     public abstract Status getStatus();

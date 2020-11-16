@@ -20,7 +20,7 @@ public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInve
 
     @Override
     public Status getStatus() {
-        return null;
+        return new Status(50, 10, 0, 5);
     }
 
     @Override
