@@ -17,7 +17,7 @@ public class HealPotionItem extends Item{
     @Override
     public boolean canUse(Entity entity) {
         if(!(entity instanceof BreakableEntity)) return false;
-        return ((BreakableEntity) entity).getCurrentHP() <= ((BreakableEntity) entity).getMaxHP();
+        return ((BreakableEntity) entity).getCurrentHP() < ((BreakableEntity) entity).getMaxHP();
     }
 
     @Override

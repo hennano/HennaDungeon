@@ -3,9 +3,7 @@ package net.hennabatch.hennadungeon.scene;
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.scene.event.RootEvent;
 import net.hennabatch.hennadungeon.util.Reference;
-import net.hennabatch.hennadungeon.vec.Vec2d;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
