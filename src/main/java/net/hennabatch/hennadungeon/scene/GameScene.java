@@ -6,6 +6,7 @@ import net.hennabatch.hennadungeon.dungeon.DungeonBuilder;
 import net.hennabatch.hennadungeon.entity.CollidableEntity;
 import net.hennabatch.hennadungeon.entity.Entity;
 import net.hennabatch.hennadungeon.scene.event.Event;
+import net.hennabatch.hennadungeon.scene.event.RootEvent;
 import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.Vec2d;
@@ -32,13 +33,16 @@ public class GameScene extends Scene{
                 dungeon.getPlayer().move(EnumDirection.byKey(key), 1);
                 break;
             case MENU:
-                createChildScene(new MainMenuScene());
+                createChildScene(new MainMenuScene(dungeon));
         }
         return new SceneResult(true, null);
     }
 
     @Override
     protected SceneResult onExitChildScene(SceneResult result) {
+        if(result.data() instanceof RootEvent.SceneTransition){
+            if(((RootEvent.SceneTransition) result.data()).isExit()) return new SceneResult(false, RootEvent.SceneTransition.StartScene);
+        }
         return new SceneResult(true, null);
     }
 

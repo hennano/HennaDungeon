@@ -50,7 +50,7 @@ public abstract class TwoColumnMenuScene extends Scene{
         }
         if(selectUpper != 0) screen.setPos(getDivPos(screen) / 2, 2, Reference.CURSOR_UP);
         if(selectLower != getOptions().size() - 1) screen.setPos(getDivPos(screen) / 2, screen.getHeight() - 1, Reference.CURSOR_DOWN);
-        //screen.overWrite(drawRightContent(new Screen(screen.getWidth() - (getDivPos(screen) + 1), screen.getHeight() - 2)), getDivPos(screen) + 1, 2);
+        screen.overWrite(drawRightContent(new Screen(screen.getWidth() - (getDivPos(screen) + 1), screen.getHeight() - 2), pointer), getDivPos(screen) + 1, 2);
         Reference.logger.debug("pointer:" + pointer + " up:" + selectUpper + " low:" + selectLower);
         return screen;
     }
@@ -91,5 +91,5 @@ public abstract class TwoColumnMenuScene extends Scene{
 
     protected abstract void onCursor(int pointer);
 
-    protected abstract Screen drawRightContent(Screen screen);
+    protected abstract Screen drawRightContent(Screen screen, int pointer);
 }

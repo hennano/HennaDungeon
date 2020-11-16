@@ -1,10 +1,21 @@
 package net.hennabatch.hennadungeon.scene;
 
+import net.hennabatch.hennadungeon.dungeon.Dungeon;
+import net.hennabatch.hennadungeon.scene.event.RootEvent;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MainMenuScene extends TwoColumnMenuScene{
+
+    private Dungeon dungeon;
+
+    public MainMenuScene(Dungeon dungeon){
+        this.dungeon = dungeon;
+    }
+
     @Override
     protected String getTitle() {
         return "メニュー";
@@ -12,11 +23,7 @@ public class MainMenuScene extends TwoColumnMenuScene{
 
     @Override
     protected List<String> getOptions() {
-        return new ArrayList<>(Arrays.asList("戻る",
-                "ステータス",
-                "アイテム",
-                "そうび",
-                "やめる"));
+        return Arrays.stream(MainMenuSceneResult.values()).map(x -> x.name).collect(Collectors.toList());
     }
 
     @Override
@@ -26,7 +33,18 @@ public class MainMenuScene extends TwoColumnMenuScene{
 
     @Override
     protected SceneResult onSelected(int pointer) {
-        return new SceneResult(false, null);
+        switch (MainMenuSceneResult.byPointer(pointer)){
+            case STATUS:
+            case ITEM:
+            case EQUIP:
+                createChildScene(new StatusScene());
+                break;
+            case BACK:
+                return new SceneResult(false, null);
+            case EXIT:
+                return new SceneResult(false, RootEvent.SceneTransition.Exit);
+        }
+        return new SceneResult(true, null);
     }
 
     @Override
@@ -34,7 +52,30 @@ public class MainMenuScene extends TwoColumnMenuScene{
     }
 
     @Override
-    protected Screen drawRightContent(Screen screen) {
+    protected Screen drawRightContent(Screen screen, int pointer) {
         return screen;
+    }
+
+    public enum MainMenuSceneResult{
+
+        BACK(0, "戻る"),
+        STATUS(1, "ステータス"),
+        ITEM(2, "アイテム"),
+        EQUIP(3, "装備"),
+        EXIT(4, "やめる");
+
+
+
+        private int pointer;
+        private String name;
+
+        MainMenuSceneResult(int pointer, String name){
+            this.pointer = pointer;
+            this.name = name;
+        }
+
+        public static MainMenuSceneResult byPointer(int pointer){
+            return Arrays.stream(values()).filter(x -> x.pointer == pointer).findFirst().orElse(null);
+        }
     }
 }
