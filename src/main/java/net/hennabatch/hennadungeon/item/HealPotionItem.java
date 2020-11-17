@@ -2,7 +2,6 @@ package net.hennabatch.hennadungeon.item;
 
 import net.hennabatch.hennadungeon.entity.BreakableEntity;
 import net.hennabatch.hennadungeon.entity.Entity;
-import net.hennabatch.hennadungeon.entity.IHasInventory;
 
 public class HealPotionItem extends Item{
 

@@ -9,7 +9,7 @@ public class MessageScene extends Scene{
 
     private final int windowWidth;
     private final int defaultWindowHeight = 3;
-    private final Deque<String> messages;
+    protected final Deque<String> messages;
     private final boolean canStretch;
 
     public MessageScene(List<String> messages){
@@ -31,6 +31,11 @@ public class MessageScene extends Scene{
     protected Screen draw(Screen screen) {
         String mes = messages.pollFirst();
         Reference.logger.info(mes);
+        drawMessage(screen, mes);
+        return screen;
+    }
+
+    protected void drawMessage(Screen screen, String mes){
         if(canStretch){
             screen.fillRect(0, screen.getHeight() -  Math.max(defaultWindowHeight, screen.calcMessageHeight(mes, 2)) - 2, windowWidth - 1, screen.getHeight() - 1, Reference.SCREEN_EMPTY, true);
             screen.setRow(1, screen.getHeight() -  Math.max(defaultWindowHeight, screen.calcMessageHeight(mes, 2)) - 1, windowWidth - 1, mes, true, false);
@@ -38,6 +43,5 @@ public class MessageScene extends Scene{
             screen.fillRect(0, screen.getHeight() -  defaultWindowHeight - 2, windowWidth - 1, screen.getHeight() - 1, Reference.SCREEN_EMPTY, true);
             screen.setRow(1, screen.getHeight() -  defaultWindowHeight - 1, windowWidth - 1, mes, true, false);
         }
-        return screen;
     }
 }

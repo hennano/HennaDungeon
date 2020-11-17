@@ -44,9 +44,20 @@ public class MainMenuScene extends TwoColumnMenuScene{
             case BACK:
                 return new SceneResult(false, null);
             case EXIT:
-                return new SceneResult(false, RootEvent.SceneTransition.Exit);
+                createChildScene(new YNMessageScene("ゲームを終了しますか？"));
+                break;
         }
         return new SceneResult(true, null);
+    }
+
+    @Override
+    protected SceneResult<?> onExitChildScene(SceneResult<?> result) {
+        if(result.data() instanceof Boolean){
+            if((Boolean) result.data()){
+                return new SceneResult<>(false, RootEvent.SceneTransition.Exit);
+            }
+        }
+        return super.onExitChildScene(result);
     }
 
     @Override
