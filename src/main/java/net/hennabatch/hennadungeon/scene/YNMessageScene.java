@@ -40,9 +40,9 @@ public class YNMessageScene extends MessageScene{
          String yes = "はい";
          String no = "いいえ";
 
-         screen.setRow(screen.getWidth() - (yes.length() + 2 + no.length()), screen.getHeight() - 2, yes, false, false);
-         screen.setRow(screen.getWidth() - no.length(), screen.getHeight() - 2, no, false, false);
-         screen.setPos(pointer == 0 ? screen.getWidth() - (yes.length() + 2 + no.length() + 1): screen.getWidth() - (no.length() + 1), screen.getHeight() - 2, Reference.CURSOR_RIGHT);
+         screen.setRow(screen.getWidth() - (yes.length() + 2 + no.length() + 1), screen.getHeight() - 2, yes, false, false);
+         screen.setRow(screen.getWidth() - (no.length() + 1), screen.getHeight() - 2, no, false, false);
+         screen.setPos(pointer == 0 ? screen.getWidth() - (yes.length() + 2 + no.length() + 2): screen.getWidth() - (no.length() + 2), screen.getHeight() - 2, Reference.CURSOR_RIGHT);
          return screen;
     }
 }

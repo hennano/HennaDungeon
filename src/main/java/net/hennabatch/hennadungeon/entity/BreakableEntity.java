@@ -1,10 +1,16 @@
 package net.hennabatch.hennadungeon.entity;
 
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
+import net.hennabatch.hennadungeon.effect.Effect;
 import net.hennabatch.hennadungeon.item.ArmorItem;
 import net.hennabatch.hennadungeon.item.WeaponItem;
 import net.hennabatch.hennadungeon.util.Reference;
+import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.Vec2d;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public abstract class BreakableEntity extends CollidableEntity{
 
@@ -21,16 +27,19 @@ public abstract class BreakableEntity extends CollidableEntity{
 
     public abstract WeaponItem getEquipmentWeapon();
 
-    public void onAttacked(Entity attackedEntity, int atk, boolean isMagic){
+    public boolean onAttacked(Entity attackedEntity, int atk, boolean isMagic, boolean isMelee, List<Effect> additionalEffects){
+        Random rand = new Random();
+        if(rand.nextDouble() * 100 < getStatus().getEVA(getEquipmentWeapon(), getEquipmentArmor())) return false;
         subHP(this.getStatus().calcDamage(atk, getEquipmentWeapon(), getEquipmentArmor(), isMagic));
+        additionalEffects.stream().forEach(x -> getStatus().addEffect(x));
+        return true;
     }
 
     @Override
     public void onCollision(Entity collidedEntity) {
-        if(collidedEntity instanceof PlayerEntity){
-            this.onAttacked(collidedEntity, ((PlayerEntity)collidedEntity).getStatus().getATK(((PlayerEntity)collidedEntity).getEquipmentWeapon(), ((PlayerEntity)collidedEntity).getEquipmentArmor()), ((PlayerEntity)collidedEntity).getEquipmentWeapon().isMagic());
-        }else if(collidedEntity instanceof EnemyEntity){
-            this.onAttacked(collidedEntity, ((EnemyEntity)collidedEntity).getStatus().getATK(((EnemyEntity)collidedEntity).getEquipmentWeapon(), ((EnemyEntity)collidedEntity).getEquipmentArmor()), ((EnemyEntity)collidedEntity).getEquipmentWeapon().isMagic());
+        if(collidedEntity instanceof IAttackable) {
+            EnumDirection direction = Arrays.stream(EnumDirection.values()).filter( x -> x.vec().add(this).equals(collidedEntity)).findFirst().get().switchOtherSide();
+            ((IAttackable) collidedEntity).attack(direction);
         }
     }
 

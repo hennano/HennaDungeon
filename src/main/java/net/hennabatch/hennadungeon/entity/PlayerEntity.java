@@ -8,7 +8,9 @@ import net.hennabatch.hennadungeon.item.WeaponItem;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
-public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInventory, IPickable{
+import java.util.Random;
+
+public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInventory, IAttackable, IPickable{
 
     private WeaponItem equipmentWeapon;
     private ArmorItem equipmentArmor;
@@ -48,11 +50,15 @@ public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInve
 
 
     public void attack(EnumDirection direction) {
-        getDungeon().getEntities().stream()
+        Random rand = new Random();
+        boolean isCompleted = getDungeon().getEntities().stream()
                 .filter(x -> x instanceof BreakableEntity)
-                .filter(x -> getEquipmentWeapon().isInnerRange(x, direction))
+                .filter(x -> getEquipmentWeapon().isInnerRange(this, x, direction))
                 .map(x -> (BreakableEntity)x)
-                .forEach(x -> x.onAttacked(this, getStatus().getATK(getEquipmentWeapon(), getEquipmentArmor()), getEquipmentWeapon().isMagic()));
+                .anyMatch(x -> x.onAttacked(this, getStatus().getATK(getEquipmentWeapon(), getEquipmentArmor()), getEquipmentWeapon().isMagic(), getEquipmentWeapon().isMelee(), getEquipmentWeapon().giveEffectsForAttacker(rand.nextDouble())));
+        if(isCompleted){
+            getEquipmentWeapon().giveEffectsForAttacker(rand.nextDouble()).forEach(x -> getStatus().addEffect(x));
+        }
     }
 
     @Override
