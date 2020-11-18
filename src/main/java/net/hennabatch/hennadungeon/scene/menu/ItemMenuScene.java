@@ -1,14 +1,17 @@
-package net.hennabatch.hennadungeon.scene;
+package net.hennabatch.hennadungeon.scene.menu;
 
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.item.Item;
+import net.hennabatch.hennadungeon.scene.MessageScene;
+import net.hennabatch.hennadungeon.scene.SceneResult;
+import net.hennabatch.hennadungeon.scene.Screen;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ItemMenuScene extends TwoColumnMenuScene{
+public class ItemMenuScene extends TwoColumnMenuScene {
 
     private Dungeon dungeon;
 

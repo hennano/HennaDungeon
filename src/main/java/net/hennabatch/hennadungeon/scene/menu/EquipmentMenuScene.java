@@ -1,23 +1,22 @@
-package net.hennabatch.hennadungeon.scene;
+package net.hennabatch.hennadungeon.scene.menu;
 
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.effect.BuffEffect;
 import net.hennabatch.hennadungeon.effect.StatusEffect;
 import net.hennabatch.hennadungeon.effect.TurnEffect;
 import net.hennabatch.hennadungeon.entity.PlayerEntity;
-import net.hennabatch.hennadungeon.entity.Status;
 import net.hennabatch.hennadungeon.item.ArmorItem;
 import net.hennabatch.hennadungeon.item.EquipmentItem;
-import net.hennabatch.hennadungeon.item.Item;
 import net.hennabatch.hennadungeon.item.WeaponItem;
+import net.hennabatch.hennadungeon.scene.SceneResult;
+import net.hennabatch.hennadungeon.scene.Screen;
 import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
-import java.sql.Ref;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class EquipmentMenuScene extends TwoColumnMenuScene{
+public class EquipmentMenuScene extends TwoColumnMenuScene {
 
     private Dungeon dungeon;
     private Map<Integer, EquipmentItem> equipmentItems = new LinkedHashMap<>();

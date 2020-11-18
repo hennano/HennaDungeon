@@ -7,6 +7,7 @@ import net.hennabatch.hennadungeon.entity.CollidableEntity;
 import net.hennabatch.hennadungeon.entity.Entity;
 import net.hennabatch.hennadungeon.scene.event.Event;
 import net.hennabatch.hennadungeon.scene.event.RootEvent;
+import net.hennabatch.hennadungeon.scene.menu.MainMenuScene;
 import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.Vec2d;

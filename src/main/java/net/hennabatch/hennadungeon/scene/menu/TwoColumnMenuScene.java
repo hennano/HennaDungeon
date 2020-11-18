@@ -1,13 +1,16 @@
-package net.hennabatch.hennadungeon.scene;
+package net.hennabatch.hennadungeon.scene.menu;
 
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
+import net.hennabatch.hennadungeon.scene.Scene;
+import net.hennabatch.hennadungeon.scene.SceneResult;
+import net.hennabatch.hennadungeon.scene.Screen;
 import net.hennabatch.hennadungeon.util.Reference;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class TwoColumnMenuScene extends Scene{
+public abstract class TwoColumnMenuScene extends Scene {
 
     private int pointer = 0;
     private int selectUpper = 0;
