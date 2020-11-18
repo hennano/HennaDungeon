@@ -30,6 +30,8 @@ public class Reference {
     public static final String DUNGEON_SPACE = SCREEN_EMPTY;
     public static final String DUNGEON_WALL = "■";
 
+    public static final String WEAPON_RANGE = "※";
+
     //state
     public static final int MAX_MDEFEND = 80;
     public static final int MAX_EVASION = 80;
