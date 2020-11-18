@@ -71,6 +71,9 @@ public class MainMenuScene extends TwoColumnMenuScene{
         screen.setRow(1, 5, "DEF:" + dungeon.getPlayer().getStatus().getTrueDEF(), false, false);
         screen.setRow(1, 6, "MDEF:" + dungeon.getPlayer().getStatus().getTrueMDEF(), false, false);
         screen.setRow(1, 7, "EVA:" + dungeon.getPlayer().getStatus().getTrueEVA(), false, false);
+        screen.setRow(0, 9, "装備", false, false);
+        screen.setRow(1, 10, "武器:" + (dungeon.getPlayer().getEquipmentWeaponIndex() != -1 ? dungeon.getPlayer().getEquipmentWeapon().name() : "なし"), false,false);
+        screen.setRow(1, 11, "防具:" + (dungeon.getPlayer().getEquipmentArmorIndex() != -1 ? dungeon.getPlayer().getEquipmentArmor().name() : "なし"), false,false);
         return screen;
     }
 
