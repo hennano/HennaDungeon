@@ -39,7 +39,8 @@ public class MainMenuScene extends TwoColumnMenuScene {
     protected SceneResult onSelected(int pointer) {
         switch (MainMenuSceneResult.byPointer(pointer)){
             case STATUS:
-                createChildScene(new StatusScene());
+                createChildScene(new StatusScene(dungeon.getPlayer()));
+                break;
             case ITEM:
                 createChildScene(new ItemMenuScene(dungeon));
                 break;
