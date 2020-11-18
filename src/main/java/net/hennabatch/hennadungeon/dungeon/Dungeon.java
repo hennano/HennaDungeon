@@ -6,6 +6,7 @@ import net.hennabatch.hennadungeon.entity.PlayerEntity;
 import net.hennabatch.hennadungeon.scene.GameScene;
 import net.hennabatch.hennadungeon.scene.event.Event;
 import net.hennabatch.hennadungeon.util.EnumDifficulty;
+import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.IVec;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
@@ -53,6 +54,7 @@ public class Dungeon {
 
     public void spawnEntity(Entity entity){
         this.entities.add(entity);
+        Reference.logger.debug(entity.name() + " spawn at" + new Vec2d(entity).toString());
     }
 
     public PlayerEntity getPlayer(){

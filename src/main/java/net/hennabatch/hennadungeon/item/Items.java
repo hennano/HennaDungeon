@@ -7,6 +7,8 @@ public class Items {
 
     public static final Item HEAL_POTION = new HealPotionItem();
 
+    public static final Item SWORD = new SwordItem();
+
     private static final Items singleton = new Items();
 
     private final List<Item> items = new ArrayList<>();
@@ -25,5 +27,6 @@ public class Items {
 
     public void registerItems(){
         registerItem(HEAL_POTION);
+        registerItem(SWORD);
     }
 }

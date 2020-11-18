@@ -12,8 +12,8 @@ import java.util.Random;
 
 public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInventory, IAttackable, IPickable{
 
-    private WeaponItem equipmentWeapon;
-    private ArmorItem equipmentArmor;
+    private int equipmentWeaponIndex = -1;
+    private int equipmentArmorIndex = -1;
     private final Inventory inventory = new Inventory(50);
 
     public PlayerEntity(Vec2d pos, Dungeon dungeon) {
@@ -32,20 +32,38 @@ public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInve
 
     @Override
     public WeaponItem getEquipmentWeapon() {
-        return equipmentWeapon;
+        if(equipmentWeaponIndex >= 0){
+            if(inventory.getItems().get(equipmentWeaponIndex) instanceof WeaponItem){
+                return (WeaponItem)inventory.getItems().get(equipmentWeaponIndex);
+            }
+        }
+        return null;
     }
 
-    public void setEquipmentWeapon(WeaponItem weapon) {
-        this.equipmentWeapon = weapon;
+    public int getEquipmentWeaponIndex(){
+        return equipmentWeaponIndex;
+    }
+
+    public void setEquipmentWeapon(int index) {
+        this.equipmentWeaponIndex = index;
     }
 
     @Override
     public ArmorItem getEquipmentArmor() {
-        return equipmentArmor;
+        if(equipmentArmorIndex >= 0){
+            if(inventory.getItems().get(equipmentArmorIndex) instanceof ArmorItem){
+                return (ArmorItem)inventory.getItems().get(equipmentArmorIndex);
+            }
+        }
+        return null;
     }
 
-    public void setEquipmentArmor(ArmorItem equipmentArmor) {
-        this.equipmentArmor = equipmentArmor;
+    public int getEquipmentArmorIndex() {
+        return equipmentArmorIndex;
+    }
+
+    public void setEquipmentArmor(int index) {
+        this.equipmentArmorIndex = index;
     }
 
 

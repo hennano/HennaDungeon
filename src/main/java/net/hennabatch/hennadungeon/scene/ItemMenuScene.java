@@ -23,10 +23,9 @@ public class ItemMenuScene extends TwoColumnMenuScene{
 
     @Override
     protected List<String> getOptions() {
-        if(dungeon.getPlayer().getInventory().getItems().size() > 0){
-            return dungeon.getPlayer().getInventory().getItems().stream().map(x -> x.name()).collect(Collectors.toList());
-        }
-        return new ArrayList<>(Arrays.asList("戻る"));
+        List<String> options = dungeon.getPlayer().getInventory().getItems().stream().map(x -> x.name()).collect(Collectors.toList());
+        options.add("戻る");
+        return options;
     }
 
     @Override
@@ -36,7 +35,7 @@ public class ItemMenuScene extends TwoColumnMenuScene{
 
     @Override
     protected SceneResult onSelected(int pointer) {
-        if(dungeon.getPlayer().getInventory().getItems().size() <= 0)  return new SceneResult(false, null);
+        if(pointer == getOptions().size() - 1) return new SceneResult(false, null);
         Item item = dungeon.getPlayer().getInventory().getItems().get(pointer);
         if(item.canUse(dungeon.getPlayer())){
             item.onUse(dungeon.getPlayer());
@@ -50,7 +49,7 @@ public class ItemMenuScene extends TwoColumnMenuScene{
 
     @Override
     protected Screen drawRightContent(Screen screen, int pointer) {
-        if(dungeon.getPlayer().getInventory().getItems().size() > 0){
+        if(pointer != getOptions().size() - 1){
             screen.setRow(0, 0, dungeon.getPlayer().getInventory().getItems().get(pointer).description(), true, false);
         }
         return screen;

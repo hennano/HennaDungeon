@@ -40,6 +40,7 @@ public class MainMenuScene extends TwoColumnMenuScene{
                 createChildScene(new ItemMenuScene(dungeon));
                 break;
             case EQUIP:
+                createChildScene(new EquipmentMenuScene(dungeon));
                 break;
             case BACK:
                 return new SceneResult(false, null);

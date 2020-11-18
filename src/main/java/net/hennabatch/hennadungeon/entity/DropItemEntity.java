@@ -37,6 +37,6 @@ public class DropItemEntity extends Entity{
 
     @Override
     public String name() {
-        return item.name();
+        return "ドロップアイテム[" + item.name() + "]";
     }
 }
