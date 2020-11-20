@@ -4,6 +4,7 @@ public class Config {
 
     private final EnumRunMode runMode = EnumRunMode.DEBUG;
     private final KeyConfig keyConfig = new KeyConfig().setDefault();
+    public final boolean enabledToggleAttack = false;
 
     public static Config loadConfig(String jsonPath){
         /*

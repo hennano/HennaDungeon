@@ -4,6 +4,7 @@ import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.effect.BleedingEffect;
 import net.hennabatch.hennadungeon.item.ArmorItem;
 import net.hennabatch.hennadungeon.item.Item;
+import net.hennabatch.hennadungeon.item.Items;
 import net.hennabatch.hennadungeon.item.WeaponItem;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.Vec2d;
@@ -37,7 +38,7 @@ public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInve
                 return (WeaponItem)inventory.getItems().get(equipmentWeaponIndex);
             }
         }
-        return null;
+        return (WeaponItem) Items.HAND;
     }
 
     public int getEquipmentWeaponIndex(){

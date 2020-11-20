@@ -3,6 +3,7 @@ package net.hennabatch.hennadungeon.dungeon;
 import net.hennabatch.hennadungeon.dungeon.floor.Floor;
 import net.hennabatch.hennadungeon.entity.Entity;
 import net.hennabatch.hennadungeon.entity.PlayerEntity;
+import net.hennabatch.hennadungeon.mission.Mission;
 import net.hennabatch.hennadungeon.scene.GameScene;
 import net.hennabatch.hennadungeon.scene.event.Event;
 import net.hennabatch.hennadungeon.util.EnumDifficulty;
@@ -11,6 +12,7 @@ import net.hennabatch.hennadungeon.vec.IVec;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,11 +22,13 @@ public class Dungeon {
     private final List<Entity> entities = new ArrayList<>();
     private final GameScene scene;
     private final EnumDifficulty difficulty;
+    private final List<Mission> missions;
 
-    Dungeon(GameScene scene, IVec size, List<Floor> floors, EnumDifficulty difficulty){
+    Dungeon(GameScene scene, List<Floor> floors, EnumDifficulty difficulty, Mission... missions){
         this.floors = floors;
         this.scene = scene;
         this.difficulty = difficulty;
+        this.missions = new ArrayList<>(Arrays.asList(missions));
     }
 
     public List<Floor> getFloors() {

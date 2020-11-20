@@ -3,6 +3,7 @@ package net.hennabatch.hennadungeon.scene.menu;
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.entity.PlayerEntity;
 import net.hennabatch.hennadungeon.item.ArmorItem;
+import net.hennabatch.hennadungeon.item.Items;
 import net.hennabatch.hennadungeon.item.WeaponItem;
 import net.hennabatch.hennadungeon.scene.*;
 import net.hennabatch.hennadungeon.scene.event.RootEvent;
@@ -80,7 +81,7 @@ public class MainMenuScene extends TwoColumnMenuScene {
         screen.setRow(1, 6, "MDEF:" + dungeon.getPlayer().getStatus().getMDEF(equipWeapon, equipArmor), false, false);
         screen.setRow(1, 7, "EVA:" + dungeon.getPlayer().getStatus().getEVA(equipWeapon, equipArmor), false, false);
         screen.setRow(0, 9, "装備", false, false);
-        screen.setRow(1, 10, "武器:" + (equipWeapon != null ? dungeon.getPlayer().getEquipmentWeapon().name() : "なし"), false,false);
+        screen.setRow(1, 10, "武器:" + (!equipWeapon.equals(Items.HAND) ? dungeon.getPlayer().getEquipmentWeapon().name() : "なし"), false,false);
         screen.setRow(1, 11, "防具:" + (equipArmor != null ? dungeon.getPlayer().getEquipmentArmor().name() : "なし"), false,false);
         return screen;
     }

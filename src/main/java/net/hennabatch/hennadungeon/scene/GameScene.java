@@ -3,6 +3,7 @@ package net.hennabatch.hennadungeon.scene;
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.dungeon.DungeonBuilder;
+import net.hennabatch.hennadungeon.dungeon.MonoRoomDungeonBuilder;
 import net.hennabatch.hennadungeon.entity.CollidableEntity;
 import net.hennabatch.hennadungeon.entity.Entity;
 import net.hennabatch.hennadungeon.scene.event.Event;
@@ -17,26 +18,52 @@ import java.util.List;
 public class GameScene extends Scene{
 
     private Dungeon dungeon;
+    private boolean readyToAttack = false;
 
     @Override
     protected void initializeScene() {
+        /*
         DungeonBuilder builder = new DungeonBuilder();
+        dungeon = builder.build(this);
+         */
+        DungeonBuilder builder = new MonoRoomDungeonBuilder();
         dungeon = builder.build(this);
     }
 
     @Override
      protected SceneResult run(EnumKeyInput key, SceneResult childSceneResult) {
+        boolean isNext = playerAction(key);
+        if(!isNext) return new SceneResult(true, null);
+        //近い順に敵の行動処理
+
+
+
+        return new SceneResult(true, null);
+    }
+
+    private boolean playerAction(EnumKeyInput key){
         switch (key){
             case UP:
             case DOWN:
             case LEFT:
             case RIGHT:
-                dungeon.getPlayer().move(EnumDirection.byKey(key), 1);
-                break;
+                if(readyToAttack){
+                    dungeon.getPlayer().attack(EnumDirection.byKey(key));
+                    if(!Reference.config.enabledToggleAttack){
+                        toggleReadyToAttack();
+                    }
+                }else{
+                    dungeon.getPlayer().move(EnumDirection.byKey(key), 1);
+                }
+                return true;
             case MENU:
                 createChildScene(new MainMenuScene(dungeon));
+                break;
+            case ENTER:
+                toggleReadyToAttack();
+                break;
         }
-        return new SceneResult(true, null);
+        return false;
     }
 
     @Override
@@ -51,6 +78,7 @@ public class GameScene extends Scene{
     protected Screen draw(Screen screen) {
         drawMap(screen);
         drawEntity(screen);
+        drawUI(screen);
         return screen;
     }
 
@@ -63,27 +91,35 @@ public class GameScene extends Scene{
         }
     }
 
-    public void drawEntity(Screen screen){
-        Vec2d playerPos = new Vec2d(dungeon.getPlayer());
+    private void drawEntity(Screen screen){
         for(int sx = 1; sx < screen.getWidth() - 1; sx++){
             for (int sy = 2; sy < screen.getHeight() - 2; sy++){
-                List<Entity> entities = dungeon.getEntityByIVec(new Vec2d(sx - ((screen.getWidth() - 2) / 2), sy - ((screen.getHeight() - 4) / 2)).add(playerPos));
+                List<Entity> entities = dungeon.getEntityByIVec(new Vec2d(sx - ((screen.getWidth() - 2) / 2), sy - ((screen.getHeight() - 4) / 2)).add(dungeon.getPlayer()));
                 if(entities.size() > 0){
                     Entity entity;
-                    if(entities.stream().anyMatch(x -> x instanceof CollidableEntity)){
-                        entity = entities.stream().filter(x -> x instanceof CollidableEntity)
+                    if(entities.stream().filter(x -> !x.isHidden()).anyMatch(x -> x instanceof CollidableEntity)){
+                        entity = entities.stream().filter(x -> !x.isHidden()).filter(x -> x instanceof CollidableEntity)
                                 .findFirst().get();
                     }else{
-                        entity = entities.stream().findFirst().get();
+                        entity = entities.stream().filter(x -> !x.isHidden()).findFirst().get();
                     }
                     screen.setPos(sx, sy, entity.getIcon());
                 }
             }
         }
-        screen.setPos(screen.getWidth() / 2 - 1, screen.getHeight() / 2 - 2, dungeon.getPlayer().getIcon());
+    }
+
+    private void drawUI(Screen screen){
+        screen.setRow(1,0, "HP", false, false);
+        screen.drawGauge(2, 0, screen.getWidth() - 4, dungeon.getPlayer().getCurrentHP(), dungeon.getPlayer().getMaxHP(), "※", Reference.SCREEN_EMPTY, true);
+    if(readyToAttack) screen.setRow(1, screen.getHeight() - 1, "攻撃準備状態", false, false);
     }
 
     public void executeEvent(Event event){
         createChildScene(event);
+    }
+
+    private void toggleReadyToAttack(){
+        readyToAttack = !readyToAttack;
     }
 }

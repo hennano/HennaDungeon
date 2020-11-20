@@ -114,7 +114,7 @@ public class DungeonBuilder {
         Reference.logger.debug("Exit path calculating...");
         setExitPath(sections.stream().map(x -> x.room).filter(x -> x instanceof ExitRoom).findFirst().get());
 
-        Dungeon dungeon = new Dungeon(scene, new Vec2d(width, height), Stream.concat(sections.stream().map(x -> x.room), mainPassages.stream()).collect(Collectors.toList()), difficulty);
+        Dungeon dungeon = new Dungeon(scene, Stream.concat(sections.stream().map(x -> x.room), mainPassages.stream()).collect(Collectors.toList()), difficulty);
         Room startRoom =  sections.stream().filter(x -> x.room instanceof StartRoom)
                 .map(x -> x.room)
                 .findFirst().get();
@@ -243,7 +243,7 @@ public class DungeonBuilder {
         }
     }
 
-    private class Section{
+    protected class Section{
         Vec2d upperLeft;
         Vec2d lowerRight;
 
@@ -317,10 +317,14 @@ public class DungeonBuilder {
             int lRyBound = this.size().getY() - 3 - minRoomHeightBySection - uLy;
             int lRx = ( lRxBound > 0 ? rand.nextInt(lRxBound) : 0 ) + uLx + minRoomWidthBySection - 1;
             int lRy = ( lRyBound > 0 ? rand.nextInt(lRyBound) : 0 ) + uLy + minRoomHeightBySection - 1;
+            generateRoom(clazz, new Vec2d(uLx, uLy), new Vec2d(lRx, lRy));
+        }
+
+        void generateRoom(Class<? extends Room> clazz, Vec2d upperLeft, Vec2d lowerRight){
             Constructor constructor;
             try{
                 constructor = clazz.getConstructor(Vec2d.class, Vec2d.class);
-                this.room = (Room)constructor.newInstance(new Vec2d(uLx, uLy), new Vec2d(lRx, lRy));
+                this.room = (Room)constructor.newInstance(upperLeft, lowerRight);
             } catch (ReflectiveOperationException e){
                 Reference.logger.error(e.getMessage(), e);
             }
