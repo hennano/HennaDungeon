@@ -4,10 +4,10 @@ import net.hennabatch.hennadungeon.entity.Entity;
 
 public abstract class AiBase <T extends Entity>{
 
-    protected T entity;
+    protected T owner;
 
-    public AiBase(T entity){
-        this.entity = entity;
+    public AiBase(T owner){
+        this.owner = owner;
     }
 
     protected abstract boolean shouldExecute();

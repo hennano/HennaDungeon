@@ -13,6 +13,7 @@ import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class GameScene extends Scene{
@@ -35,9 +36,7 @@ public class GameScene extends Scene{
         boolean isNext = playerAction(key);
         if(!isNext) return new SceneResult(true, null);
         //近い順に敵の行動処理
-
-
-
+        dungeon.getEntities().stream().sorted(Comparator.comparing(x -> new Vec2d(dungeon.getPlayer()).distance(x))).forEach(x -> x.update());
         return new SceneResult(true, null);
     }
 

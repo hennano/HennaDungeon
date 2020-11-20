@@ -3,6 +3,8 @@ package net.hennabatch.hennadungeon.entity;
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.effect.Effect;
 import net.hennabatch.hennadungeon.item.ArmorItem;
+import net.hennabatch.hennadungeon.item.Item;
+import net.hennabatch.hennadungeon.item.Items;
 import net.hennabatch.hennadungeon.item.WeaponItem;
 import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
@@ -29,7 +31,7 @@ public abstract class BreakableEntity extends CollidableEntity{
 
     public boolean onAttacked(Entity attackedEntity, int atk, boolean isMagic, boolean isMelee, List<Effect> additionalEffects){
         Random rand = new Random();
-        if(rand.nextDouble() * 100 < getStatus().getEVA(getEquipmentWeapon(), getEquipmentArmor())) return false;
+        //if (rand.nextDouble() * 100 < getStatus().getEVA(getEquipmentWeapon(), getEquipmentArmor())) return false;
         subHP(this.getStatus().calcDamage(atk, getEquipmentWeapon(), getEquipmentArmor(), isMagic));
         additionalEffects.stream().forEach(x -> getStatus().addEffect(x));
         return true;
@@ -58,8 +60,8 @@ public abstract class BreakableEntity extends CollidableEntity{
     }
 
     public void subHP(int hp){
-        setCurrentHP(Math.min(getCurrentHP() - hp, 0));
+        setCurrentHP(Math.max(getCurrentHP() - hp, 0));
         Reference.logger.info(this.name() + "は" + hp + "ダメージ受けた");
-        if(getCurrentHP() == 0) this.destroy();
+        if(getCurrentHP() <= 0) this.destroy();
     }
 }

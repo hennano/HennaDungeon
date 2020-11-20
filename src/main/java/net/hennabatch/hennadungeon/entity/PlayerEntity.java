@@ -9,13 +9,16 @@ import net.hennabatch.hennadungeon.item.WeaponItem;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInventory, IAttackable, IPickable{
 
     private int equipmentWeaponIndex = -1;
     private int equipmentArmorIndex = -1;
     private final Inventory inventory = new Inventory(50);
+    private Status status = new Status(50, 20, 0, 5);
 
     public PlayerEntity(Vec2d pos, Dungeon dungeon) {
         super(pos, dungeon);
@@ -23,12 +26,12 @@ public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInve
 
     @Override
     public Status getStatus() {
-        return new Status(50, 10, 0, 5);
+        return status;
     }
 
     @Override
     public int getMaxHP() {
-        return 1000;
+        return 500;
     }
 
     @Override
@@ -70,11 +73,12 @@ public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInve
 
     public void attack(EnumDirection direction) {
         Random rand = new Random();
-        boolean isCompleted = getDungeon().getEntities().stream()
+        List<BreakableEntity> targetEntities = getDungeon().getEntities().stream()
                 .filter(x -> x instanceof BreakableEntity)
                 .filter(x -> getEquipmentWeapon().isInnerRange(this, x, direction))
-                .map(x -> (BreakableEntity)x)
-                .anyMatch(x -> x.onAttacked(this, getStatus().getATK(getEquipmentWeapon(), getEquipmentArmor()), getEquipmentWeapon().isMagic(), getEquipmentWeapon().isMelee(), getEquipmentWeapon().giveEffectsForAttacker(rand.nextDouble())));
+                .map(x -> (BreakableEntity)x).collect(Collectors.toList());
+        boolean isCompleted = targetEntities.stream()
+                .anyMatch(x -> x.onAttacked(this, getStatus().getATK(getEquipmentWeapon(), getEquipmentArmor()), getEquipmentWeapon().isMagic(), getEquipmentWeapon().isMelee(), getEquipmentWeapon().giveEffectsForAttacked(rand.nextDouble())));
         if(isCompleted){
             getEquipmentWeapon().giveEffectsForAttacker(rand.nextDouble()).forEach(x -> getStatus().addEffect(x));
         }
@@ -84,7 +88,7 @@ public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInve
     public void update() { }
 
     @Override
-    protected void initilaize() {
+    public void initilaize() {
         getStatus().addEffect(new BleedingEffect(-1, getDungeon().getDifficulty()));
     }
 

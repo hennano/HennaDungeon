@@ -58,6 +58,7 @@ public class Dungeon {
 
     public void spawnEntity(Entity entity){
         this.entities.add(entity);
+        entity.initilaize();
         Reference.logger.debug(entity.name() + " spawn at" + new Vec2d(entity).toString());
     }
 

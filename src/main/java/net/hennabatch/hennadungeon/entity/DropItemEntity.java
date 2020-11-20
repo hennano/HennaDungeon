@@ -18,7 +18,7 @@ public class DropItemEntity extends Entity{
     public void update() { }
 
     @Override
-    protected void initilaize() { }
+    public void initilaize() { }
 
     @Override
     protected void onTrigger(Entity triggeredEntity) {

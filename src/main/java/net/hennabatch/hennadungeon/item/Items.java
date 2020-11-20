@@ -9,6 +9,7 @@ public class Items {
     public static final Item HEAL_POTION = new HealPotionItem();
 
     public static final Item HAND = new HandWeaponItem();
+    public static final Item SKIN = new SkinArmorItem();
     public static final Item SWORD = new SwordItem();
 
     private static final Items singleton = new Items();
@@ -30,6 +31,5 @@ public class Items {
     public void registerItems(){
         registerItem(HEAL_POTION);
         registerItem(SWORD);
-        registerItem(HAND);
     }
 }

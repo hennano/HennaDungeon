@@ -16,7 +16,7 @@ public class EventTriggerEntity extends Entity{
     }
 
     @Override
-    protected void initilaize() {
+    public void initilaize() {
 
     }
 

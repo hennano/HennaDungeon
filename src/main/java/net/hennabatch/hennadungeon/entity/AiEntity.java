@@ -15,7 +15,7 @@ public abstract class AiEntity extends BreakableEntity {
     public abstract void initilaizeAi();
 
     @Override
-    protected void initilaize() {
+    public void initilaize() {
         initilaizeAi();
     }
 

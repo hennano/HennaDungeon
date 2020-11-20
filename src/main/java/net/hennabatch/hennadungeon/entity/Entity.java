@@ -54,7 +54,7 @@ public abstract class Entity implements IVec {
 
     protected void onDestroy(){}
 
-    protected abstract void initilaize();
+    public abstract void initilaize();
 
     public abstract String getIcon();
 

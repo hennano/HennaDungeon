@@ -1,10 +1,7 @@
 package net.hennabatch.hennadungeon.vec;
 
-import javax.crypto.spec.IvParameterSpec;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Vec2d implements IVec, Cloneable{
 
@@ -71,7 +68,7 @@ public class Vec2d implements IVec, Cloneable{
     }
 
     public Vec2d rotate(EnumDirection direction){
-        return new Vec2d(direction.cos() * getX() - direction.sin()*getX(), direction.sin() * getY() + direction.cos() * getY());
+        return new Vec2d(direction.cos() * getX() - direction.sin() * getY(), direction.sin() * getX() + direction.cos() * getY());
     }
 
     public Vec2d rotate(EnumDirection from, EnumDirection to){
@@ -90,6 +87,10 @@ public class Vec2d implements IVec, Cloneable{
             return this.getX() == vec.getX() && this.getY() == vec.getY();
         }
         return false;
+    }
+
+    public Vec2d abs(){
+        return new Vec2d(Math.abs(this.getX()), Math.abs(this.getY()));
     }
 
     public static <T extends IVec> T max(T... vecs){

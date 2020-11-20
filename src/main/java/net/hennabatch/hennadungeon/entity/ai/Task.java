@@ -28,7 +28,7 @@ public class Task {
         tasks.stream().sorted(Comparator.comparing(AiTask::getPriority).reversed()).forEach( x -> {
             if(x.getAi().shouldExecute() && !alreadyExecuted[0]){
                 alreadyExecuted[0] = true;
-                runningTask.getAi().resetTask();
+                if(runningTask != null) runningTask.getAi().resetTask();
                 runningTask = x;
                 runningTask.getAi().startExecuteing();
                 runningTask.getAi().updateTask();

@@ -3,6 +3,7 @@ package net.hennabatch.hennadungeon.dungeon;
 import net.hennabatch.hennadungeon.dungeon.floor.Floor;
 import net.hennabatch.hennadungeon.dungeon.floor.Room;
 import net.hennabatch.hennadungeon.entity.DropItemEntity;
+import net.hennabatch.hennadungeon.entity.GoblinEntity;
 import net.hennabatch.hennadungeon.entity.PlayerEntity;
 import net.hennabatch.hennadungeon.item.Items;
 import net.hennabatch.hennadungeon.scene.GameScene;
@@ -22,6 +23,7 @@ public class MonoRoomDungeonBuilder extends DungeonBuilder {
         dungeon.spawnEntity(new PlayerEntity(section.room.size().div(2).add(section.room.getUpperLeft()), dungeon));
         dungeon.spawnEntity(new DropItemEntity(section.room.size().div(2).add(section.room.getUpperLeft()).sub(1), dungeon, Items.HEAL_POTION));
         dungeon.spawnEntity(new DropItemEntity(section.room.size().div(2).add(section.room.getUpperLeft()).sub(-1), dungeon, Items.SWORD));
+        dungeon.spawnEntity(new GoblinEntity(section.room.size().div(2).add(section.room.getUpperLeft()).sub(-2), dungeon));
         return dungeon;
     }
 }
