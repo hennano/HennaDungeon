@@ -4,7 +4,7 @@ import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.effect.BuffEffect;
 import net.hennabatch.hennadungeon.effect.StatusEffect;
 import net.hennabatch.hennadungeon.effect.TurnEffect;
-import net.hennabatch.hennadungeon.entity.PlayerEntity;
+import net.hennabatch.hennadungeon.entity.character.PlayerEntity;
 import net.hennabatch.hennadungeon.item.ArmorItem;
 import net.hennabatch.hennadungeon.item.EquipmentItem;
 import net.hennabatch.hennadungeon.item.WeaponItem;

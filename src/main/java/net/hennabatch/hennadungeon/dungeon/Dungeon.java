@@ -2,7 +2,7 @@ package net.hennabatch.hennadungeon.dungeon;
 
 import net.hennabatch.hennadungeon.dungeon.floor.Floor;
 import net.hennabatch.hennadungeon.entity.Entity;
-import net.hennabatch.hennadungeon.entity.PlayerEntity;
+import net.hennabatch.hennadungeon.entity.character.PlayerEntity;
 import net.hennabatch.hennadungeon.mission.Mission;
 import net.hennabatch.hennadungeon.scene.GameScene;
 import net.hennabatch.hennadungeon.scene.event.Event;

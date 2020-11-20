@@ -1,6 +1,8 @@
-package net.hennabatch.hennadungeon.entity;
+package net.hennabatch.hennadungeon.entity.character;
 
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
+import net.hennabatch.hennadungeon.entity.EnemyEntity;
+import net.hennabatch.hennadungeon.entity.Status;
 import net.hennabatch.hennadungeon.entity.ai.ApproachaTagetAi;
 import net.hennabatch.hennadungeon.entity.ai.AttackMeleeAi;
 import net.hennabatch.hennadungeon.entity.ai.StayAi;
@@ -9,7 +11,7 @@ import net.hennabatch.hennadungeon.item.Items;
 import net.hennabatch.hennadungeon.item.WeaponItem;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
-public class GoblinEntity extends EnemyEntity{
+public class GoblinEntity extends EnemyEntity {
 
     private Status status = new Status(50, 10, 0, 0);
 

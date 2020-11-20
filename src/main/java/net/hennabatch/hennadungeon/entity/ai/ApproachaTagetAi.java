@@ -1,6 +1,5 @@
 package net.hennabatch.hennadungeon.entity.ai;
 
-import net.hennabatch.hennadungeon.entity.EnemyEntity;
 import net.hennabatch.hennadungeon.entity.Entity;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.Vec2d;

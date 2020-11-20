@@ -1,8 +1,7 @@
 package net.hennabatch.hennadungeon.scene;
 
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
-import net.hennabatch.hennadungeon.entity.PlayerEntity;
-import net.hennabatch.hennadungeon.entity.Status;
+import net.hennabatch.hennadungeon.entity.character.PlayerEntity;
 import net.hennabatch.hennadungeon.util.Reference;
 
 import java.util.Collections;

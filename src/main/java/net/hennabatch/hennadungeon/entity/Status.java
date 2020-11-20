@@ -74,7 +74,7 @@ public class Status {
         if(weapon != null) equipEffects.addAll(weapon.getEffects());
         if(armor != null) equipEffects.addAll(armor.getEffects());
         baseMDEF = calcStateValue(baseMDEF, EnumStatus.MDEF, equipEffects);
-        return Math.max(Reference.MAX_MDEFEND, calcStateValue(baseMDEF, EnumStatus.MDEF));
+        return Math.min(Reference.MAX_MDEFEND, calcStateValue(baseMDEF, EnumStatus.MDEF));
     }
 
     public int getTrueEVA() {
@@ -87,7 +87,7 @@ public class Status {
         if(weapon != null) equipEffects.addAll(weapon.getEffects());
         if(armor != null) equipEffects.addAll(armor.getEffects());
         baseEVA = calcStateValue(baseEVA, EnumStatus.EVA, equipEffects);
-        return Math.max(Reference.MAX_EVASION, calcStateValue(baseEVA, EnumStatus.EVA));
+        return Math.min(Reference.MAX_EVASION, calcStateValue(baseEVA, EnumStatus.EVA));
     }
 
     private int calcStateValue(int baseVal, EnumStatus eumStatus){
@@ -106,6 +106,7 @@ public class Status {
                 .filter(x -> x instanceof StatusEffect)
                 .map(x -> (StatusEffect)x )
                 .filter(x -> x.getTargetStatus().equals(eumStatus))
+                .filter(x -> x.isMagnification())
                 .forEach( x -> val[0] *= x.getVal());
         return val[0];
     }
@@ -131,7 +132,7 @@ public class Status {
     }
 
     public int calcDamage(int atk, WeaponItem weapon, ArmorItem armor, boolean isMagic){
-        return isMagic ? (int)(atk * ((100 - getMDEF(weapon, armor)) / 100.0)) : atk - getDEF(weapon, armor);
+        return isMagic ? (int)(atk * ((100 - getMDEF(weapon, armor)) / 100.0)) : Math.max(atk - getDEF(weapon, armor), 0);
     }
 
     public enum EnumStatus{

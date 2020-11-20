@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class HennaDungeon {
 
-    public static void main(String[] srgs){
+    public static void main(String[] args){
 
         Reference.logger.debug("initializing game");
 

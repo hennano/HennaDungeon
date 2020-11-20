@@ -9,30 +9,30 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SwordItem extends WeaponItem{
+public class GrimoireItem extends WeaponItem{
     @Override
     public Boolean isMagic() {
-        return false;
-    }
-
-    @Override
-    public Boolean isMelee() {
         return true;
     }
 
     @Override
+    public Boolean isMelee() {
+        return false;
+    }
+
+    @Override
     public List<Vec2d> range() {
-        return new ArrayList<>(Arrays.asList(new Vec2d(1 ,0)));
+        return new ArrayList<>(Arrays.asList(new Vec2d(1, 0), new Vec2d(2,  0), new Vec2d(3, 0)));
     }
 
     @Override
     public String name() {
-        return "剣";
+        return "魔法の本";
     }
 
     @Override
     public String description() {
-        return "初心者に親しまれている剣。使いやすくて手頃な値段なのが魅力。";
+        return "魔法の使い方が書かれている本。割とありふれている";
     }
 
     @Override

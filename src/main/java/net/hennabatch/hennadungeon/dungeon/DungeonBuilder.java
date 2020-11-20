@@ -2,7 +2,7 @@ package net.hennabatch.hennadungeon.dungeon;
 
 import net.hennabatch.hennadungeon.dungeon.floor.*;
 import net.hennabatch.hennadungeon.entity.DropItemEntity;
-import net.hennabatch.hennadungeon.entity.PlayerEntity;
+import net.hennabatch.hennadungeon.entity.character.PlayerEntity;
 import net.hennabatch.hennadungeon.item.Items;
 import net.hennabatch.hennadungeon.scene.GameScene;
 import net.hennabatch.hennadungeon.util.EnumDifficulty;

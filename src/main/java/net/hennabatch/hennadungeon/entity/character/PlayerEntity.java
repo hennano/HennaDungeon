@@ -1,7 +1,8 @@
-package net.hennabatch.hennadungeon.entity;
+package net.hennabatch.hennadungeon.entity.character;
 
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.effect.BleedingEffect;
+import net.hennabatch.hennadungeon.entity.*;
 import net.hennabatch.hennadungeon.item.ArmorItem;
 import net.hennabatch.hennadungeon.item.Item;
 import net.hennabatch.hennadungeon.item.Items;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInventory, IAttackable, IPickable{
+public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInventory, IAttackable, IPickable {
 
     private int equipmentWeaponIndex = -1;
     private int equipmentArmorIndex = -1;
