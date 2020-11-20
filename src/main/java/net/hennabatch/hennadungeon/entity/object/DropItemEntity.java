@@ -1,11 +1,13 @@
-package net.hennabatch.hennadungeon.entity;
+package net.hennabatch.hennadungeon.entity.object;
 
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
+import net.hennabatch.hennadungeon.entity.Entity;
+import net.hennabatch.hennadungeon.entity.IPickable;
 import net.hennabatch.hennadungeon.item.Item;
 import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
-public class DropItemEntity extends Entity{
+public class DropItemEntity extends Entity {
 
     private final Item item;
 
@@ -32,7 +34,7 @@ public class DropItemEntity extends Entity{
 
     @Override
     public String getIcon() {
-        return "Ｉ";
+        return "＊";
     }
 
     @Override

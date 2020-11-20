@@ -34,6 +34,7 @@ public class GameScene extends Scene{
     @Override
      protected SceneResult run(EnumKeyInput key, SceneResult childSceneResult) {
         boolean isNext = playerAction(key);
+        updateMissions();
         if(!isNext) return new SceneResult(true, null);
         //近い順に敵の行動処理
         dungeon.getEntities().stream().sorted(Comparator.comparing(x -> new Vec2d(dungeon.getPlayer()).distance(x))).forEach(x -> x.update());
@@ -65,6 +66,10 @@ public class GameScene extends Scene{
         return false;
     }
 
+    private void updateMissions(){
+        dungeon.getMissions().forEach(x -> x.update());
+    }
+
     @Override
     protected SceneResult onExitChildScene(SceneResult result) {
         if(result.data() instanceof RootEvent.SceneTransition){
@@ -93,7 +98,7 @@ public class GameScene extends Scene{
     private void drawEntity(Screen screen){
         for(int sx = 1; sx < screen.getWidth() - 1; sx++){
             for (int sy = 2; sy < screen.getHeight() - 2; sy++){
-                List<Entity> entities = dungeon.getEntityByIVec(new Vec2d(sx - ((screen.getWidth() - 2) / 2), sy - ((screen.getHeight() - 4) / 2)).add(dungeon.getPlayer()));
+                List<Entity> entities = dungeon.getEntitiesByIVec(new Vec2d(sx - ((screen.getWidth() - 2) / 2), sy - ((screen.getHeight() - 4) / 2)).add(dungeon.getPlayer()));
                 if(entities.size() > 0){
                     Entity entity;
                     if(entities.stream().filter(x -> !x.isHidden()).anyMatch(x -> x instanceof CollidableEntity)){

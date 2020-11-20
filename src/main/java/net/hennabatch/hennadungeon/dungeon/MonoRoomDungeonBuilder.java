@@ -2,7 +2,7 @@ package net.hennabatch.hennadungeon.dungeon;
 
 import net.hennabatch.hennadungeon.dungeon.floor.Floor;
 import net.hennabatch.hennadungeon.dungeon.floor.Room;
-import net.hennabatch.hennadungeon.entity.DropItemEntity;
+import net.hennabatch.hennadungeon.entity.object.DropItemEntity;
 import net.hennabatch.hennadungeon.entity.character.GoblinEntity;
 import net.hennabatch.hennadungeon.entity.character.PlayerEntity;
 import net.hennabatch.hennadungeon.item.Items;

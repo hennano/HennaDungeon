@@ -4,6 +4,7 @@ import net.hennabatch.hennadungeon.dungeon.floor.Floor;
 import net.hennabatch.hennadungeon.entity.Entity;
 import net.hennabatch.hennadungeon.entity.character.PlayerEntity;
 import net.hennabatch.hennadungeon.mission.Mission;
+import net.hennabatch.hennadungeon.mission.Tag;
 import net.hennabatch.hennadungeon.scene.GameScene;
 import net.hennabatch.hennadungeon.scene.event.Event;
 import net.hennabatch.hennadungeon.util.EnumDifficulty;
@@ -29,6 +30,7 @@ public class Dungeon {
         this.scene = scene;
         this.difficulty = difficulty;
         this.missions = new ArrayList<>(Arrays.asList(missions));
+        this.missions.forEach(x -> x.initialize(this));
     }
 
     public List<Floor> getFloors() {
@@ -51,9 +53,17 @@ public class Dungeon {
         return getFloors().stream().anyMatch(x -> x.isInner(vec));
     }
 
-    public List<Entity> getEntityByIVec(IVec vec){
+    public List<Mission> getMissions() {
+        return missions;
+    }
+
+    public List<Entity> getEntitiesByIVec(IVec vec){
         Vec2d vec2d = new Vec2d(vec);
         return getEntities().stream().filter(vec2d::equals).collect(Collectors.toList());
+    }
+
+    public List<Entity> getEntitiesByTag(Tag tag){
+        return getEntities().stream().filter(x -> x.getTags().stream().anyMatch(tag::equals)).collect(Collectors.toList());
     }
 
     public void spawnEntity(Entity entity){

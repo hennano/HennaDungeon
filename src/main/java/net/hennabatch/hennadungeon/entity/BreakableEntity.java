@@ -3,8 +3,6 @@ package net.hennabatch.hennadungeon.entity;
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.effect.Effect;
 import net.hennabatch.hennadungeon.item.ArmorItem;
-import net.hennabatch.hennadungeon.item.Item;
-import net.hennabatch.hennadungeon.item.Items;
 import net.hennabatch.hennadungeon.item.WeaponItem;
 import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.EnumDirection;

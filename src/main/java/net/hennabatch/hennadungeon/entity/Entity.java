@@ -1,6 +1,7 @@
 package net.hennabatch.hennadungeon.entity;
 
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
+import net.hennabatch.hennadungeon.mission.Tag;
 import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.IVec;
@@ -15,6 +16,7 @@ public abstract class Entity implements IVec {
     private int y;
     private final Dungeon dungeon;
     private boolean isHidden = false;
+    private List<Tag> tags = new ArrayList<>();
 
     public Entity(Vec2d pos, Dungeon dungeon){
         setPos(pos);
@@ -50,6 +52,14 @@ public abstract class Entity implements IVec {
 
     public abstract void update();
 
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void addTag(Tag tag) {
+        this.tags.add(tag);
+    }
+
     protected void onTrigger(Entity triggeredEntity){}
 
     protected void onDestroy(){}
@@ -81,7 +91,7 @@ public abstract class Entity implements IVec {
             Vec2d checkPos = i.add(this);
             Reference.logger.debug(checkPos.toString() +": " + dungeon.isInner(checkPos));
             if(!dungeon.isInner(checkPos)) break;
-            List<Entity> entities = dungeon.getEntityByIVec(checkPos);
+            List<Entity> entities = dungeon.getEntitiesByIVec(checkPos);
             if(entities.stream().anyMatch(x -> x instanceof CollidableEntity)){
                 collidableEntity = (CollidableEntity) entities.stream().filter(x -> x instanceof CollidableEntity).findFirst().get();
                 break;
@@ -99,7 +109,7 @@ public abstract class Entity implements IVec {
         for(Vec2d i = direction.vec(); !direction.vec().equals(direction.vec().dot(length)); i = i.add(direction.vec())){
             Vec2d checkPos = i.add(this);
             if(!dungeon.isInner(checkPos)) break;
-            if(dungeon.getEntityByIVec(checkPos).stream().anyMatch(x -> x instanceof CollidableEntity)) break;
+            if(dungeon.getEntitiesByIVec(checkPos).stream().anyMatch(x -> x instanceof CollidableEntity)) break;
             currentPos = i;
         }
         return Math.abs(new Vec2d(currentPos).add(1).area() - 1);

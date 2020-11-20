@@ -1,6 +1,8 @@
-package net.hennabatch.hennadungeon.item;
+package net.hennabatch.hennadungeon.item.armor;
 
-public class SkinArmorItem extends ArmorItem{
+import net.hennabatch.hennadungeon.item.ArmorItem;
+
+public class SkinArmorItem extends ArmorItem {
     @Override
     public String name() {
         return "生身の体がアーマーだ！";

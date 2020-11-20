@@ -132,7 +132,7 @@ public class Status {
     }
 
     public int calcDamage(int atk, WeaponItem weapon, ArmorItem armor, boolean isMagic){
-        return isMagic ? (int)(atk * ((100 - getMDEF(weapon, armor)) / 100.0)) : Math.max(atk - getDEF(weapon, armor), 0);
+        return isMagic ? (int)(atk * ((100 - getMDEF(weapon, armor)) / 100.0)) : Math.max(atk - getDEF(weapon, armor), 1);
     }
 
     public enum EnumStatus{
