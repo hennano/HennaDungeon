@@ -37,4 +37,14 @@ public abstract class Floor {
         return connectFloors;
     }
 
+    public int exitRoomDistance(){
+        Floor current = this;
+        int cnt = 0;
+        while (current.getClass() != ExitRoom.class){
+            current = current.getPathToExit().getFloor();
+            cnt++;
+        }
+        return cnt;
+    }
+
 }

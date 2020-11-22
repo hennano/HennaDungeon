@@ -5,7 +5,10 @@ import net.hennabatch.hennadungeon.entity.character.PlayerEntity;
 import net.hennabatch.hennadungeon.item.ArmorItem;
 import net.hennabatch.hennadungeon.item.Items;
 import net.hennabatch.hennadungeon.item.WeaponItem;
-import net.hennabatch.hennadungeon.scene.*;
+import net.hennabatch.hennadungeon.scene.SceneResult;
+import net.hennabatch.hennadungeon.scene.Screen;
+import net.hennabatch.hennadungeon.scene.StatusScene;
+import net.hennabatch.hennadungeon.scene.YNMessageScene;
 import net.hennabatch.hennadungeon.scene.event.RootEvent;
 import net.hennabatch.hennadungeon.util.Reference;
 

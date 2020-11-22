@@ -3,7 +3,9 @@ package net.hennabatch.hennadungeon.scene;
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
 import net.hennabatch.hennadungeon.util.Reference;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.List;
 
 public class MessageScene extends Scene{
 

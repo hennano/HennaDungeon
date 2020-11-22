@@ -5,7 +5,6 @@ import net.hennabatch.hennadungeon.item.WeaponItem;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
-import java.lang.ref.WeakReference;
 import java.util.Random;
 
 public abstract class EnemyEntity extends AiEntity implements IAttackable{

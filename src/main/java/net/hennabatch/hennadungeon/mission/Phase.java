@@ -10,8 +10,11 @@ public abstract class Phase {
         this.dungeon = dungeon;
     }
 
-    public abstract boolean doNext();
+    public abstract boolean shouldExecute();
 
-    public void finalizePhase(){
+    public abstract void execute();
+
+    protected Dungeon getDungeon(){
+        return dungeon;
     }
 }

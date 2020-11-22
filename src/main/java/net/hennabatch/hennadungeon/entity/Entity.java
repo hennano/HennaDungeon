@@ -71,6 +71,7 @@ public abstract class Entity implements IVec {
     public void destroy() {
         onDestroy();
         getDungeon().getEntities().removeIf(x -> x.equals(this));
+        Reference.logger.debug(this.name() +" destroy");
     }
 
     public abstract String name();

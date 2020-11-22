@@ -13,7 +13,6 @@ import net.hennabatch.hennadungeon.vec.IVec;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,14 +22,12 @@ public class Dungeon {
     private final List<Entity> entities = new ArrayList<>();
     private final GameScene scene;
     private final EnumDifficulty difficulty;
-    private final List<Mission> missions;
+    private final List<Mission> missions = new ArrayList<>();
 
-    Dungeon(GameScene scene, List<Floor> floors, EnumDifficulty difficulty, Mission... missions){
+    Dungeon(GameScene scene, List<Floor> floors, EnumDifficulty difficulty){
         this.floors = floors;
         this.scene = scene;
         this.difficulty = difficulty;
-        this.missions = new ArrayList<>(Arrays.asList(missions));
-        this.missions.forEach(x -> x.initialize(this));
     }
 
     public List<Floor> getFloors() {
@@ -76,5 +73,10 @@ public class Dungeon {
         return this.entities.stream().filter(x -> x instanceof PlayerEntity)
                 .map(x -> (PlayerEntity)x)
                 .findFirst().get();
+    }
+
+    public void addMission(Mission mission){
+        missions.add(mission);
+        mission.initialize(this);
     }
 }

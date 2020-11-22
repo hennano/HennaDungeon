@@ -43,7 +43,7 @@ public class GolemEntity extends EnemyEntity {
 
     @Override
     public String getIcon() {
-        return "ゴ";
+        return "Gl";
     }
 
     @Override

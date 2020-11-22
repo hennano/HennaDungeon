@@ -43,7 +43,7 @@ public class SlimeEntity extends EnemyEntity {
 
     @Override
     public String getIcon() {
-        return "ｓ";
+        return "Sl";
     }
 
     @Override

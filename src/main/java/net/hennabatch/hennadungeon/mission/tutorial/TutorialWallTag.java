@@ -1,4 +1,6 @@
 package net.hennabatch.hennadungeon.mission.tutorial;
 
-public class TutorialWallTag {
+import net.hennabatch.hennadungeon.mission.Tag;
+
+public class TutorialWallTag extends Tag {
 }

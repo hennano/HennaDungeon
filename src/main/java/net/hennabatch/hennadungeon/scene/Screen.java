@@ -3,7 +3,6 @@ package net.hennabatch.hennadungeon.scene;
 import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
-import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;

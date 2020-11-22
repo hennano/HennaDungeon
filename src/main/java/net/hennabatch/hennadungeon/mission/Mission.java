@@ -31,15 +31,19 @@ public abstract class Mission {
         }
     }
 
+
     public void update(){
-        if(getCurrentPhase().doNext()){
-            getCurrentPhase().finalizePhase();
+        if(isComplete()) return;
+
+        if(getCurrentPhase().shouldExecute()) {
+            Reference.logger.debug(this.getClass().getSimpleName() +" is phase" + currentPhase);
+            getCurrentPhase().execute();
             currentPhase++;
-            getCurrentPhase().initialize(dungeon);
+            if(!isComplete()) getCurrentPhase().initialize(dungeon);
         }
     }
 
     public boolean isComplete(){
-        return getCurrentPhase() != null;
+        return getCurrentPhase() == null;
     }
 }
