@@ -2,12 +2,15 @@ package net.hennabatch.hennadungeon.entity;
 
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.effect.Effect;
+import net.hennabatch.hennadungeon.entity.object.DropItemEntity;
 import net.hennabatch.hennadungeon.item.ArmorItem;
+import net.hennabatch.hennadungeon.item.Item;
 import net.hennabatch.hennadungeon.item.WeaponItem;
 import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
+import java.sql.Ref;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -29,7 +32,10 @@ public abstract class BreakableEntity extends CollidableEntity{
 
     public boolean onAttacked(Entity attackedEntity, int atk, boolean isMagic, boolean isMelee, List<Effect> additionalEffects){
         Random rand = new Random();
-        //if (rand.nextDouble() * 100 < getStatus().getEVA(getEquipmentWeapon(), getEquipmentArmor())) return false;
+        if (rand.nextDouble() * 100 < getStatus().getEVA(getEquipmentWeapon(), getEquipmentArmor())){
+            Reference.logger.info(this.name() + "は回避した");
+            return false;
+        }
         subHP(this.getStatus().calcDamage(atk, getEquipmentWeapon(), getEquipmentArmor(), isMagic));
         additionalEffects.stream().forEach(x -> getStatus().addEffect(x));
         return true;
@@ -68,5 +74,21 @@ public abstract class BreakableEntity extends CollidableEntity{
         setCurrentHP(Math.max(getCurrentHP() - hp, 0));
         Reference.logger.info(this.name() + "は" + hp + "ダメージ受けた");
         if(getCurrentHP() <= 0) this.destroy();
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        if(getDropItemTable() != null){
+            Item item = getDropItemTable().getDropItem();
+            if(item != null){
+                getDungeon().spawnEntity(new DropItemEntity(new Vec2d(this), getDungeon(), item));
+                Reference.logger.info(item.name() + "を落とした");
+            }
+        }
+    }
+
+    public DropItemTable getDropItemTable(){
+        return null;
     }
 }

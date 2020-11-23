@@ -120,7 +120,6 @@ public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInve
     }
 
     public boolean canUseSkill(){
-        Reference.logger.debug(useSkillTurn + " " + Reference.PLAYER_SKILL_COOLTIME +"<"+ getTurn());
         return useSkillTurn + Reference.PLAYER_SKILL_COOLTIME < getTurn();
     }
 }

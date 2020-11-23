@@ -1,6 +1,7 @@
 package net.hennabatch.hennadungeon.item;
 
 import net.hennabatch.hennadungeon.effect.Effect;
+import net.hennabatch.hennadungeon.entity.DropItemTable;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.IVec;
 import net.hennabatch.hennadungeon.vec.Vec2d;
