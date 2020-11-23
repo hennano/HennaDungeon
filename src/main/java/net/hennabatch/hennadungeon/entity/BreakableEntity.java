@@ -46,7 +46,8 @@ public abstract class BreakableEntity extends CollidableEntity{
     @Override
     public void update() {
         super.update();
-        this.getStatus().getEffects().forEach(x -> x.updateEffect(this));
+        this.getStatus().getEffects().forEach(x -> x.update(this));
+        this.getStatus().getEffects().removeIf(Effect::isDestroy);
     }
 
     public abstract int getMaxHP();

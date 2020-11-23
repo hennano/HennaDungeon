@@ -58,6 +58,14 @@ public class GameScene extends net.hennabatch.hennadungeon.scene.Scene {
             case ENTER:
                 toggleReadyToAttack();
                 break;
+            case SKILL:
+                if(dungeon.getPlayer().canUseSkill()){
+                    dungeon.getPlayer().useSkill();
+                    Reference.logger.info("スキルを使用した！");
+                    return true;
+                }else{
+                    Reference.logger.info("スキルは今は使えない");
+                }
         }
         return false;
     }

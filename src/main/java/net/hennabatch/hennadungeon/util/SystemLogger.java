@@ -46,8 +46,9 @@ public class SystemLogger {
         Screen screen = Screen.createBaseScreen(Reference.SCREEN_WIDTH * 2 + 1, Reference.SCREEN_HEIGHT);
         String splitLine = String.join("", Collections.nCopies(Reference.SCREEN_HEIGHT, "｜"));
         screen.setColumn(Reference.SCREEN_WIDTH, 0, splitLine, false, true);
+        Screen logScreen = new Screen(Reference.SCREEN_WIDTH, Reference.SCREEN_HEIGHT);
         for(int i=0; i < Math.min(logQueue.size(), Reference.SCREEN_HEIGHT); i++){
-            screen.setRow(Reference.SCREEN_WIDTH + 1, i, logQueue.get(i), false, false);
+            screen.setRow(Reference.SCREEN_WIDTH + 1, i, logQueue.get(i).replace("\n", ""), false, false);
         }
         return screen;
     }

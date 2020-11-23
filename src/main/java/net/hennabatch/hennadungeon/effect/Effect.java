@@ -5,7 +5,7 @@ import net.hennabatch.hennadungeon.entity.BreakableEntity;
 public abstract class Effect{
 
     private int durationTime;
-    private boolean isDestory = false;
+    private boolean isDestroy = false;
 
     public Effect(int durationTime){
         this.durationTime = durationTime;
@@ -15,18 +15,18 @@ public abstract class Effect{
         return durationTime;
     }
 
-    public boolean isDestory() {
-        return isDestory;
+    public boolean isDestroy() {
+        return isDestroy;
     }
 
-    public void setDestory(boolean destory) {
-        isDestory = destory;
+    public void setDestroy(boolean destroy) {
+        isDestroy = destroy;
     }
 
     public void update(BreakableEntity entity){
         updateEffect(entity);
         durationTime--;
-        if(durationTime == 0) setDestory(true);
+        if(durationTime == 0) setDestroy(true);
     }
 
     public void updateEffect(BreakableEntity entity){}

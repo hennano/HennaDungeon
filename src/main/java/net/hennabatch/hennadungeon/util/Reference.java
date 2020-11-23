@@ -26,6 +26,7 @@ public class Reference {
     public static final int DUNGEON_MIN_ROOMWIDTH = 5;
     public static final int DUNGEON_MIN_ROOMHEIGTH = 5;
     public static final double DUNGEON_CONNECT_CHANCE = 0.3;
+    public static final int PLAYER_SKILL_COOLTIME = 20;
 
     public static final String DUNGEON_SPACE = SCREEN_EMPTY;
     public static final String DUNGEON_WALL = "■";
