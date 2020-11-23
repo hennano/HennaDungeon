@@ -12,4 +12,9 @@ public class BuffEffect extends StatusEffect{
     public String name() {
         return getTargetStatus().name() +"アップ";
     }
+
+    @Override
+    public BuffEffect cloneEffect() {
+        return new BuffEffect(getDurationTime(), getTargetStatus(), getVal(), isMagnification());
+    }
 }

@@ -79,14 +79,11 @@ public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInve
                 .filter(x -> getEquipmentWeapon().isInnerRange(this, x, direction))
                 .map(x -> (BreakableEntity)x).collect(Collectors.toList());
         boolean isCompleted = targetEntities.stream()
-                .anyMatch(x -> x.onAttacked(this, getStatus().getATK(getEquipmentWeapon(), getEquipmentArmor()), getEquipmentWeapon().isMagic(), getEquipmentWeapon().isMelee(), getEquipmentWeapon().giveEffectsForAttacked(rand.nextDouble())));
+                .anyMatch(x -> x.onAttacked(this, getStatus().getATK(getEquipmentWeapon(), getEquipmentArmor()), getEquipmentWeapon().isMagic(), getEquipmentWeapon().isMelee(), getEquipmentWeapon().giveEffectsForAttacked()));
         if(isCompleted){
-            getEquipmentWeapon().giveEffectsForAttacker(rand.nextDouble()).forEach(x -> getStatus().addEffect(x));
+            getEquipmentWeapon().giveEffectsForAttacker().forEach(x -> getStatus().addEffect(x));
         }
     }
-
-    @Override
-    public void update() { }
 
     @Override
     public void initilaize() {

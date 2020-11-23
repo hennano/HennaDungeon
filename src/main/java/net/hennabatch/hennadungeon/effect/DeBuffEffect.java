@@ -12,4 +12,9 @@ public class DeBuffEffect extends StatusEffect {
     public String name() {
         return getTargetStatus().name() +"ダウン";
     }
+
+    @Override
+    public DeBuffEffect cloneEffect() {
+        return new DeBuffEffect(getDurationTime(), getTargetStatus(), getVal(), isMagnification());
+    }
 }

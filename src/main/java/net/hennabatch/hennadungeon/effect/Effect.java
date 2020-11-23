@@ -2,7 +2,7 @@ package net.hennabatch.hennadungeon.effect;
 
 import net.hennabatch.hennadungeon.entity.BreakableEntity;
 
-public abstract class Effect {
+public abstract class Effect{
 
     private int durationTime;
     private boolean isDestory = false;
@@ -33,4 +33,5 @@ public abstract class Effect {
 
     public abstract String name();
 
+    public abstract <T extends Effect> T cloneEffect();
 }
