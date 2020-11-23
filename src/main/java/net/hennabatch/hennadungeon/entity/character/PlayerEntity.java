@@ -73,7 +73,6 @@ public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInve
 
 
     public void attack(EnumDirection direction) {
-        Random rand = new Random();
         List<BreakableEntity> targetEntities = getDungeon().getEntities().stream()
                 .filter(x -> x instanceof BreakableEntity)
                 .filter(x -> getEquipmentWeapon().isInnerRange(this, x, direction))
@@ -86,9 +85,7 @@ public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInve
     }
 
     @Override
-    public void initilaize() {
-        getStatus().addEffect(new BleedingEffect(-1, getDungeon().getDifficulty()));
-    }
+    public void initilaize() {}
 
     @Override
     public String getIcon() {

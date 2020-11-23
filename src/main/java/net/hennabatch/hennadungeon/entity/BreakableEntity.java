@@ -45,6 +45,7 @@ public abstract class BreakableEntity extends CollidableEntity{
 
     @Override
     public void update() {
+        super.update();
         this.getStatus().getEffects().forEach(x -> x.updateEffect(this));
     }
 

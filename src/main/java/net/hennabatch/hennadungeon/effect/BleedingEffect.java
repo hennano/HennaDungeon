@@ -26,6 +26,11 @@ public class BleedingEffect extends TurnEffect{
         return "出血";
     }
 
+    @Override
+    public BleedingEffect cloneEffect() {
+        return new BleedingEffect(getDurationTime(), val);
+    }
+
     public int setValByDifficulty(EnumDifficulty difficulty){
         switch (difficulty) {
             case EASY:

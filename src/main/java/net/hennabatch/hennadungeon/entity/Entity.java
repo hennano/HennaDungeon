@@ -17,6 +17,7 @@ public abstract class Entity implements IVec {
     private final Dungeon dungeon;
     private boolean isHidden = false;
     private List<Tag> tags = new ArrayList<>();
+    private int turn = 0;
 
     public Entity(Vec2d pos, Dungeon dungeon){
         setPos(pos);
@@ -50,7 +51,9 @@ public abstract class Entity implements IVec {
         return this.dungeon;
     }
 
-    public abstract void update();
+    public void update(){
+        turn++;
+    }
 
     public List<Tag> getTags() {
         return tags;
@@ -58,6 +61,10 @@ public abstract class Entity implements IVec {
 
     public void addTag(Tag tag) {
         this.tags.add(tag);
+    }
+
+    public int getTurn() {
+        return turn;
     }
 
     protected void onTrigger(Entity triggeredEntity){}

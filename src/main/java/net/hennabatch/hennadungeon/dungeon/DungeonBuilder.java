@@ -1,6 +1,7 @@
 package net.hennabatch.hennadungeon.dungeon;
 
 import net.hennabatch.hennadungeon.dungeon.floor.*;
+import net.hennabatch.hennadungeon.effect.BleedingEffect;
 import net.hennabatch.hennadungeon.entity.character.PlayerEntity;
 import net.hennabatch.hennadungeon.entity.object.DropItemEntity;
 import net.hennabatch.hennadungeon.item.Items;
@@ -121,7 +122,7 @@ public class DungeonBuilder {
                 .findFirst().get();
         dungeon.spawnEntity(new PlayerEntity(startRoom.size().div(2).add(startRoom.getUpperLeft()), dungeon));
         dungeon.spawnEntity(new DropItemEntity(new Vec2d(dungeon.getPlayer()).add(1), dungeon, Items.HEAL_POTION));
-        //dungeon.addMission(new TutorialMission());
+        dungeon.addMission(new TutorialMission());
         exportFloor(dungeon);
         return dungeon;
     }

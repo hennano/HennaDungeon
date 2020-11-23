@@ -1,5 +1,6 @@
 package net.hennabatch.hennadungeon.mission.tutorial;
 
+import net.hennabatch.hennadungeon.dungeon.floor.ConnectFloor;
 import net.hennabatch.hennadungeon.dungeon.floor.Passage;
 import net.hennabatch.hennadungeon.dungeon.floor.Room;
 import net.hennabatch.hennadungeon.dungeon.floor.StartRoom;
@@ -13,8 +14,6 @@ import net.hennabatch.hennadungeon.vec.Vec2d;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 class LeavePartyPhase extends Phase {
 
@@ -26,16 +25,22 @@ class LeavePartyPhase extends Phase {
     @Override
     public void execute() {
         //チュートリアルボス生成
-        Entity golem = new GoblinEntity(new Vec2d(getDungeon().getPlayer()).sub(new Vec2d(0, 2)), getDungeon());
+        Entity golem = new GolemEntity(new Vec2d(getDungeon().getPlayer()).sub(new Vec2d(0, 2)), getDungeon());
         golem.addTag(new TutorialBossTag());
         getDungeon().spawnEntity(golem);
         //出られないように壁の生成 作業中
         Room startRoom = getDungeon().getFloors().stream().filter(x -> x instanceof StartRoom).map(x -> (Room) x).findFirst().get();
-        List<Vec2d> connectionPoint = startRoom.getConnectFloors().stream()
-                .filter(x -> x.getFloor() instanceof Passage)
-                .flatMap(x -> Stream.of(((Passage) x.getFloor()).getUpperLeft(), ((Passage) x.getFloor()).getLowerRight()))
-                .filter(startRoom::isInner)
-                .collect(Collectors.toList());
+        List<Vec2d> connectionPoint = new ArrayList<>();
+        for(ConnectFloor connect : startRoom.getConnectFloors()){
+            if(!(connect.getFloor() instanceof Passage)) continue;
+
+            if(startRoom.isInner(((Passage) connect.getFloor()).getUpperLeft())){
+                connectionPoint.add(new Vec2d(((Passage) connect.getFloor()).getUpperLeft()).add(connect.getDirection().vec()));
+            }
+            if(startRoom.isInner(((Passage) connect.getFloor()).getLowerRight())){
+                connectionPoint.add(new Vec2d(((Passage) connect.getFloor()).getLowerRight()).add(connect.getDirection().vec()));
+            }
+        }
         connectionPoint.forEach(x -> {
             WallEntity wallEntity = new WallEntity(x, getDungeon());
             wallEntity.addTag(new TutorialWallTag());
