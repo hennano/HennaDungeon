@@ -67,7 +67,7 @@ public abstract class BreakableEntity extends CollidableEntity{
     }
 
     public void addHP(int hp){
-        setCurrentHP(Math.max(getCurrentHP() + hp, getMaxHP()));
+        setCurrentHP(Math.min(getCurrentHP() + hp, getMaxHP()));
     }
 
     public void subHP(int hp){

@@ -22,6 +22,8 @@ public class Items {
     public static final Item LEATHER_ARMOR = new LeatherArmorItem();
     public static final Item IRON_ARMOR = new IronArmorItem();
 
+    public static final Item CRYSTAL = new CrystalItem();
+
     private static final Items singleton = new Items();
 
     private final List<Item> items = new ArrayList<>();
@@ -50,5 +52,6 @@ public class Items {
         registerItem(LEATHER_ARMOR);
         registerItem(IRON_ARMOR);
         registerItem(NECRONOMICON);
+        registerItem(CRYSTAL);
     }
 }

@@ -34,11 +34,11 @@ public class BleedingEffect extends TurnEffect{
     public int setValByDifficulty(EnumDifficulty difficulty){
         switch (difficulty) {
             case EASY:
-                return 2;
+                return 1;
             case HARD:
-                return 10;
+                return 5;
         }
-        return 5;
+        return 1;
     }
 
 }
