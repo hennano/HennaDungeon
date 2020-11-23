@@ -4,7 +4,7 @@ import net.hennabatch.hennadungeon.config.EnumKeyInput;
 import net.hennabatch.hennadungeon.scene.*;
 import net.hennabatch.hennadungeon.util.Reference;
 
-public class RootEvent extends Event{
+public class RootEvent extends Event {
 
     @Override
     protected void initializeScene(){
@@ -34,13 +34,13 @@ public class RootEvent extends Event{
 
         private final Class clazz;
 
-        SceneTransition(Class<? extends Scene> scene){
+        SceneTransition(Class<? extends net.hennabatch.hennadungeon.scene.Scene> scene){
             this.clazz = scene;
         }
 
-        public Scene createScene(){
+        public net.hennabatch.hennadungeon.scene.Scene createScene(){
             try {
-                return (Scene)this.clazz.newInstance();
+                return (net.hennabatch.hennadungeon.scene.Scene)this.clazz.newInstance();
             } catch (IllegalAccessException | InstantiationException e) {
                 Reference.logger.error(e.getMessage(), e);
                 return null;

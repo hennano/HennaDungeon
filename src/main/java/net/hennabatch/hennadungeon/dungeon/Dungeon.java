@@ -6,6 +6,7 @@ import net.hennabatch.hennadungeon.entity.character.PlayerEntity;
 import net.hennabatch.hennadungeon.mission.Mission;
 import net.hennabatch.hennadungeon.mission.Tag;
 import net.hennabatch.hennadungeon.scene.GameScene;
+import net.hennabatch.hennadungeon.scene.Scene;
 import net.hennabatch.hennadungeon.scene.event.Event;
 import net.hennabatch.hennadungeon.util.EnumDifficulty;
 import net.hennabatch.hennadungeon.util.Reference;
@@ -38,8 +39,8 @@ public class Dungeon {
         return entities;
     }
 
-    public void executeEvent(Event event){
-        scene.executeEvent(event);
+    public void executeScene(Scene scene){
+        this.scene.executeScene(scene);
     }
 
     public EnumDifficulty getDifficulty() {

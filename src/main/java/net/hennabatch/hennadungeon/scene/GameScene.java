@@ -15,7 +15,7 @@ import net.hennabatch.hennadungeon.vec.Vec2d;
 import java.util.Comparator;
 import java.util.List;
 
-public class GameScene extends Scene{
+public class GameScene extends net.hennabatch.hennadungeon.scene.Scene {
 
     private Dungeon dungeon;
     private boolean readyToAttack = false;
@@ -115,8 +115,8 @@ public class GameScene extends Scene{
     if(readyToAttack) screen.setRow(1, screen.getHeight() - 1, "攻撃準備状態", false, false);
     }
 
-    public void executeEvent(Event event){
-        createChildScene(event);
+    public void executeScene(Scene scene){
+        createChildScene(scene);
     }
 
     private void toggleReadyToAttack(){
