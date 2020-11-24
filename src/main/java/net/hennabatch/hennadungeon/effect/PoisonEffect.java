@@ -28,8 +28,8 @@ public class PoisonEffect extends TurnEffect{
     }
 
     @Override
-    public BleedingEffect cloneEffect() {
-        return new BleedingEffect(getDurationTime(), val);
+    public PoisonEffect cloneEffect() {
+        return new PoisonEffect(getDurationTime(), val);
     }
 
     public int setValByDifficulty(EnumDifficulty difficulty){

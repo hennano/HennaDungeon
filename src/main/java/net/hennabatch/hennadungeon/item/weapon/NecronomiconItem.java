@@ -38,6 +38,6 @@ public class NecronomiconItem extends WeaponItem {
 
     @Override
     public List<Effect> getEffects() {
-        return new ArrayList<>(Arrays.asList(new BuffEffect(-1, Status.EnumStatus.ATK, 80, false)));
+        return new ArrayList<>(Arrays.asList(new BuffEffect(-1, Status.EnumStatus.ATK, 20, false)));
     }
 }

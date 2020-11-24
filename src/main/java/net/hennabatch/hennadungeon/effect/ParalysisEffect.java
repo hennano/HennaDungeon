@@ -1,6 +1,7 @@
 package net.hennabatch.hennadungeon.effect;
 
 public class ParalysisEffect extends TurnEffect implements IUnmovable{
+
     public ParalysisEffect(int durationTime) {
         super(durationTime);
     }
@@ -11,7 +12,7 @@ public class ParalysisEffect extends TurnEffect implements IUnmovable{
     }
 
     @Override
-    public <T extends Effect> T cloneEffect() {
-        return null;
+    public ParalysisEffect cloneEffect() {
+        return new ParalysisEffect(this.getDurationTime());
     }
 }

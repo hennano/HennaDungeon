@@ -9,19 +9,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class IronArmorItem extends ArmorItem {
+public class RobeItem extends ArmorItem {
     @Override
     public String name() {
-        return "鉄の鎧";
+        return "ローブ";
     }
 
     @Override
     public String description() {
-        return "鉄でできた鎧。革より防御力が高いが動きづらいので評価が別れている。";
+        return "魔法が織り込まれたローブ。込められた魔力が強いため魔法を寄せ付けない。";
     }
 
     @Override
     public List<Effect> getEffects() {
-        return new ArrayList<>(Arrays.asList(new BuffEffect(-1, Status.EnumStatus.DEF, 30, false)));
+        return new ArrayList<>(Arrays.asList(new BuffEffect(-1, Status.EnumStatus.MDEF, 20, false)));
     }
 }

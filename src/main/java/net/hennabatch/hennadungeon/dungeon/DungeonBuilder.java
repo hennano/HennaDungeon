@@ -121,7 +121,7 @@ public class DungeonBuilder {
                 .map(x -> x.room)
                 .findFirst().get();
         dungeon.spawnEntity(new PlayerEntity(startRoom.size().div(2).add(startRoom.getUpperLeft()), dungeon));
-        dungeon.spawnEntity(new DropItemEntity(new Vec2d(dungeon.getPlayer()).add(1), dungeon, Items.HEAL_POTION));
+        dungeon.spawnEntity(new DropItemEntity(new Vec2d(dungeon.getPlayer()).add(1), dungeon, Items.POISON_DAGGER));
         dungeon.addMission(new TutorialMission());
         exportFloor(dungeon);
         return dungeon;

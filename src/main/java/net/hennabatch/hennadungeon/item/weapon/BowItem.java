@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class LongSwordItem extends WeaponItem {
+public class BowItem extends WeaponItem {
     @Override
     public Boolean isMagic() {
         return false;
@@ -18,26 +18,26 @@ public class LongSwordItem extends WeaponItem {
 
     @Override
     public Boolean isMelee() {
-        return true;
+        return false;
     }
 
     @Override
     public List<Vec2d> range() {
-        return new ArrayList<>(Arrays.asList(new Vec2d(1,0), new Vec2d(1, 1), new Vec2d(1, -1)));
+        return new ArrayList<>(Arrays.asList(new Vec2d(1, 0), new Vec2d(2, 0), new Vec2d(3, 0)));
     }
 
     @Override
     public String name() {
-        return "長剣";
+        return "弓";
     }
 
     @Override
     public String description() {
-        return "剣身が長い剣。多くの範囲に攻撃できる。";
+        return "初心者に親しまれている弓。使いやすくて手頃な値段なのが魅力。";
     }
 
     @Override
     public List<Effect> getEffects() {
-        return new ArrayList<>(Arrays.asList(new BuffEffect(-1, Status.EnumStatus.ATK, 30, false)));
+        return new ArrayList<>(Arrays.asList(new BuffEffect(-1, Status.EnumStatus.ATK, 5, false)));
     }
 }

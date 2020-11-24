@@ -38,7 +38,10 @@ public abstract class BreakableEntity extends CollidableEntity{
             return false;
         }
         subHP(this.getStatus().calcDamage(atk, getEquipmentWeapon(), getEquipmentArmor(), isMagic));
-        additionalEffects.stream().forEach(x -> getStatus().addEffect(x));
+        additionalEffects.stream().forEach(x -> {
+            getStatus().addEffect(x);
+            Reference.logger.info(this.name() + "は" + x.name() + "になった");
+        });
         return true;
     }
 

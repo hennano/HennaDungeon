@@ -3,17 +3,15 @@ package net.hennabatch.hennadungeon.item.weapon;
 import net.hennabatch.hennadungeon.effect.BuffEffect;
 import net.hennabatch.hennadungeon.effect.Effect;
 import net.hennabatch.hennadungeon.entity.Status;
-import net.hennabatch.hennadungeon.item.WeaponItem;
-import net.hennabatch.hennadungeon.vec.Vec2d;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class LongSwordItem extends WeaponItem {
+public class MagicalSwordItem extends SwordItem {
     @Override
     public Boolean isMagic() {
-        return false;
+        return true;
     }
 
     @Override
@@ -22,22 +20,17 @@ public class LongSwordItem extends WeaponItem {
     }
 
     @Override
-    public List<Vec2d> range() {
-        return new ArrayList<>(Arrays.asList(new Vec2d(1,0), new Vec2d(1, 1), new Vec2d(1, -1)));
-    }
-
-    @Override
     public String name() {
-        return "長剣";
+        return "魔法剣";
     }
 
     @Override
     public String description() {
-        return "剣身が長い剣。多くの範囲に攻撃できる。";
+        return "魔法により構成された剣。輝いているので眩しい。";
     }
 
     @Override
     public List<Effect> getEffects() {
-        return new ArrayList<>(Arrays.asList(new BuffEffect(-1, Status.EnumStatus.ATK, 30, false)));
+        return new ArrayList<>(Arrays.asList(new BuffEffect(-1, Status.EnumStatus.ATK, 15, false)));
     }
 }
