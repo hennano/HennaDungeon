@@ -49,6 +49,11 @@ public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInve
         return (WeaponItem) Items.HAND;
     }
 
+    @Override
+    public void turnAction() {
+
+    }
+
     public int getEquipmentWeaponIndex(){
         return equipmentWeaponIndex;
     }

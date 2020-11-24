@@ -20,8 +20,7 @@ public abstract class AiEntity extends BreakableEntity {
     }
 
     @Override
-    public void update() {
+    public void turnAction() {
         tasks.run();
-        super.update();
     }
 }

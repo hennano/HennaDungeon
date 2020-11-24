@@ -29,7 +29,6 @@ public class Passage extends Floor{
 
     @Override
     public Boolean isInner(IVec vec) {
-        //バグあり　修正予定
         if(getConnectPos().getY() == 0){
             if(vec.getX() >= getUpperLeft().getX() && vec.getX() <= getConnectPos().getX() && vec.getY() == getUpperLeft().getY()) return true;
             if(vec.getX() >= getConnectPos().getX() && vec.getX() <= getLowerRight().getX() && vec.getY() == getLowerRight().getY()) return true;

@@ -2,6 +2,7 @@ package net.hennabatch.hennadungeon.entity;
 
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.effect.Effect;
+import net.hennabatch.hennadungeon.effect.IUnmovable;
 import net.hennabatch.hennadungeon.entity.object.DropItemEntity;
 import net.hennabatch.hennadungeon.item.ArmorItem;
 import net.hennabatch.hennadungeon.item.Item;
@@ -51,10 +52,17 @@ public abstract class BreakableEntity extends CollidableEntity{
 
     @Override
     public void update() {
-        super.update();
+        if(!getStatus().getEffects().stream().anyMatch(x -> x instanceof IUnmovable)){
+            turnAction();
+        }else{
+            Reference.logger.info(this.name() + "は体がしびれて動けない");
+        }
         this.getStatus().getEffects().forEach(x -> x.update(this));
         this.getStatus().getEffects().removeIf(Effect::isDestroy);
+        super.update();
     }
+
+    public void turnAction(){}
 
     public abstract int getMaxHP();
 

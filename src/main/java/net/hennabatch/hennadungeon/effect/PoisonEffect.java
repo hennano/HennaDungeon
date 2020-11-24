@@ -3,15 +3,16 @@ package net.hennabatch.hennadungeon.effect;
 import net.hennabatch.hennadungeon.entity.BreakableEntity;
 import net.hennabatch.hennadungeon.util.EnumDifficulty;
 
-public class BleedingEffect extends TurnEffect{
+public class PoisonEffect extends TurnEffect{
 
     private final int val;
-    public BleedingEffect(int durationTime, EnumDifficulty difficulty) {
+
+    public PoisonEffect(int durationTime, EnumDifficulty difficulty) {
         super(durationTime);
         this.val = setValByDifficulty(difficulty);
     }
 
-    public BleedingEffect(int durationTime, int val) {
+    public PoisonEffect(int durationTime, int val) {
         super(durationTime);
         this.val = val;
     }
@@ -23,7 +24,7 @@ public class BleedingEffect extends TurnEffect{
 
     @Override
     public String name() {
-        return "出血";
+        return "毒";
     }
 
     @Override
@@ -40,5 +41,4 @@ public class BleedingEffect extends TurnEffect{
         }
         return 2;
     }
-
 }

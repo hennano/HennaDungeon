@@ -3,6 +3,7 @@ package net.hennabatch.hennadungeon.scene;
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.dungeon.DungeonBuilder;
+import net.hennabatch.hennadungeon.effect.IUnmovable;
 import net.hennabatch.hennadungeon.entity.CollidableEntity;
 import net.hennabatch.hennadungeon.entity.Entity;
 import net.hennabatch.hennadungeon.scene.event.Event;
@@ -38,11 +39,16 @@ public class GameScene extends net.hennabatch.hennadungeon.scene.Scene {
     }
 
     private boolean playerAction(EnumKeyInput key){
+        //あたま悪いコード過ぎて差し替えたい
         switch (key){
             case UP:
             case DOWN:
             case LEFT:
             case RIGHT:
+                if(dungeon.getPlayer().getStatus().getEffects().stream().anyMatch(x -> x instanceof IUnmovable)){
+                    Reference.logger.info(dungeon.getPlayer().name() + "は体がしびれて動けない");
+                    return true;
+                }
                 if(readyToAttack){
                     dungeon.getPlayer().attack(EnumDirection.byKey(key));
                     if(!Reference.config.enabledToggleAttack){
@@ -60,6 +66,10 @@ public class GameScene extends net.hennabatch.hennadungeon.scene.Scene {
                 break;
             case SKILL:
                 if(dungeon.getPlayer().canUseSkill()){
+                    if(dungeon.getPlayer().getStatus().getEffects().stream().anyMatch(x -> x instanceof IUnmovable)){
+                        Reference.logger.info(dungeon.getPlayer().name() + "は体がしびれて動けない");
+                        return true;
+                    }
                     dungeon.getPlayer().useSkill();
                     Reference.logger.info("スキルを使用した！");
                     return true;
