@@ -16,15 +16,17 @@ import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
-import java.sql.Ref;
+import java.util.ArrayDeque;
 import java.util.Comparator;
+import java.util.Deque;
 import java.util.List;
 
-public class GameScene extends net.hennabatch.hennadungeon.scene.Scene {
+public class GameScene extends Scene {
 
     private Dungeon dungeon;
     private boolean readyToAttack = false;
     private boolean seeExitPath = false;
+    private Deque<Scene> eventQueue = new ArrayDeque<>();
 
     @Override
     protected void initializeScene() {
@@ -94,13 +96,15 @@ public class GameScene extends net.hennabatch.hennadungeon.scene.Scene {
     }
 
     @Override
-    protected SceneResult onExitChildScene(SceneResult result) {
+    protected SceneResult onExitChildScene(SceneResult result){
         if(result.data() instanceof RootEvent.SceneTransition){
             if(((RootEvent.SceneTransition) result.data()).isExit()){
                 return new SceneResult(false, RootEvent.SceneTransition.StartScene);
             }else{
                 return new SceneResult(false, result.data());
             }
+        }else if(eventQueue.size() > 0) {
+            createChildScene(eventQueue.pollFirst());
         }
         return new SceneResult(true, null);
     }
@@ -165,7 +169,11 @@ public class GameScene extends net.hennabatch.hennadungeon.scene.Scene {
     }
 
     public void executeScene(Scene scene){
-        createChildScene(scene);
+        if(getChildScene() != null) {
+            eventQueue.offerLast(scene);
+        }else{
+            createChildScene(scene);
+        }
     }
 
     private void toggleReadyToAttack(){

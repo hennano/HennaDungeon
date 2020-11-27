@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DestroyTutorialBossPhase extends Phase {
+public class KillTutorialBossPhase extends Phase {
     @Override
     public boolean shouldExecute() {
         return getDungeon().getEntitiesByTag(new TutorialBossTag()).size() == 0;

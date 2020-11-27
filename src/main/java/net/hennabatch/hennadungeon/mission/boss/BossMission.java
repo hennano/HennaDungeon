@@ -1,4 +1,4 @@
-package net.hennabatch.hennadungeon.mission.tutorial;
+package net.hennabatch.hennadungeon.mission.boss;
 
 import net.hennabatch.hennadungeon.mission.Mission;
 import net.hennabatch.hennadungeon.mission.Phase;
@@ -7,11 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class TutorialMission extends Mission {
+public class BossMission extends Mission {
 
-    private List<Phase> phases = new ArrayList<>(Arrays.asList(new LeavePartyPhase(),
-            new UseSkillPhase(),
-            new KillTutorialBossPhase()));
+    private List<Phase> phases = new ArrayList<>(Arrays.asList(new FindPlayerPhase(), new KillPartyPhase()));
 
     @Override
     protected List<Phase> getPhases() {

@@ -25,8 +25,6 @@ public abstract class MenuScene extends Scene {
                 break;
             case ENTER:
                 return onSelected(pointer);
-            case CANCEL:
-                return new SceneResult<>(false ,null);
         }
         return new SceneResult<>(true, null);
     }
