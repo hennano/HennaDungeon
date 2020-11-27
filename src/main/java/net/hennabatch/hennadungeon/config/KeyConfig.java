@@ -16,6 +16,7 @@ public class KeyConfig {
         this.keys.put('\'', EnumKeyInput.CANCEL);
         this.keys.put('q', EnumKeyInput.MENU);
         this.keys.put('e', EnumKeyInput.SKILL);
+        this.keys.put('f', EnumKeyInput.SEEPATH);
         return this;
     }
 

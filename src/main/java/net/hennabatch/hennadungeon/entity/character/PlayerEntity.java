@@ -8,6 +8,7 @@ import net.hennabatch.hennadungeon.item.ArmorItem;
 import net.hennabatch.hennadungeon.item.Item;
 import net.hennabatch.hennadungeon.item.Items;
 import net.hennabatch.hennadungeon.item.WeaponItem;
+import net.hennabatch.hennadungeon.scene.event.PlayerDeadEvent;
 import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.Vec2d;
@@ -124,5 +125,10 @@ public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInve
 
     public boolean canUseSkill(){
         return useSkillTurn + Reference.PLAYER_SKILL_COOLTIME < getTurn();
+    }
+
+    @Override
+    public void destroy() {
+        getDungeon().executeScene(new PlayerDeadEvent());
     }
 }

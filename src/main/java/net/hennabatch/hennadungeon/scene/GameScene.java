@@ -1,8 +1,11 @@
 package net.hennabatch.hennadungeon.scene;
 
+import javafx.scene.input.RotateEvent;
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.dungeon.DungeonBuilder;
+import net.hennabatch.hennadungeon.dungeon.floor.ExitRoom;
+import net.hennabatch.hennadungeon.dungeon.floor.Floor;
 import net.hennabatch.hennadungeon.effect.IUnmovable;
 import net.hennabatch.hennadungeon.entity.CollidableEntity;
 import net.hennabatch.hennadungeon.entity.Entity;
@@ -13,6 +16,7 @@ import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
+import java.sql.Ref;
 import java.util.Comparator;
 import java.util.List;
 
@@ -20,6 +24,7 @@ public class GameScene extends net.hennabatch.hennadungeon.scene.Scene {
 
     private Dungeon dungeon;
     private boolean readyToAttack = false;
+    private boolean seeExitPath = false;
 
     @Override
     protected void initializeScene() {
@@ -76,6 +81,10 @@ public class GameScene extends net.hennabatch.hennadungeon.scene.Scene {
                 }else{
                     Reference.logger.info("スキルは今は使えない");
                 }
+                break;
+            case SEEPATH:
+                Reference.logger.info("出口への道を思い出した");
+                seeExitPath = true;
         }
         return false;
     }
@@ -87,7 +96,11 @@ public class GameScene extends net.hennabatch.hennadungeon.scene.Scene {
     @Override
     protected SceneResult onExitChildScene(SceneResult result) {
         if(result.data() instanceof RootEvent.SceneTransition){
-            if(((RootEvent.SceneTransition) result.data()).isExit()) return new SceneResult(false, RootEvent.SceneTransition.StartScene);
+            if(((RootEvent.SceneTransition) result.data()).isExit()){
+                return new SceneResult(false, RootEvent.SceneTransition.StartScene);
+            }else{
+                return new SceneResult(false, result.data());
+            }
         }
         return new SceneResult(true, null);
     }
@@ -96,6 +109,10 @@ public class GameScene extends net.hennabatch.hennadungeon.scene.Scene {
     protected Screen draw(Screen screen) {
         drawMap(screen);
         drawEntity(screen);
+        if(seeExitPath){
+            drawExitPath(screen);
+            seeExitPath = false;
+        }
         drawUI(screen);
         return screen;
     }
@@ -131,6 +148,20 @@ public class GameScene extends net.hennabatch.hennadungeon.scene.Scene {
         screen.setRow(1,0, "HP", false, false);
         screen.drawGauge(2, 0, screen.getWidth() - 4, dungeon.getPlayer().getCurrentHP(), dungeon.getPlayer().getMaxHP(), "※", Reference.SCREEN_EMPTY, true);
     if(readyToAttack) screen.setRow(1, screen.getHeight() - 1, "攻撃準備状態", false, false);
+    }
+
+    private void drawExitPath(Screen screen){
+        Vec2d playerPos = new Vec2d(dungeon.getPlayer());
+        Floor currentFloor = dungeon.getInnerFloors(playerPos).stream().min(Comparator.comparing(x -> x.exitRoomDistance())).get();
+        if(currentFloor instanceof ExitRoom) return;
+        Floor exitFloor = currentFloor.getPathToExit().getFloor();
+        for(int sx = 1; sx < screen.getWidth() - 1; sx++){
+            for (int sy = 2; sy < screen.getHeight() - 2; sy++){
+                if(exitFloor.isInner(new Vec2d(sx - ((screen.getWidth() - 2) / 2), sy - ((screen.getHeight() - 4) / 2)).add(playerPos))){
+                    screen.setPos(sx, sy, Reference.DUNGEON_EXITPATH);
+                }
+            }
+        }
     }
 
     public void executeScene(Scene scene){

@@ -8,5 +8,6 @@ public enum EnumKeyInput {
     ENTER(),
     CANCEL(),
     MENU(),
-    SKILL()
+    SKILL(),
+    SEEPATH()
 }

@@ -2,6 +2,8 @@ package net.hennabatch.hennadungeon.util;
 
 import net.hennabatch.hennadungeon.config.Config;
 
+import java.util.stream.Stream;
+
 public class Reference {
 
     public static final SystemLogger logger = new SystemLogger();
@@ -30,6 +32,7 @@ public class Reference {
 
     public static final String DUNGEON_SPACE = SCREEN_EMPTY;
     public static final String DUNGEON_WALL = "■";
+    public static final String DUNGEON_EXITPATH = "・";
 
     public static final String WEAPON_RANGE = "※";
 

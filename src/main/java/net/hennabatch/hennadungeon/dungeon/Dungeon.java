@@ -79,4 +79,8 @@ public class Dungeon {
         missions.add(mission);
         mission.initialize(this);
     }
+
+    public List<Floor> getInnerFloors(IVec vec){
+        return getFloors().stream().filter(x -> x.isInner(vec)).collect(Collectors.toList());
+    }
 }
