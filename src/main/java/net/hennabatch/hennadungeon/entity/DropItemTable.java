@@ -23,7 +23,7 @@ public class DropItemTable {
     }
 
     public DropItemTable removeItem(Item item){
-        this.dropItems.removeIf(item::equals);
+        this.dropItems.stream().map(x -> x.item).collect(Collectors.toList()).removeIf(item::equals);
         return this;
     }
 
@@ -39,7 +39,7 @@ public class DropItemTable {
     }
 
 
-    protected class DropItem{
+    protected static class DropItem{
 
         private final Item item;
         private final double chance;

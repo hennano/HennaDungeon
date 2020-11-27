@@ -1,9 +1,10 @@
-package net.hennabatch.hennadungeon.item;
+package net.hennabatch.hennadungeon.item.potion;
 
 import net.hennabatch.hennadungeon.entity.BreakableEntity;
 import net.hennabatch.hennadungeon.entity.Entity;
+import net.hennabatch.hennadungeon.item.Item;
 
-public class HealPotionItem extends Item{
+public class HealPotionItem extends Item {
 
     private final int heal = 250;
     @Override

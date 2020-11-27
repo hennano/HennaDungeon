@@ -26,9 +26,7 @@ public class HennaDungeon {
             }
         } catch (IOException e) {
             Reference.logger.error(e.getMessage(), e);
-            return;
         }
-
     }
 
     private static EnumKeyInput getkeyInput(Terminal terminal)throws IOException{

@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 public class AddEffectAi<T extends BreakableEntity> extends AiBase<T>{
 
     private int remaining;
-    private int cooltime;
+    private int coolTime;
     private int useTurn = 0;
     private Effect effect;
     private Predicate<T> predicate;
@@ -19,13 +19,13 @@ public class AddEffectAi<T extends BreakableEntity> extends AiBase<T>{
         this.effect = effect;
         this.predicate = predicate;
         this.remaining = limit;
-        this.cooltime = coolTime;
+        this.coolTime = coolTime;
     }
 
     @Override
     protected boolean shouldExecute() {
         if(remaining == 0) return false;
-        if(useTurn + cooltime > owner.getTurn()) return false;
+        if(useTurn + coolTime > owner.getTurn()) return false;
         return predicate.test(owner);
     }
 

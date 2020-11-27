@@ -1,13 +1,9 @@
 package net.hennabatch.hennadungeon.entity;
 
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
-import net.hennabatch.hennadungeon.item.AdditionalEffect;
 import net.hennabatch.hennadungeon.item.WeaponItem;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.Vec2d;
-
-import java.util.Random;
-import java.util.stream.Collectors;
 
 public abstract class EnemyEntity extends AiEntity implements IAttackable{
 

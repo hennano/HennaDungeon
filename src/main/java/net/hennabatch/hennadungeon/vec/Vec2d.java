@@ -102,14 +102,14 @@ public class Vec2d implements IVec, Cloneable{
     }
 
     public static Vec2d maxOfCoordinates(IVec... vecs){
-        int maxX = Arrays.stream(vecs).max(Comparator.comparing(x -> x.getX())).get().getX();
-        int maxY = Arrays.stream(vecs).max(Comparator.comparing(x -> x.getY())).get().getY();
+        int maxX = Arrays.stream(vecs).max(Comparator.comparing(IVec::getX)).get().getX();
+        int maxY = Arrays.stream(vecs).max(Comparator.comparing(IVec::getY)).get().getY();
         return new Vec2d(maxX, maxY);
     }
 
     public static Vec2d minOfCoordinates(IVec... vecs){
-        int minX = Arrays.stream(vecs).min(Comparator.comparing(x -> x.getX())).get().getX();
-        int minY = Arrays.stream(vecs).min(Comparator.comparing(x -> x.getY())).get().getY();
+        int minX = Arrays.stream(vecs).min(Comparator.comparing(IVec::getX)).get().getX();
+        int minY = Arrays.stream(vecs).min(Comparator.comparing(IVec::getY)).get().getY();
         return new Vec2d(minX, minY);
     }
 

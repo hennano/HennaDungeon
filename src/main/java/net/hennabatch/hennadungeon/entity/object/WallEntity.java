@@ -11,9 +11,7 @@ public class WallEntity extends CollidableEntity {
     }
 
     @Override
-    public void onCollision(Entity collidedEntity) {
-        return;
-    }
+    public void onCollision(Entity collidedEntity) {}
 
     @Override
     public void update() { }

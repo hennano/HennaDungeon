@@ -21,12 +21,12 @@ public class InvisibleEffect extends TurnEffect{
 
     @Override
     public void updateEffect(BreakableEntity entity) {
-        if(!entity.isHidden()){
-            entity.setHidden(true);
-        }
-        if(isDestroy()){
-            entity.setHidden(false);
-        }
+        entity.setHidden(true);
         super.updateEffect(entity);
+    }
+
+    @Override
+    public void onDestroy(BreakableEntity entity) {
+        entity.setHidden(false);
     }
 }

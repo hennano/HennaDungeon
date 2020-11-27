@@ -1,7 +1,10 @@
 package net.hennabatch.hennadungeon.scene.event;
 
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
-import net.hennabatch.hennadungeon.scene.*;
+import net.hennabatch.hennadungeon.scene.GameScene;
+import net.hennabatch.hennadungeon.scene.SceneResult;
+import net.hennabatch.hennadungeon.scene.ShowRuleScene;
+import net.hennabatch.hennadungeon.scene.StartScene;
 import net.hennabatch.hennadungeon.util.Reference;
 
 public class RootEvent extends Event {

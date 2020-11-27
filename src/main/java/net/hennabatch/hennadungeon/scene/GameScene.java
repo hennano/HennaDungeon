@@ -6,7 +6,7 @@ import net.hennabatch.hennadungeon.dungeon.DungeonBuilder;
 import net.hennabatch.hennadungeon.effect.IUnmovable;
 import net.hennabatch.hennadungeon.entity.CollidableEntity;
 import net.hennabatch.hennadungeon.entity.Entity;
-import net.hennabatch.hennadungeon.scene.event.Event;
+import net.hennabatch.hennadungeon.mission.Mission;
 import net.hennabatch.hennadungeon.scene.event.RootEvent;
 import net.hennabatch.hennadungeon.scene.menu.MainMenuScene;
 import net.hennabatch.hennadungeon.util.Reference;
@@ -34,7 +34,7 @@ public class GameScene extends net.hennabatch.hennadungeon.scene.Scene {
         updateMissions();
         if(!isNext) return new SceneResult(true, null);
         //近い順に敵の行動処理
-        dungeon.getEntities().stream().sorted(Comparator.comparing(x -> new Vec2d(dungeon.getPlayer()).distance(x))).forEach(x -> x.update());
+        dungeon.getEntities().stream().sorted(Comparator.comparing(x -> new Vec2d(dungeon.getPlayer()).distance(x))).forEach(Entity::update);
         return new SceneResult(true, null);
     }
 
@@ -81,7 +81,7 @@ public class GameScene extends net.hennabatch.hennadungeon.scene.Scene {
     }
 
     private void updateMissions(){
-        dungeon.getMissions().forEach(x -> x.update());
+        dungeon.getMissions().forEach(Mission::update);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class GameScene extends net.hennabatch.hennadungeon.scene.Scene {
         for(int sx = 1; sx < screen.getWidth() - 1; sx++){
             for (int sy = 2; sy < screen.getHeight() - 2; sy++){
                 List<Entity> entities = dungeon.getEntitiesByIVec(new Vec2d(sx - ((screen.getWidth() - 2) / 2), sy - ((screen.getHeight() - 4) / 2)).add(dungeon.getPlayer()));
-                if(entities.size() > 0){
+                if(entities.stream().filter(x -> !x.isHidden()).count() > 0){
                     Entity entity;
                     if(entities.stream().filter(x -> !x.isHidden()).anyMatch(x -> x instanceof CollidableEntity)){
                         entity = entities.stream().filter(x -> !x.isHidden()).filter(x -> x instanceof CollidableEntity)

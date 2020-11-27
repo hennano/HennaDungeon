@@ -39,7 +39,7 @@ public class Task {
     }
 
 
-    class AiTask{
+    static class AiTask{
         private final int priority;
         private final AiBase ai;
 

@@ -189,9 +189,7 @@ public class Screen implements Cloneable{
             for (int y = uLy; y <= lRy; y++) {
                 try{
                     screen[x][y] = replace;
-                }catch (ArrayIndexOutOfBoundsException e){
-                    continue;
-                }
+                }catch (ArrayIndexOutOfBoundsException e){}
             }
         }
         if(!hasFrame) return;
@@ -200,30 +198,26 @@ public class Screen implements Cloneable{
             try{
                 screen[x][uLy] = Reference.HORIZONTAL_LINE;
                 screen[x][lRy] = Reference.HORIZONTAL_LINE;
-            }catch (ArrayIndexOutOfBoundsException e){
-                continue;
-            }
+            }catch (ArrayIndexOutOfBoundsException e){}
         }
         for(int y = uLy; y <= lRy; y++) {
             try{
                 screen[uLx][y] = Reference.VERTICAL_LINE;
                 screen[lRx][y] = Reference.VERTICAL_LINE;
-            }catch (ArrayIndexOutOfBoundsException e){
-                continue;
-            }
+            }catch (ArrayIndexOutOfBoundsException e){}
         }
         try {
             screen[uLx][uLy] = Reference.CROSS;
-        }catch (ArrayIndexOutOfBoundsException e){}
+        }catch (ArrayIndexOutOfBoundsException ignored){}
         try {
             screen[uLx][lRy] = Reference.CROSS;
-        }catch (ArrayIndexOutOfBoundsException e){}
+        }catch (ArrayIndexOutOfBoundsException ignored){}
         try {
             screen[lRx][uLy] = Reference.CROSS;
-        }catch (ArrayIndexOutOfBoundsException e){}
+        }catch (ArrayIndexOutOfBoundsException ignored){}
         try {
             screen[lRx][lRy] = Reference.CROSS;
-        }catch (ArrayIndexOutOfBoundsException e){}
+        }catch (ArrayIndexOutOfBoundsException ignored){}
     }
 
     public void drawGauge(int row, int column, int length, int current, int max, String fill, String empty, boolean hasEndDecoration){

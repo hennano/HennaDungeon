@@ -7,7 +7,6 @@ import net.hennabatch.hennadungeon.mission.Mission;
 import net.hennabatch.hennadungeon.mission.Tag;
 import net.hennabatch.hennadungeon.scene.GameScene;
 import net.hennabatch.hennadungeon.scene.Scene;
-import net.hennabatch.hennadungeon.scene.event.Event;
 import net.hennabatch.hennadungeon.util.EnumDifficulty;
 import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.IVec;

@@ -2,7 +2,6 @@ package net.hennabatch.hennadungeon.scene.menu;
 
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
-import net.hennabatch.hennadungeon.dungeon.floor.StartRoom;
 import net.hennabatch.hennadungeon.entity.object.DropItemEntity;
 import net.hennabatch.hennadungeon.item.Item;
 import net.hennabatch.hennadungeon.scene.MessageScene;
@@ -33,7 +32,7 @@ public class ItemMenuScene extends TwoColumnMenuScene {
 
     @Override
     protected List<String> getOptions() {
-        List<String> options = dungeon.getPlayer().getInventory().getItems().stream().map(x -> x.name()).collect(Collectors.toList());
+        List<String> options = dungeon.getPlayer().getInventory().getItems().stream().map(Item::name).collect(Collectors.toList());
         options.add("戻る");
         return options;
     }
@@ -94,7 +93,7 @@ public class ItemMenuScene extends TwoColumnMenuScene {
         createChildScene(new MessageScene(new ArrayList<>(Arrays.asList(item.name() + "を捨てた"))));
     }
 
-    private class SelectedItemMenu extends Scene{
+    private static class SelectedItemMenu extends Scene{
 
         private int selectItemHeight;
         private int pointer = 0;
@@ -124,9 +123,7 @@ public class ItemMenuScene extends TwoColumnMenuScene {
         protected Screen draw(Screen screen) {
             screen.fillRect(3, Math.min(selectItemHeight - 1, screen.getHeight() - 4), 9, Math.min(selectItemHeight - 1, screen.getHeight() - 4) + EnumSelect.values().length + 1, Reference.SCREEN_EMPTY, true);
             screen.setPos(4, Math.min(selectItemHeight, screen.getHeight() - 4) + pointer, Reference.CURSOR_RIGHT);
-            Arrays.stream(EnumSelect.values()).forEach(x ->{
-                screen.setRow(5, Math.min(selectItemHeight, screen.getHeight() - 4) + x.pointer, x.name, false, false);
-            });
+            Arrays.stream(EnumSelect.values()).forEach(x -> screen.setRow(5, Math.min(selectItemHeight, screen.getHeight() - 4) + x.pointer, x.name, false, false));
             return screen;
         }
     }

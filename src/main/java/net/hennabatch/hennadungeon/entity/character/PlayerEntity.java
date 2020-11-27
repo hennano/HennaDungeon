@@ -12,9 +12,7 @@ import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
-import java.sql.Ref;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInventory, IAttackable, IPickable {

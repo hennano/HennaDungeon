@@ -1,6 +1,12 @@
 package net.hennabatch.hennadungeon.item;
 
+import net.hennabatch.hennadungeon.effect.BuffEffect;
+import net.hennabatch.hennadungeon.effect.InvisibleEffect;
+import net.hennabatch.hennadungeon.effect.RegenerationEffect;
+import net.hennabatch.hennadungeon.entity.Status;
 import net.hennabatch.hennadungeon.item.armor.*;
+import net.hennabatch.hennadungeon.item.potion.AddEffectPotion;
+import net.hennabatch.hennadungeon.item.potion.HealPotionItem;
 import net.hennabatch.hennadungeon.item.weapon.*;
 
 import java.util.ArrayList;
@@ -9,6 +15,11 @@ import java.util.List;
 public class Items {
 
     public static final Item HEAL_POTION = new HealPotionItem();
+    public static final Item REGENRATION_POTION = new AddEffectPotion(new RegenerationEffect(10, 40));
+    public static final Item ATK_BUFF_POTION = new AddEffectPotion(new BuffEffect(5, Status.EnumStatus.ATK, 10, false));
+    public static final Item DEF_BUFF_POTION = new AddEffectPotion(new BuffEffect(5, Status.EnumStatus.DEF, 10, false));
+    public static final Item MDEF_BUFF_POTION = new AddEffectPotion(new BuffEffect(5, Status.EnumStatus.MDEF, 10, false));
+    public static final Item INVISIBLE_POTION = new AddEffectPotion(new InvisibleEffect(20));
 
     public static final Item HAND = new HandWeaponItem();
     public static final Item SWORD = new SwordItem();
@@ -48,6 +59,11 @@ public class Items {
 
     public void registerItems(){
         registerItem(HEAL_POTION);
+        registerItem(REGENRATION_POTION);
+        registerItem(ATK_BUFF_POTION);
+        registerItem(DEF_BUFF_POTION);
+        registerItem(MDEF_BUFF_POTION);
+        registerItem(INVISIBLE_POTION);
         registerItem(SWORD);
         registerItem(POISON_DAGGER);
         registerItem(GRIMOIRE);

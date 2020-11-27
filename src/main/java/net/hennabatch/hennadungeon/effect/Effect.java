@@ -26,8 +26,13 @@ public abstract class Effect{
     public void update(BreakableEntity entity){
         updateEffect(entity);
         durationTime--;
-        if(durationTime == 0) setDestroy(true);
+        if(durationTime == 0) {
+            setDestroy(true);
+            onDestroy(entity);
+        }
     }
+
+    public void onDestroy(BreakableEntity entity){}
 
     public void updateEffect(BreakableEntity entity){}
 

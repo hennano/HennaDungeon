@@ -1,7 +1,6 @@
 package net.hennabatch.hennadungeon.scene.event;
 
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
-import net.hennabatch.hennadungeon.scene.Scene;
 import net.hennabatch.hennadungeon.scene.SceneResult;
 import net.hennabatch.hennadungeon.scene.Screen;
 import net.hennabatch.hennadungeon.util.Reference;

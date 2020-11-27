@@ -11,7 +11,6 @@ import net.hennabatch.hennadungeon.util.Reference;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
-import java.sql.Ref;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -38,7 +37,7 @@ public abstract class BreakableEntity extends CollidableEntity{
             return false;
         }
         subHP(this.getStatus().calcDamage(atk, getEquipmentWeapon(), getEquipmentArmor(), isMagic));
-        additionalEffects.stream().forEach(x -> {
+        additionalEffects.forEach(x -> {
             getStatus().addEffect(x);
             Reference.logger.info(this.name() + "は" + x.name() + "になった");
         });
@@ -55,7 +54,7 @@ public abstract class BreakableEntity extends CollidableEntity{
 
     @Override
     public void update() {
-        if(!getStatus().getEffects().stream().anyMatch(x -> x instanceof IUnmovable)){
+        if(getStatus().getEffects().stream().noneMatch(x -> x instanceof IUnmovable)){
             turnAction();
         }else{
             Reference.logger.info(this.name() + "は体がしびれて動けない");

@@ -106,7 +106,7 @@ public class Status {
                 .filter(x -> x instanceof StatusEffect)
                 .map(x -> (StatusEffect)x )
                 .filter(x -> x.getTargetStatus().equals(eumStatus))
-                .filter(x -> x.isMagnification())
+                .filter(StatusEffect::isMagnification)
                 .forEach( x -> val[0] *= x.getVal());
         return val[0];
     }
