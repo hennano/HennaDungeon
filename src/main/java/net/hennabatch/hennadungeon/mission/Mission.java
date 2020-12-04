@@ -23,7 +23,7 @@ public abstract class Mission {
 
     protected abstract List<Phase> getPhases();
 
-    protected Phase getCurrentPhase(){
+    public Phase getCurrentPhase(){
         try{
             return getPhases().get(currentPhase);
         }catch (IndexOutOfBoundsException e){

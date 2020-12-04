@@ -13,7 +13,10 @@ import net.hennabatch.hennadungeon.vec.Vec2d;
 
 import java.io.*;
 import java.lang.reflect.Constructor;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -98,8 +101,9 @@ public class DungeonBuilder {
         //exportSection(sections);
         //部屋生成
         Reference.logger.debug("Room generating...");
-        sections.stream().min(Comparator.comparingInt(x -> x.size().area())).get().generateStartRoom();
-        sections.stream().min(Comparator.comparingInt(x -> -x.size().area())).get().generateExitRoom();
+        sections.get(sections.size() - 1).generateStartRoom();
+        sections.get(0).generateExitRoom();
+        sections.get(sections.size() / 2 + 1).generateOtherPartyRoom();
         sections.parallelStream().filter(x -> x.room == null).forEach(Section::generateRoom);
         sections.forEach( x-> Reference.logger.debug(x.room.toString()));
         //通路生成
@@ -306,6 +310,8 @@ public class DungeonBuilder {
         void generateExitRoom(){
             generateRoom(ExitRoom.class);
         }
+
+        void generateOtherPartyRoom(){generateRoom(OtherPartyRoom.class);}
 
         private void generateRoom(Class<? extends Room> clazz){
             Random rand = new Random();
