@@ -32,10 +32,13 @@ public abstract class MenuScene extends Scene {
     @Override
     protected Screen draw(Screen screen) {
         screen = new Screen(screen.getWidth(), screen.getHeight());
-        screen.setRow((Reference.SCREEN_WIDTH / 2) - (getTitle().length() / 2),Reference.SCREEN_HEIGHT / 4, getTitle(), false, false);
+        screen.setRow((Reference.SCREEN_WIDTH / 2) - (getTitle().length() / 2),Reference.SCREEN_HEIGHT / 4, getTitle(), false, true);
+        int startPos = getOptions().stream()
+                .mapToInt(x -> (Reference.SCREEN_WIDTH / 2) - (x.length() / 2))
+                .min().getAsInt();
         for(int i = 0; i < getOptions().size(); i++){
-            if(pointer == i) screen.setPos((Reference.SCREEN_WIDTH / 2) - 4,Reference.SCREEN_HEIGHT / 2 + i, Reference.CURSOR_RIGHT);
-            screen.setRow((Reference.SCREEN_WIDTH / 2) - 3,Reference.SCREEN_HEIGHT / 2 + i, getOptions().get(i), false, false);
+            if(pointer == i) screen.setPos(startPos - 1,Reference.SCREEN_HEIGHT / 2 + i, Reference.CURSOR_RIGHT);
+            screen.setRow(startPos,Reference.SCREEN_HEIGHT / 2 + i, getOptions().get(i), false, false);
         }
         return screen;
     }

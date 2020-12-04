@@ -31,9 +31,9 @@ public class RootEvent extends Event {
         GameScene(GameScene.class),
         ShowRule(ShowRuleScene.class),
         GameOverScene(GameOverScene.class),
-        PartyKillEndingScene(PartyKillEndingScene.class),
-        HelpOtherPartyEndingScene(HelpOtherPartyEndingScene.class),
-        SociallyDeadEndingScene(SociallyDeadEndingScene.class),
+        PartyKillEndingScene(PartyKillEndingEvent.class),
+        HelpOtherPartyEndingScene(HelpOtherPartyEndingEvent.class),
+        SociallyDeadEndingScene(SociallyDeadEndingEvent.class),
         Exit(null);
 
         private final Class clazz;

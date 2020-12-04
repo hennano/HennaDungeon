@@ -3,7 +3,6 @@ package net.hennabatch.hennadungeon.entity.object;
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.entity.Entity;
 import net.hennabatch.hennadungeon.entity.character.PlayerEntity;
-import net.hennabatch.hennadungeon.mission.help.HelpOtherPartyMission;
 import net.hennabatch.hennadungeon.scene.event.ExitEvent;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
@@ -26,7 +25,7 @@ public class ExitEntity extends Entity {
 
     @Override
     public String getIcon() {
-        return "◢";
+        return "◢ ";
     }
 
     @Override

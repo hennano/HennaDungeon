@@ -14,7 +14,6 @@ import java.util.List;
 public class ExitEvent extends Event{
 
     private List<Mission> missions;
-    private List<String> message = new ArrayList<>(Arrays.asList("ダンジョンから脱出した!"));
 
     public ExitEvent(List<Mission> missions){
         this.missions = missions;
@@ -22,7 +21,7 @@ public class ExitEvent extends Event{
 
     @Override
     protected void initializeScene() {
-        createChildScene(new MessageScene(message));
+        createChildScene(new MessageScene(new ArrayList<>(Arrays.asList("ダンジョンから脱出した!"))));
     }
 
     @Override
@@ -31,4 +30,6 @@ public class ExitEvent extends Event{
         if(missions.stream().filter(x -> x instanceof HelpOtherPartyMission).anyMatch(x -> x.isComplete())) return new SceneResult<>(false, RootEvent.SceneTransition.HelpOtherPartyEndingScene);
         return new SceneResult<>(false, RootEvent.SceneTransition.SociallyDeadEndingScene);
     }
+
+
 }
