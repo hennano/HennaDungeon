@@ -32,6 +32,8 @@ public class KillTutorialBossPhase extends Phase {
                 player + ":\nしっかし、あいつら自分をおいてほんとに逃げやがった",
                 player + ":\n早く見つけてざまあしてやらんと気がすまねぇ"));
         getDungeon().getPlayer().addHP(getDungeon().getPlayer().getMaxHP());
+        //出口にボスの設置
+
         getDungeon().executeScene(new MessageScene(messages));
     }
 }

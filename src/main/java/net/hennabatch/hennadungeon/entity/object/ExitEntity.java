@@ -18,7 +18,7 @@ public class ExitEntity extends Entity {
 
     @Override
     protected void onTrigger(Entity triggeredEntity) {
-        if (triggeredEntity instanceof PlayerEntity) {
+        if(triggeredEntity instanceof PlayerEntity) {
             getDungeon().executeScene(new ExitEvent(getDungeon().getMissions()));
         }
     }

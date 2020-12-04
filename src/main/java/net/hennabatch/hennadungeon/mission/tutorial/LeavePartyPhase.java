@@ -28,7 +28,7 @@ class LeavePartyPhase extends Phase {
         Entity golem = new GolemEntity(new Vec2d(getDungeon().getPlayer()).sub(new Vec2d(0, 2)), getDungeon());
         golem.addTag(new TutorialBossTag());
         getDungeon().spawnEntity(golem);
-        //出られないように壁の生成 作業中
+        //出られないように壁の生成
         Room startRoom = getDungeon().getFloors().stream().filter(x -> x instanceof StartRoom).map(x -> (Room) x).findFirst().get();
         List<Vec2d> connectionPoint = new ArrayList<>();
         for(ConnectFloor connect : startRoom.getConnectFloors()){

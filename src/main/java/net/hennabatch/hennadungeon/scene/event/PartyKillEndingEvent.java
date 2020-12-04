@@ -18,13 +18,13 @@ public class PartyKillEndingEvent extends Event{
         String player = new PlayerEntity(new Vec2d(0, 0), null).name();
 
         List<String> endingMessage = new ArrayList<>(Arrays.asList(
-                player + ":\nダンジョンを出たあと自分は必死で街へ戻った。",
-                player + ":\n街で自分の所属しているギルドにダンジョンでのことを報告した。",
-                player + ":\nただ初めて人殺しをして興奮していたからうまく伝わったかはわからない。",
-                player + ":\n自分はしばらくの間休暇を取ることにした。",
-                player + ":\n休暇中、ダンジョンでの出来事が頭から離れない。",
-                player + ":\n少し外に出てみようかと思ったが足が震える。",
-                player + ":\n自分はまた冒険者として活動できるのであろうか。",
+                player + ":\nダンジョンを出たあと自分は必死で街へ戻った",
+                player + ":\n街で自分の所属しているギルドにダンジョンでのことを報告した",
+                player + ":\nただ初めて人殺しをして興奮していたからうまく伝わったかはわからない",
+                player + ":\n自分はしばらくの間休暇を取ることにした",
+                player + ":\n休暇中、ダンジョンでの出来事が頭から離れない",
+                player + ":\n少し外に出てみようかと思ったが足が震える",
+                player + ":\n自分はまた冒険者として活動できるのであろうか",
                 "ToDo:元パーティメンバーを倒さないで逃げる方法を見つける"
         ));
         createChildScene(new MessageScene(endingMessage));

@@ -2,9 +2,8 @@ package net.hennabatch.hennadungeon.dungeon;
 
 import net.hennabatch.hennadungeon.dungeon.floor.*;
 import net.hennabatch.hennadungeon.entity.character.PlayerEntity;
-import net.hennabatch.hennadungeon.entity.object.DropItemEntity;
-import net.hennabatch.hennadungeon.entity.object.ExitEntity;
-import net.hennabatch.hennadungeon.item.Items;
+import net.hennabatch.hennadungeon.mission.boss.BossMission;
+import net.hennabatch.hennadungeon.mission.help.HelpOtherPartyMission;
 import net.hennabatch.hennadungeon.mission.tutorial.TutorialMission;
 import net.hennabatch.hennadungeon.scene.GameScene;
 import net.hennabatch.hennadungeon.util.EnumDifficulty;
@@ -121,9 +120,9 @@ public class DungeonBuilder {
                 .map(x -> x.room)
                 .findFirst().get();
         dungeon.spawnEntity(new PlayerEntity(startRoom.size().div(2).add(startRoom.getUpperLeft()), dungeon));
-        dungeon.spawnEntity(new DropItemEntity(new Vec2d(dungeon.getPlayer()).add(1), dungeon, Items.INVISIBLE_POTION));
         dungeon.addMission(new TutorialMission());
-        dungeon.spawnEntity(new ExitEntity(new Vec2d(dungeon.getPlayer()).add(2), dungeon));
+        dungeon.addMission(new BossMission());
+        dungeon.addMission(new HelpOtherPartyMission());
         exportFloor(dungeon);
         return dungeon;
     }
