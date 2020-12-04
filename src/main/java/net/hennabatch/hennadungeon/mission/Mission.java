@@ -40,6 +40,7 @@ public abstract class Mission {
             getCurrentPhase().execute();
             currentPhase++;
             if(!isComplete()) getCurrentPhase().initialize(dungeon);
+            if(isComplete()) Reference.logger.debug(this.getClass().getSimpleName() + " is completed");
         }
     }
 

@@ -2,6 +2,8 @@ package net.hennabatch.hennadungeon.dungeon;
 
 import net.hennabatch.hennadungeon.dungeon.floor.*;
 import net.hennabatch.hennadungeon.entity.character.PlayerEntity;
+import net.hennabatch.hennadungeon.entity.object.DropItemEntity;
+import net.hennabatch.hennadungeon.item.Items;
 import net.hennabatch.hennadungeon.mission.boss.BossMission;
 import net.hennabatch.hennadungeon.mission.help.HelpOtherPartyMission;
 import net.hennabatch.hennadungeon.mission.tutorial.TutorialMission;
@@ -103,7 +105,8 @@ public class DungeonBuilder {
         Reference.logger.debug("Room generating...");
         sections.get(sections.size() - 1).generateStartRoom();
         sections.get(0).generateExitRoom();
-        sections.get(sections.size() / 2 + 1).generateOtherPartyRoom();
+        //sections.get(sections.size() / 2 + 1).generateOtherPartyRoom();
+        sections.get(sections.size() - 2).generateOtherPartyRoom();
         sections.parallelStream().filter(x -> x.room == null).forEach(Section::generateRoom);
         sections.forEach( x-> Reference.logger.debug(x.room.toString()));
         //通路生成
@@ -124,6 +127,7 @@ public class DungeonBuilder {
                 .map(x -> x.room)
                 .findFirst().get();
         dungeon.spawnEntity(new PlayerEntity(startRoom.size().div(2).add(startRoom.getUpperLeft()), dungeon));
+        dungeon.spawnEntity(new DropItemEntity(startRoom.size().div(2).add(startRoom.getUpperLeft()).add(1), dungeon, Items.SWORD));
         dungeon.addMission(new TutorialMission());
         dungeon.addMission(new BossMission());
         dungeon.addMission(new HelpOtherPartyMission());

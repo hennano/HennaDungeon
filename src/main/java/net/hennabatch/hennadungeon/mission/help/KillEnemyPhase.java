@@ -4,6 +4,7 @@ import net.hennabatch.hennadungeon.entity.character.HelpedPartyLeaderEntity;
 import net.hennabatch.hennadungeon.entity.character.HelpedPartyMemberEntity;
 import net.hennabatch.hennadungeon.entity.character.PlayerEntity;
 import net.hennabatch.hennadungeon.mission.Phase;
+import net.hennabatch.hennadungeon.scene.MessageScene;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
 import java.util.ArrayList;
@@ -31,5 +32,6 @@ public class KillEnemyPhase extends Phase {
                 leader + ":\nさっきの襲撃で得物が使えなくなってしまったんだ",
                 leader + ":\n貸せる武器があったら話しかけてくれ"
         ));
+        getDungeon().executeScene(new MessageScene(messages));
     }
 }

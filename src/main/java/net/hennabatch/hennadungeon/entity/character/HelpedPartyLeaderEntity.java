@@ -36,8 +36,9 @@ public class HelpedPartyLeaderEntity extends HelpedPartyMemberEntity{
             super.onCollision(collidedEntity);
             return;
         }
-        if(!(getDungeon().getMissions().stream().filter(x -> x instanceof HelpOtherPartyMission).findFirst().get().getCurrentPhase() instanceof KillEnemyPhase)){
+        if((getDungeon().getMissions().stream().filter(x -> x instanceof HelpOtherPartyMission).findFirst().get().getCurrentPhase() instanceof KillEnemyPhase)){
             getDungeon().executeScene(new MessageScene(new ArrayList<>(Arrays.asList(name() + ":\nすまない、助けてくれ…"))));
+            return;
         }
         getDungeon().executeScene(new GiveWeaponEvent(getDungeon()));
     }
