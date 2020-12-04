@@ -1,0 +1,32 @@
+package net.hennabatch.hennadungeon.entity.object;
+
+import net.hennabatch.hennadungeon.dungeon.Dungeon;
+import net.hennabatch.hennadungeon.entity.Entity;
+import net.hennabatch.hennadungeon.entity.character.PlayerEntity;
+import net.hennabatch.hennadungeon.vec.Vec2d;
+
+public class ExitEntity extends Entity {
+    public ExitEntity(Vec2d pos, Dungeon dungeon) {
+        super(pos, dungeon);
+    }
+
+    @Override
+    public void initilaize() {
+
+    }
+
+    @Override
+    protected void onTrigger(Entity triggeredEntity) {
+
+    }
+
+    @Override
+    public String getIcon() {
+        return "◢";
+    }
+
+    @Override
+    public String name() {
+        return "階段";
+    }
+}
