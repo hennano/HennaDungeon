@@ -28,8 +28,13 @@ public class BlinkAi<T extends Entity> extends AdvancedAiBase<T>{
         Random rand = new Random();
         int range = rand.nextInt(maxRange - minRange) + minRange;
         List<Vec2d> vecs = new Vec2d(owner).rangeMax(range);
-        Vec2d targetPos = vecs.parallelStream().filter(x -> owner.getDungeon().isInner(x)).findAny().get();
-        owner.setPos(targetPos);
-        Reference.logger.info(owner.name() + "はワープした");
+        Vec2d targetPos = vecs.parallelStream().filter(x -> owner.getDungeon().isInner(x)).findAny().orElse(null);
+        if(targetPos == null){
+            Reference.logger.info(owner.name() + "はワープに失敗した");
+        }else{
+            owner.setPos(targetPos);
+            Reference.logger.debug(owner.name() + " blink to " + targetPos);
+            Reference.logger.info(owner.name() + "はワープした");
+        }
     }
 }
