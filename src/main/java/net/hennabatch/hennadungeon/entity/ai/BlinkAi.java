@@ -14,7 +14,7 @@ public class BlinkAi<T extends Entity> extends AdvancedAiBase<T>{
     private final int minRange;
 
     public BlinkAi(T owner, int range, int limit, int coolTime, Predicate<T> predicate) {
-        this(owner, 0, range, limit, coolTime, predicate);
+        this(owner, range, range, limit, coolTime, predicate);
     }
 
     public BlinkAi(T owner, int min, int max, int limit, int coolTime, Predicate<T> predicate) {
@@ -25,7 +25,6 @@ public class BlinkAi<T extends Entity> extends AdvancedAiBase<T>{
 
     @Override
     protected void doAny() {
-        Reference.logger.debug("dddddd");
         Random rand = new Random();
         int range = rand.nextInt(maxRange - minRange) + minRange;
         List<Vec2d> vecs = new Vec2d(owner).rangeMax(range);

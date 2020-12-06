@@ -25,7 +25,7 @@ public class WitchEntity extends EnemyEntity {
         tasks.addTask(0, new StayAi<>(this));
         tasks.addTask(1, new ApproachaTagetAi<>(this, getDungeon().getPlayer(), 5.0));
         tasks.addTask(2, new AttackMeleeAi<>(this, getDungeon().getPlayer(), getEquipmentWeapon()));
-        tasks.addTask(3, new BlinkAi<>(this, 1, 3, 5, 5, x -> false));
+        tasks.addTask(3, new BlinkAi<>(this, 3, 3, 5, 5, x -> true));
     }
 
     @Override

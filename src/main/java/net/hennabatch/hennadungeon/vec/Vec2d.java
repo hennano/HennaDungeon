@@ -121,7 +121,7 @@ public class Vec2d implements IVec, Cloneable{
         for(int x = 0; x < range; x++){
             int y = range - x;
             int finalX = x;
-            vecs.addAll(Arrays.stream(EnumDirection.values()).map(i -> i.vec().dot(new Vec2d(finalX, y))).collect(Collectors.toList()));
+            vecs.addAll(Arrays.stream(EnumDirection.values()).map(i -> new Vec2d(finalX, y).rotate(i).add(this)).collect(Collectors.toList()));
         }
         return vecs;
     }
