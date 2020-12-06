@@ -20,14 +20,14 @@ public class DropItemEntity extends Entity {
     public void update() { }
 
     @Override
-    public void initilaize() { }
+    public void initialize() { }
 
     @Override
     protected void onTrigger(Entity triggeredEntity) {
         if(triggeredEntity instanceof IPickable){
             if(((IPickable) triggeredEntity).pick(item)){
                 Reference.logger.info(triggeredEntity.name() + "が" + item.name() + "を拾った");
-                destroy();
+                setDestroy(true);
             }
         }
     }

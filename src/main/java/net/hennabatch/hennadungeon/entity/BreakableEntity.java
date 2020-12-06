@@ -54,13 +54,15 @@ public abstract class BreakableEntity extends CollidableEntity{
 
     @Override
     public void update() {
-        if(getStatus().getEffects().stream().noneMatch(x -> x instanceof IUnmovable)){
-            turnAction();
-        }else{
-            Reference.logger.info(this.name() + "は体がしびれて動けない");
+        if(!isDestroy()){
+            if(getStatus().getEffects().stream().noneMatch(x -> x instanceof IUnmovable)){
+                turnAction();
+            }else{
+                Reference.logger.info(this.name() + "は体がしびれて動けない");
+            }
+            this.getStatus().getEffects().forEach(x -> x.update(this));
+            this.getStatus().getEffects().removeIf(Effect::isDestroy);
         }
-        this.getStatus().getEffects().forEach(x -> x.update(this));
-        this.getStatus().getEffects().removeIf(Effect::isDestroy);
         super.update();
     }
 
@@ -83,7 +85,7 @@ public abstract class BreakableEntity extends CollidableEntity{
     public void subHP(int hp){
         setCurrentHP(Math.max(getCurrentHP() - hp, 0));
         Reference.logger.info(this.name() + "は" + hp + "ダメージ受けた");
-        if(getCurrentHP() <= 0) this.destroy();
+        if(getCurrentHP() <= 0) this.setDestroy(true);
     }
 
     @Override

@@ -14,6 +14,7 @@ import net.hennabatch.hennadungeon.vec.Vec2d;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Dungeon {
@@ -35,7 +36,12 @@ public class Dungeon {
     }
 
     public List<Entity> getEntities() {
-        return entities;
+        return entities.stream().filter(x -> !x.isDestroy()).collect(Collectors.toList());
+    }
+
+    public void removeIfEntity(Predicate<? super Entity> predicate){
+        entities.stream().filter(predicate).forEach(Entity::destroy);
+        entities.removeIf(predicate);
     }
 
     public void executeScene(Scene scene){
@@ -65,7 +71,7 @@ public class Dungeon {
 
     public void spawnEntity(Entity entity){
         this.entities.add(entity);
-        entity.initilaize();
+        entity.initialize();
         Reference.logger.debug(entity.name() + " spawn at" + new Vec2d(entity).toString());
     }
 

@@ -15,7 +15,7 @@ public abstract class AiBase <T extends Entity>{
         return shouldExecute();
     }
 
-    public void startExecuteing(){}
+    public void startExecuting(){}
 
     public void resetTask(){}
 

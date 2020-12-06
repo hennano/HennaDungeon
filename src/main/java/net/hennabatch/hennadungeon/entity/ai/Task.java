@@ -30,7 +30,7 @@ public class Task {
                 alreadyExecuted[0] = true;
                 if(runningTask != null) runningTask.getAi().resetTask();
                 runningTask = x;
-                runningTask.getAi().startExecuteing();
+                runningTask.getAi().startExecuting();
                 runningTask.getAi().updateTask();
             }else if(x.equals(runningTask) && x.getAi().shouldContinueExecute()){
                 runningTask.getAi().updateTask();

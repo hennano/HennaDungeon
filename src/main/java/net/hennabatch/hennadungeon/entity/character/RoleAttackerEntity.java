@@ -13,7 +13,7 @@ public class RoleAttackerEntity extends EnemyEntity {
     }
 
     @Override
-    public void initilaizeAi() {
+    public void initializeAi() {
 
     }
 

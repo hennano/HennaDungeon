@@ -13,7 +13,7 @@ public class RoleDebufferEntity extends EnemyEntity {
     }
 
     @Override
-    public void initilaizeAi() {
+    public void initializeAi() {
 
     }
 

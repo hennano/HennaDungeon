@@ -21,7 +21,7 @@ public class BoxEntity extends CollidableEntity {
     }
 
     @Override
-    public void initilaize() {
+    public void initialize() {
 
     }
 

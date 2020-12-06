@@ -16,6 +16,7 @@ public abstract class Entity implements IVec {
     private int y;
     private final Dungeon dungeon;
     private boolean isHidden = false;
+    private boolean isDestroy = false;
     private List<Tag> tags = new ArrayList<>();
     private int turn = 0;
 
@@ -47,7 +48,7 @@ public abstract class Entity implements IVec {
         setY(pos.getY());
     }
 
-    protected Dungeon getDungeon(){
+    public Dungeon getDungeon(){
         return this.dungeon;
     }
 
@@ -71,13 +72,20 @@ public abstract class Entity implements IVec {
 
     protected void onDestroy(){}
 
-    public abstract void initilaize();
+    public abstract void initialize();
 
     public abstract String getIcon();
 
+    public void setDestroy(boolean bool){
+        this.isDestroy = bool;
+    }
+
+    public boolean isDestroy(){
+        return isDestroy;
+    }
+
     public void destroy() {
         onDestroy();
-        getDungeon().getEntities().removeIf(x -> x.equals(this));
         Reference.logger.debug(this.name() +" destroy");
     }
 

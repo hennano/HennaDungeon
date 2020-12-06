@@ -12,7 +12,7 @@ public class ExitEntity extends Entity {
     }
 
     @Override
-    public void initilaize() {
+    public void initialize() {
 
     }
 

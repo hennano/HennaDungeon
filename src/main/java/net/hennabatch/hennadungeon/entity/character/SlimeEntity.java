@@ -3,6 +3,9 @@ package net.hennabatch.hennadungeon.entity.character;
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.entity.EnemyEntity;
 import net.hennabatch.hennadungeon.entity.Status;
+import net.hennabatch.hennadungeon.entity.ai.ApproachaTagetAi;
+import net.hennabatch.hennadungeon.entity.ai.AttackMeleeAi;
+import net.hennabatch.hennadungeon.entity.ai.StayAi;
 import net.hennabatch.hennadungeon.item.ArmorItem;
 import net.hennabatch.hennadungeon.item.Items;
 import net.hennabatch.hennadungeon.item.WeaponItem;
@@ -17,8 +20,10 @@ public class SlimeEntity extends EnemyEntity {
     }
 
     @Override
-    public void initilaizeAi() {
-
+    public void initializeAi() {
+        tasks.addTask(0, new StayAi<>(this));
+        tasks.addTask(1, new ApproachaTagetAi<>(this, getDungeon().getPlayer(), 5.0));
+        tasks.addTask(2, new AttackMeleeAi<>(this,  getDungeon().getPlayer(), getEquipmentWeapon()));
     }
 
     @Override

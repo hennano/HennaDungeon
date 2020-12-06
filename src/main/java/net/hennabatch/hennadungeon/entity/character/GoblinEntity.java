@@ -20,7 +20,7 @@ public class GoblinEntity extends EnemyEntity {
     }
 
     @Override
-    public void initilaizeAi() {
+    public void initializeAi() {
         tasks.addTask(0, new StayAi<>(this));
         tasks.addTask(1, new ApproachaTagetAi<>(this, getDungeon().getPlayer(), 5.0));
         tasks.addTask(2, new AttackMeleeAi<>(this,  getDungeon().getPlayer(), getEquipmentWeapon()));

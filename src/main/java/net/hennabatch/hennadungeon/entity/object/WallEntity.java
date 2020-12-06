@@ -17,7 +17,7 @@ public class WallEntity extends CollidableEntity {
     public void update() { }
 
     @Override
-    public void initilaize() { }
+    public void initialize() { }
 
     @Override
     public String getIcon() {

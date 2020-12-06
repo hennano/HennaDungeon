@@ -2,8 +2,7 @@ package net.hennabatch.hennadungeon.dungeon;
 
 import net.hennabatch.hennadungeon.dungeon.floor.*;
 import net.hennabatch.hennadungeon.entity.character.PlayerEntity;
-import net.hennabatch.hennadungeon.entity.object.DropItemEntity;
-import net.hennabatch.hennadungeon.item.Items;
+import net.hennabatch.hennadungeon.entity.character.WitchEntity;
 import net.hennabatch.hennadungeon.mission.boss.BossMission;
 import net.hennabatch.hennadungeon.mission.help.HelpOtherPartyMission;
 import net.hennabatch.hennadungeon.mission.tutorial.TutorialMission;
@@ -127,7 +126,7 @@ public class DungeonBuilder {
                 .map(x -> x.room)
                 .findFirst().get();
         dungeon.spawnEntity(new PlayerEntity(startRoom.size().div(2).add(startRoom.getUpperLeft()), dungeon));
-        dungeon.spawnEntity(new DropItemEntity(startRoom.size().div(2).add(startRoom.getUpperLeft()).add(1), dungeon, Items.SWORD));
+        spawnEntities(dungeon);
         dungeon.addMission(new TutorialMission());
         dungeon.addMission(new BossMission());
         dungeon.addMission(new HelpOtherPartyMission());
@@ -230,6 +229,15 @@ public class DungeonBuilder {
         sections.add(currentSection);
         return sections;
     }
+
+    private void spawnEntities(Dungeon dungeon){
+        Room start = (Room) dungeon.getFloors().stream().filter(x -> x instanceof StartRoom).findFirst().get();
+        dungeon.spawnEntity(new WitchEntity(start.getUpperLeft().add(start.size().div(2)), dungeon));
+    }
+
+
+
+
 
     private static class DivisionLine{
         int pos;

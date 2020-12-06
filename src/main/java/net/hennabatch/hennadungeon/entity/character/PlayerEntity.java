@@ -93,7 +93,7 @@ public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInve
     }
 
     @Override
-    public void initilaize() {}
+    public void initialize() {}
 
     @Override
     public String getIcon() {

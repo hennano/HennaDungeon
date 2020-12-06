@@ -12,11 +12,11 @@ public abstract class AiEntity extends BreakableEntity {
         super(pos, dungeon);
     }
 
-    public abstract void initilaizeAi();
+    public abstract void initializeAi();
 
     @Override
-    public void initilaize() {
-        initilaizeAi();
+    public void initialize() {
+        initializeAi();
     }
 
     @Override

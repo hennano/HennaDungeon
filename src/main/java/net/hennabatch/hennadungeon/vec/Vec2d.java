@@ -1,7 +1,10 @@
 package net.hennabatch.hennadungeon.vec;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Vec2d implements IVec, Cloneable{
 
@@ -111,6 +114,16 @@ public class Vec2d implements IVec, Cloneable{
         int minX = Arrays.stream(vecs).min(Comparator.comparing(IVec::getX)).get().getX();
         int minY = Arrays.stream(vecs).min(Comparator.comparing(IVec::getY)).get().getY();
         return new Vec2d(minX, minY);
+    }
+
+    public List<Vec2d> rangeMax(int range){
+        List<Vec2d> vecs = new ArrayList<>();
+        for(int x = 0; x < range; x++){
+            int y = range - x;
+            int finalX = x;
+            vecs.addAll(Arrays.stream(EnumDirection.values()).map(i -> i.vec().dot(new Vec2d(finalX, y))).collect(Collectors.toList()));
+        }
+        return vecs;
     }
 
     @Override

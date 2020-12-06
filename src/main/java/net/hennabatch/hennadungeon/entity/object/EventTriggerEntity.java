@@ -17,7 +17,7 @@ public class EventTriggerEntity extends Entity {
     }
 
     @Override
-    public void initilaize() {
+    public void initialize() {
 
     }
 
@@ -34,6 +34,6 @@ public class EventTriggerEntity extends Entity {
     @Override
     protected void onTrigger(Entity triggeredEntity) {
         Reference.logger.debug("接触した");
-        destroy();
+        setDestroy(true);
     }
 }

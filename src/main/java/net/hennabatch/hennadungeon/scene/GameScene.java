@@ -1,6 +1,5 @@
 package net.hennabatch.hennadungeon.scene;
 
-import javafx.scene.input.RotateEvent;
 import net.hennabatch.hennadungeon.config.EnumKeyInput;
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.dungeon.DungeonBuilder;
@@ -40,8 +39,8 @@ public class GameScene extends Scene {
         boolean isNext = playerAction(key);
         updateMissions();
         if(!isNext) return new SceneResult(true, null);
-        //近い順に敵の行動処理
         dungeon.getEntities().stream().sorted(Comparator.comparing(x -> new Vec2d(dungeon.getPlayer()).distance(x))).forEach(Entity::update);
+        dungeon.removeIfEntity(Entity::isDestroy);
         return new SceneResult(true, null);
     }
 

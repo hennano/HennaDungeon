@@ -24,7 +24,7 @@ public class HelpedPartyMemberEntity extends AiEntity {
     }
 
     @Override
-    public void initilaizeAi() {
+    public void initializeAi() {
         tasks.addTask(0, new StayAi<>(this));
     }
 
