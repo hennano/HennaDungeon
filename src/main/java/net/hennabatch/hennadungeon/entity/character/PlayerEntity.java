@@ -128,7 +128,7 @@ public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInve
     }
 
     @Override
-    public void destroy() {
+    public void setDestroy(boolean bool) {
         getDungeon().executeScene(new PlayerDeadEvent());
     }
 }
