@@ -36,6 +36,7 @@ public class Items {
     public static final Item ROBE = new RobeItem();
 
     public static final Item CRYSTAL = new CrystalItem();
+    public static final Item KEY = new KeyItem();
 
     private static final Items singleton = new Items();
 
