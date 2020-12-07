@@ -6,6 +6,7 @@ import net.hennabatch.hennadungeon.vec.Vec2d;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ApproachaTagetAi<T extends Entity> extends AiBase<T>{
 
@@ -34,6 +35,7 @@ public class ApproachaTagetAi<T extends Entity> extends AiBase<T>{
             directions.add(distance.getY() >= 0 ? EnumDirection.NY : EnumDirection.Y);
             directions.add(distance.getX() >= 0 ? EnumDirection.NX : EnumDirection.X);
         }
-        owner.move(directions.stream().filter(x -> owner.tryMove(x, 1) > 0).findFirst().get(), 1);
+        List<EnumDirection> dire = directions.stream().filter(x -> owner.tryMove(x, 1) > 0).collect(Collectors.toList());
+        if(dire.size() > 0) owner.move(dire.get(0), 1);
     }
 }

@@ -89,8 +89,7 @@ public abstract class BreakableEntity extends CollidableEntity{
     }
 
     @Override
-    public void destroy() {
-        super.destroy();
+    protected void onDestroy() {
         if(getDropItemTable() != null){
             Item item = getDropItemTable().getDropItem();
             if(item != null){

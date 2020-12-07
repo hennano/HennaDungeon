@@ -15,7 +15,7 @@ import net.hennabatch.hennadungeon.vec.Vec2d;
 
 public class BatEntity extends EnemyEntity {
 
-    private Status status = new Status(30, 10, 10, 10);
+    private Status status = new Status(20, 10, 10, 10);
 
     public BatEntity(Vec2d pos, Dungeon dungeon) {
         super(pos, dungeon);

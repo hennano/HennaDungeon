@@ -40,7 +40,8 @@ public class Dungeon {
     }
 
     public void removeIfEntity(Predicate<? super Entity> predicate){
-        entities.stream().filter(predicate).forEach(Entity::destroy);
+        List<Entity> entityList = entities.stream().filter(predicate).collect(Collectors.toList());
+        entityList.forEach(Entity::destroy);
         entities.removeIf(predicate);
     }
 

@@ -13,7 +13,7 @@ import net.hennabatch.hennadungeon.vec.Vec2d;
 
 public class GoblinEntity extends EnemyEntity {
 
-    private Status status = new Status(50, 10, 30, 0);
+    private Status status = new Status(30, 10, 10, 0);
 
     public GoblinEntity(Vec2d pos, Dungeon dungeon) {
         super(pos, dungeon);
@@ -43,7 +43,7 @@ public class GoblinEntity extends EnemyEntity {
 
     @Override
     public int getMaxHP() {
-        return 250;
+        return 200;
     }
 
     @Override

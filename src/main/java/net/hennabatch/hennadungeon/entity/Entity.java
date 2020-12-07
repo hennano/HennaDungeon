@@ -121,13 +121,13 @@ public abstract class Entity implements IVec {
     }
 
     public int tryMove(EnumDirection direction, int length){
-        IVec currentPos = this;
-        for(Vec2d i = direction.vec(); !direction.vec().equals(direction.vec().dot(length)); i = i.add(direction.vec())){
+        Vec2d move = new Vec2d(0, 0);
+        for(Vec2d i = direction.vec(); !i.equals(direction.vec().dot(length + 1)); i = i.add(direction.vec())){
             Vec2d checkPos = i.add(this);
             if(!dungeon.isInner(checkPos)) break;
             if(dungeon.getEntitiesByIVec(checkPos).stream().anyMatch(x -> x instanceof CollidableEntity)) break;
-            currentPos = i;
+            move = i;
         }
-        return Math.abs(new Vec2d(currentPos).add(1).area() - 1);
+        return Math.abs(new Vec2d(move).add(1).area() - 1);
     }
 }

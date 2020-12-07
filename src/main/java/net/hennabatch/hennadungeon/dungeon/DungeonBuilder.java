@@ -31,6 +31,15 @@ public class DungeonBuilder {
     private int minRoomHeight = Reference.DUNGEON_MIN_ROOMHEIGTH;
     private EnumDifficulty difficulty = EnumDifficulty.NORMAL;
     private double roomConnectChance = Reference.DUNGEON_CONNECT_CHANCE;
+    private int spawnEnemiesPerRoom = Reference.SPAWN_ENEMIES_PER_ROOM;
+
+    public int getSpawnEnemiesPerRoom() {
+        return spawnEnemiesPerRoom;
+    }
+
+    public void setSpawnEnemiesPerRoom(int spawnEnemiesPerRoom) {
+        this.spawnEnemiesPerRoom = spawnEnemiesPerRoom;
+    }
 
     public double getRoomConnectChance() {
         return roomConnectChance;
@@ -126,7 +135,8 @@ public class DungeonBuilder {
                 .map(x -> x.room)
                 .findFirst().get();
         dungeon.spawnEntity(new PlayerEntity(startRoom.size().div(2).add(startRoom.getUpperLeft()), dungeon));
-        spawnEntities(dungeon);
+        dungeon.spawnEntity(new WitchEntity(startRoom.size().div(2).add(startRoom.getUpperLeft()).add(1), dungeon));
+        spawnEnemies(dungeon);
         dungeon.addMission(new TutorialMission());
         dungeon.addMission(new BossMission());
         dungeon.addMission(new HelpOtherPartyMission());
@@ -230,9 +240,11 @@ public class DungeonBuilder {
         return sections;
     }
 
-    private void spawnEntities(Dungeon dungeon){
-        Room start = (Room) dungeon.getFloors().stream().filter(x -> x instanceof StartRoom).findFirst().get();
-        dungeon.spawnEntity(new WitchEntity(start.getUpperLeft().add(start.size().div(2)), dungeon));
+    private void spawnEnemies(Dungeon dungeon){
+        Random rand = new Random();
+        dungeon.getFloors().stream().filter(x -> x.getClass().equals(Room.class)).forEach(x ->{
+            int spawnCnt = rand.nextInt(spawnEnemiesPerRoom + 1) + rand.nextInt(spawnEnemiesPerRoom + 1);
+        });
     }
 
 

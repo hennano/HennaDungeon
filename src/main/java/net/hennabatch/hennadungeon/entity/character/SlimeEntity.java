@@ -43,7 +43,7 @@ public class SlimeEntity extends EnemyEntity {
 
     @Override
     public int getMaxHP() {
-        return 100;
+        return 150;
     }
 
     @Override
