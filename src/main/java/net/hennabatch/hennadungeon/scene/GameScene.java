@@ -39,7 +39,10 @@ public class GameScene extends Scene {
         boolean isNext = playerAction(key);
         updateMissions();
         if(!isNext) return new SceneResult(true, null);
-        dungeon.getEntities().stream().sorted(Comparator.comparing(x -> new Vec2d(dungeon.getPlayer()).distance(x))).forEach(Entity::update);
+        dungeon.getEntities().stream()
+                .sorted(Comparator.comparing(x -> new Vec2d(dungeon.getPlayer()).distance(x)))
+                .filter(x -> new Vec2d(dungeon.getPlayer()).distance(x) < 20)
+                .forEach(Entity::update);
         dungeon.removeIfEntity(Entity::isDestroy);
         return new SceneResult(true, null);
     }

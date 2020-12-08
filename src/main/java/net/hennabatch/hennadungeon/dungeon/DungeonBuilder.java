@@ -1,8 +1,11 @@
 package net.hennabatch.hennadungeon.dungeon;
 
 import net.hennabatch.hennadungeon.dungeon.floor.*;
+import net.hennabatch.hennadungeon.entity.EnemyEntity;
 import net.hennabatch.hennadungeon.entity.character.PlayerEntity;
-import net.hennabatch.hennadungeon.entity.character.WitchEntity;
+import net.hennabatch.hennadungeon.entity.object.DropItemEntity;
+import net.hennabatch.hennadungeon.item.Item;
+import net.hennabatch.hennadungeon.item.Items;
 import net.hennabatch.hennadungeon.mission.boss.BossMission;
 import net.hennabatch.hennadungeon.mission.help.HelpOtherPartyMission;
 import net.hennabatch.hennadungeon.mission.tutorial.TutorialMission;
@@ -14,6 +17,7 @@ import net.hennabatch.hennadungeon.vec.Vec2d;
 
 import java.io.*;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,6 +36,11 @@ public class DungeonBuilder {
     private EnumDifficulty difficulty = EnumDifficulty.NORMAL;
     private double roomConnectChance = Reference.DUNGEON_CONNECT_CHANCE;
     private int spawnEnemiesPerRoom = Reference.SPAWN_ENEMIES_PER_ROOM;
+    private int spawnItemsPerRoom = Reference.SPAWN_ITEMS_PER_ROOM;
+    private List<Class<? extends EnemyEntity>> spannableEnemies = Reference.SPANNABLE_ENEMIES;
+    private List<Item> spannableItems = Reference.SPANNABLE_ITEMS;
+    private List<Item> spannableWeapons = Reference.SPANNABLE_WEAPONS;
+    private List<Item> getSpannableArmors = Reference.SPANNABLE_ARMORS;
 
     public int getSpawnEnemiesPerRoom() {
         return spawnEnemiesPerRoom;
@@ -135,8 +144,10 @@ public class DungeonBuilder {
                 .map(x -> x.room)
                 .findFirst().get();
         dungeon.spawnEntity(new PlayerEntity(startRoom.size().div(2).add(startRoom.getUpperLeft()), dungeon));
-        dungeon.spawnEntity(new WitchEntity(startRoom.size().div(2).add(startRoom.getUpperLeft()).add(1), dungeon));
+        dungeon.spawnEntity(new DropItemEntity(startRoom.size().div(2).add(startRoom.getUpperLeft()).add(1), dungeon, Items.DEF_BUFF_POTION));
         spawnEnemies(dungeon);
+        spawnOtherEntities(dungeon);
+        spawnDropItems(dungeon);
         dungeon.addMission(new TutorialMission());
         dungeon.addMission(new BossMission());
         dungeon.addMission(new HelpOtherPartyMission());
@@ -242,13 +253,55 @@ public class DungeonBuilder {
 
     private void spawnEnemies(Dungeon dungeon){
         Random rand = new Random();
-        dungeon.getFloors().stream().filter(x -> x.getClass().equals(Room.class)).forEach(x ->{
+        dungeon.getFloors().stream()
+                .filter(x -> x.getClass().equals(Room.class))
+                .map(x -> (Room)x)
+                .forEach(x ->{
             int spawnCnt = rand.nextInt(spawnEnemiesPerRoom + 1) + rand.nextInt(spawnEnemiesPerRoom + 1);
+            for(int i = 0; i < spawnCnt; i++){
+                Vec2d spawnPos = new Vec2d(rand.nextInt(x.size().getX()), rand.nextInt(x.size().getY())).add(x.getUpperLeft());
+                try {
+                    EnemyEntity enemy = spannableEnemies.get(rand.nextInt(spannableEnemies.size())).getConstructor(Vec2d.class, Dungeon.class).newInstance(spawnPos, dungeon);
+                    dungeon.spawnEntity(enemy);
+                } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                    Reference.logger.error(e.getMessage(), e);
+                }
+            }
         });
     }
 
+    private void spawnOtherEntities(Dungeon dungeon){
 
+    }
 
+    private void spawnDropItems(Dungeon dungeon) {
+        Random rand = new Random();
+        List<Room> rooms = dungeon.getFloors().stream()
+                .filter(x -> x.getClass().equals(Room.class))
+                .map(x -> (Room)x)
+                .collect(Collectors.toList());
+        //武器
+        spannableWeapons.forEach(x -> {
+            Room room = rooms.get(rand.nextInt(rooms.size()));
+            Vec2d spawnPos = new Vec2d(rand.nextInt(room.size().getX()), rand.nextInt(room.size().getY())).add(room.getUpperLeft());
+            dungeon.spawnEntity(new DropItemEntity(spawnPos, dungeon, x));
+        });
+        //防具
+        getSpannableArmors.forEach(x -> {
+            Room room = rooms.get(rand.nextInt(rooms.size()));
+            Vec2d spawnPos = new Vec2d(rand.nextInt(room.size().getX()), rand.nextInt(room.size().getY())).add(room.getUpperLeft());
+            dungeon.spawnEntity(new DropItemEntity(spawnPos, dungeon, x));
+        });
+        //その他アイテム
+        rooms.forEach(x -> {
+            int spawnCnt = rand.nextInt(spawnItemsPerRoom + 1) + rand.nextInt(spawnItemsPerRoom + 1);
+            for(int i = 0; i < spawnCnt; i++){
+                Vec2d spawnPos = new Vec2d(rand.nextInt(x.size().getX()), rand.nextInt(x.size().getY())).add(x.getUpperLeft());
+                Item item = spannableItems.get(rand.nextInt(spannableItems.size()));
+                dungeon.spawnEntity(new DropItemEntity(spawnPos, dungeon, item));
+            }
+        });
+    }
 
 
     private static class DivisionLine{

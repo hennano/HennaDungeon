@@ -1,10 +1,12 @@
 package net.hennabatch.hennadungeon.mission.tutorial;
 
+import net.hennabatch.hennadungeon.dungeon.floor.ExitRoom;
 import net.hennabatch.hennadungeon.effect.BleedingEffect;
-import net.hennabatch.hennadungeon.entity.character.GolemEntity;
-import net.hennabatch.hennadungeon.entity.character.PlayerEntity;
+import net.hennabatch.hennadungeon.entity.character.*;
+import net.hennabatch.hennadungeon.entity.object.ExitEntity;
 import net.hennabatch.hennadungeon.item.Items;
 import net.hennabatch.hennadungeon.mission.Phase;
+import net.hennabatch.hennadungeon.mission.boss.PartyTag;
 import net.hennabatch.hennadungeon.scene.MessageScene;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
@@ -20,7 +22,7 @@ public class KillTutorialBossPhase extends Phase {
 
     @Override
     public void execute() {
-        getDungeon().getEntities().removeIf(x -> x.getTags().stream().anyMatch(y -> y.equals(new TutorialWallTag())));
+        getDungeon().removeIfEntity(x -> x.getTags().stream().anyMatch(y -> y.equals(new TutorialWallTag())));
         getDungeon().getPlayer().getStatus().addEffect(new BleedingEffect(-1, getDungeon().getDifficulty()));
         //その後の行動を示す
         String boss = new GolemEntity(new Vec2d(0, 0), null).name();
@@ -33,7 +35,17 @@ public class KillTutorialBossPhase extends Phase {
                 player + ":\n早く見つけてざまあしてやらんと気がすまねぇ"));
         getDungeon().getPlayer().addHP(getDungeon().getPlayer().getMaxHP());
         //出口にボスの設置
-
+        ExitRoom exitRoom = (ExitRoom) getDungeon().getFloors().stream().filter(x -> x instanceof ExitRoom).findFirst().get();
+        getDungeon().spawnEntity(new ExitEntity(exitRoom.getUpperLeft().add(exitRoom.size().div(2)), getDungeon()));
+        RoleAttackerEntity attackerEntity = new RoleAttackerEntity(exitRoom.getUpperLeft().add(exitRoom.size().div(2).add(new Vec2d(1, 0))), getDungeon());
+        attackerEntity.addTag(new PartyTag());
+        RoleDebufferEntity debufferEntity = new RoleDebufferEntity(exitRoom.getUpperLeft().add(exitRoom.size().div(2).add(new Vec2d(1, 1))), getDungeon());
+        debufferEntity.addTag(new PartyTag());
+        RoleTankerEntity tankerEntity = new RoleTankerEntity(exitRoom.getUpperLeft().add(exitRoom.size().div(2).add(new Vec2d(0, -1))), getDungeon());
+        tankerEntity.addTag(new PartyTag());
+        getDungeon().spawnEntity(attackerEntity);
+        getDungeon().spawnEntity(debufferEntity);
+        getDungeon().spawnEntity(tankerEntity);
         getDungeon().executeScene(new MessageScene(messages));
     }
 }

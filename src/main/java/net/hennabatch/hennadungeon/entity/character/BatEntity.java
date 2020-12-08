@@ -2,6 +2,7 @@ package net.hennabatch.hennadungeon.entity.character;
 
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.effect.BuffEffect;
+import net.hennabatch.hennadungeon.entity.DropItemTable;
 import net.hennabatch.hennadungeon.entity.EnemyEntity;
 import net.hennabatch.hennadungeon.entity.Status;
 import net.hennabatch.hennadungeon.entity.ai.AddEffectAi;
@@ -57,5 +58,11 @@ public class BatEntity extends EnemyEntity {
     @Override
     public String name() {
         return "コウモリ";
+    }
+
+    @Override
+    public DropItemTable getDropItemTable() {
+        return new DropItemTable().addItem(Items.HEAL_POTION, 0.5)
+                .addItem(Items.REGENRATION_POTION, 0.5);
     }
 }

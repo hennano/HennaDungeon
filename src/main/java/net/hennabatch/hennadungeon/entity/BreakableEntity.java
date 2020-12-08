@@ -26,7 +26,9 @@ public abstract class BreakableEntity extends CollidableEntity{
 
     public abstract Status getStatus();
 
-    public abstract ArmorItem getEquipmentArmor();
+    public ArmorItem getEquipmentArmor(){
+        return null;
+    }
 
     public abstract WeaponItem getEquipmentWeapon();
 

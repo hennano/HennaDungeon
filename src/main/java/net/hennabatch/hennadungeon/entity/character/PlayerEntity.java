@@ -110,6 +110,16 @@ public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInve
         return inventory;
     }
 
+    public void removeInventoryItem(int index){
+        if(index < getEquipmentWeaponIndex()){
+            setEquipmentWeapon(getEquipmentWeaponIndex() - 1);
+        }
+        if(index < getEquipmentArmorIndex()){
+            setEquipmentArmor(getEquipmentArmorIndex() - 1);
+        }
+        inventory.getItems().remove(index);
+    }
+
     @Override
     public boolean pick(Item item) {
         return inventory.addItem(item);

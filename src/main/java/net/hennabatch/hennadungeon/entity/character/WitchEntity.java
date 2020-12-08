@@ -1,13 +1,13 @@
 package net.hennabatch.hennadungeon.entity.character;
 
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
+import net.hennabatch.hennadungeon.entity.DropItemTable;
 import net.hennabatch.hennadungeon.entity.EnemyEntity;
 import net.hennabatch.hennadungeon.entity.Status;
 import net.hennabatch.hennadungeon.entity.ai.ApproachaTagetAi;
 import net.hennabatch.hennadungeon.entity.ai.AttackMeleeAi;
 import net.hennabatch.hennadungeon.entity.ai.BlinkAi;
 import net.hennabatch.hennadungeon.entity.ai.StayAi;
-import net.hennabatch.hennadungeon.item.ArmorItem;
 import net.hennabatch.hennadungeon.item.Items;
 import net.hennabatch.hennadungeon.item.WeaponItem;
 import net.hennabatch.hennadungeon.vec.Vec2d;
@@ -34,11 +34,6 @@ public class WitchEntity extends EnemyEntity {
     }
 
     @Override
-    public ArmorItem getEquipmentArmor() {
-        return null;
-    }
-
-    @Override
     public WeaponItem getEquipmentWeapon() {
         return (WeaponItem) Items.GRIMOIRE;
     }
@@ -56,5 +51,10 @@ public class WitchEntity extends EnemyEntity {
     @Override
     public String name() {
         return "魔女";
+    }
+
+    @Override
+    public DropItemTable getDropItemTable() {
+        return new DropItemTable().addItem(Items.MDEF_BUFF_POTION, 0.2);
     }
 }

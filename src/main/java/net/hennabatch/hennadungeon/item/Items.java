@@ -28,6 +28,7 @@ public class Items {
     public static final Item MAGICALSWORD = new MagicalSwordItem();
     public static final Item LONGSWORD = new LongSwordItem();
     public static final Item NECRONOMICON = new NecronomiconItem();
+    public static final Item BOW = new BowItem();
 
     public static final Item SKIN = new SkinArmorItem();
     public static final Item LEATHER_ARMOR = new LeatherArmorItem();
@@ -76,5 +77,7 @@ public class Items {
         registerItem(CROTHES);
         registerItem(ROBE);
         registerItem(CRYSTAL);
+        registerItem(BOW);
+        registerItem(KEY);
     }
 }

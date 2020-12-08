@@ -8,6 +8,7 @@ public class RegenerationEffect extends TurnEffect{
 
     public RegenerationEffect(int durationTime, int val) {
         super(durationTime);
+        this.val = val;
     }
 
     public int getVal() {
@@ -21,7 +22,7 @@ public class RegenerationEffect extends TurnEffect{
 
     @Override
     public String name() {
-        return "回復";
+        return "再生";
     }
 
     @Override

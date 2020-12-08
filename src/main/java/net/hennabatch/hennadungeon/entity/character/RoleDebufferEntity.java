@@ -10,6 +10,9 @@ import net.hennabatch.hennadungeon.item.WeaponItem;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
 public class RoleDebufferEntity extends EnemyEntity {
+
+    private Status status = new Status(40, 15, 15, 20);
+
     public RoleDebufferEntity(Vec2d pos, Dungeon dungeon) {
         super(pos, dungeon);
     }
@@ -21,7 +24,7 @@ public class RoleDebufferEntity extends EnemyEntity {
 
     @Override
     public Status getStatus() {
-        return null;
+        return status;
     }
 
     @Override

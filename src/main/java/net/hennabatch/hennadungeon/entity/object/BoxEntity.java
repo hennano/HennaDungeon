@@ -17,7 +17,7 @@ public class BoxEntity extends CollidableEntity {
     public BoxEntity(Vec2d pos, Dungeon dungeon, Item item, boolean isRequireKey) {
         super(pos, dungeon);
         this.item = item;
-        this.isRequireKey = false;
+        this.isRequireKey = isRequireKey;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class BoxEntity extends CollidableEntity {
                 Reference.logger.info("宝箱には鍵がかかっている");
                 return;
             }else{
-                ((PlayerEntity) collidedEntity).getInventory().getItems().remove(((PlayerEntity) collidedEntity).getInventory().getItemIndex(Items.KEY));
+                ((PlayerEntity) collidedEntity).removeInventoryItem(((PlayerEntity) collidedEntity).getInventory().getItemIndex(Items.KEY));
                 Reference.logger.info("鍵を使用した");
             }
         }

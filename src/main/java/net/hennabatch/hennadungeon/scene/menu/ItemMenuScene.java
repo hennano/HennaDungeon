@@ -79,7 +79,7 @@ public class ItemMenuScene extends TwoColumnMenuScene {
         Item item = dungeon.getPlayer().getInventory().getItems().get(pointer);
         if(item.canUse(dungeon.getPlayer())){
             item.onUse(dungeon.getPlayer());
-            dungeon.getPlayer().getInventory().getItems().remove(pointer);
+            dungeon.getPlayer().removeInventoryItem(pointer);
             createChildScene(new MessageScene(new ArrayList<>(Arrays.asList(item.name() + "を使用した"))));
         }else{
             createChildScene(new MessageScene(new ArrayList<>(Arrays.asList(item.name() + "は今は使えないようだ"))));
@@ -88,7 +88,7 @@ public class ItemMenuScene extends TwoColumnMenuScene {
 
     private void dropItem(int pointer){
         Item item = dungeon.getPlayer().getInventory().getItems().get(pointer);
-        dungeon.getPlayer().getInventory().getItems().remove(pointer);
+        dungeon.getPlayer().removeInventoryItem(pointer);
         dungeon.spawnEntity(new DropItemEntity(new Vec2d(dungeon.getPlayer()), dungeon, item));
         createChildScene(new MessageScene(new ArrayList<>(Arrays.asList(item.name() + "を捨てた"))));
     }

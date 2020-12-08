@@ -39,7 +39,7 @@ public class GiveWeaponEvent extends Event{
                 if((Boolean)childSceneResult.data()){
                     if(dungeon.getPlayer().getEquipmentWeapon() != Items.HAND){
                         //武器を渡す
-                        dungeon.getPlayer().getInventory().getItems().remove(dungeon.getPlayer().getEquipmentWeaponIndex());
+                        dungeon.getPlayer().removeInventoryItem(dungeon.getPlayer().getEquipmentWeaponIndex());
                         dungeon.getPlayer().setEquipmentWeapon(-1);
                         dungeon.getEntities().stream().filter(x -> x instanceof HelpedPartyLeaderEntity)
                                 .map(x -> (HelpedPartyLeaderEntity)x)

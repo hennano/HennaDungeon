@@ -1,6 +1,7 @@
 package net.hennabatch.hennadungeon.util;
 
 import net.hennabatch.hennadungeon.HennaDungeon;
+import net.hennabatch.hennadungeon.config.EnumRunMode;
 import net.hennabatch.hennadungeon.scene.Screen;
 import org.apache.log4j.Logger;
 
@@ -24,7 +25,9 @@ public class SystemLogger {
 
     public void debug(String message){
         logger.debug(message);
-        logQueue.add(message);
+        if(Reference.config.runMode().equals(EnumRunMode.DEBUG)){
+            logQueue.add(message);
+        }
     }
 
     public void info(String message){

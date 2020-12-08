@@ -2,7 +2,7 @@ package net.hennabatch.hennadungeon.config;
 
 public class Config {
 
-    private final EnumRunMode runMode = EnumRunMode.DEBUG;
+    private final EnumRunMode runMode = EnumRunMode.RELEASE;
     private final KeyConfig keyConfig = new KeyConfig().setDefault();
     public final boolean enabledToggleAttack = false;
 
