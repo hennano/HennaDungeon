@@ -48,7 +48,7 @@ public class FindPlayerPhase extends Phase {
                 debuffer + ":\n…"
         ));
         //出口の削除
-        getDungeon().getEntities().stream().filter(x -> x instanceof ExitEntity).forEach(x -> x.destroy());
+        getDungeon().removeIfEntity(x -> x instanceof ExitEntity);
         getDungeon().executeScene(new MessageScene(messsage));
     }
 }

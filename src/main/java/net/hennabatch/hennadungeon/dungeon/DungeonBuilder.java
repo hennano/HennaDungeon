@@ -442,7 +442,7 @@ public class DungeonBuilder {
             }
         });
         try{
-            File file = new File("C:\\Users\\ScTi\\Desktop\\testsection.txt");
+            File file = new File("./sections.txt");
             PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
 
             for(int y = 0; y < Reference.DUNGEON_HEIGHT; y++){
@@ -460,7 +460,7 @@ public class DungeonBuilder {
 
     public void exportFloor(Dungeon dungeon){
         try{
-            File file = new File("C:\\Users\\ScTi\\Desktop\\test.txt");
+            File file = new File("./floors.txt");
             PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
 
             for(int y = 0; y < Reference.DUNGEON_HEIGHT; y++){
