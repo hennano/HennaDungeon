@@ -68,6 +68,7 @@ public class Reference {
             Items.CROTHES,
             Items.ROBE
     ));
+    public static final int SPAWN_TRAP_COUNT = 5;
 
     public static final String DUNGEON_SPACE = SCREEN_EMPTY;
     public static final String DUNGEON_WALL = "■";

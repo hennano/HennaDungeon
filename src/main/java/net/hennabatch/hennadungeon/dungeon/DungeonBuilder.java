@@ -3,7 +3,9 @@ package net.hennabatch.hennadungeon.dungeon;
 import net.hennabatch.hennadungeon.dungeon.floor.*;
 import net.hennabatch.hennadungeon.entity.EnemyEntity;
 import net.hennabatch.hennadungeon.entity.character.PlayerEntity;
+import net.hennabatch.hennadungeon.entity.object.BoxEntity;
 import net.hennabatch.hennadungeon.entity.object.DropItemEntity;
+import net.hennabatch.hennadungeon.entity.object.TrapEntity;
 import net.hennabatch.hennadungeon.item.Item;
 import net.hennabatch.hennadungeon.item.Items;
 import net.hennabatch.hennadungeon.mission.boss.BossMission;
@@ -41,6 +43,7 @@ public class DungeonBuilder {
     private List<Item> spannableItems = Reference.SPANNABLE_ITEMS;
     private List<Item> spannableWeapons = Reference.SPANNABLE_WEAPONS;
     private List<Item> getSpannableArmors = Reference.SPANNABLE_ARMORS;
+    private int spawnTrapCount = Reference.SPAWN_TRAP_COUNT;
 
     public int getSpawnEnemiesPerRoom() {
         return spawnEnemiesPerRoom;
@@ -259,7 +262,7 @@ public class DungeonBuilder {
                 .forEach(x ->{
             int spawnCnt = rand.nextInt(spawnEnemiesPerRoom + 1) + rand.nextInt(spawnEnemiesPerRoom + 1);
             for(int i = 0; i < spawnCnt; i++){
-                Vec2d spawnPos = new Vec2d(rand.nextInt(x.size().getX()), rand.nextInt(x.size().getY())).add(x.getUpperLeft());
+                Vec2d spawnPos = x.size().random(rand).add(x.getUpperLeft());
                 try {
                     EnemyEntity enemy = spannableEnemies.get(rand.nextInt(spannableEnemies.size())).getConstructor(Vec2d.class, Dungeon.class).newInstance(spawnPos, dungeon);
                     dungeon.spawnEntity(enemy);
@@ -271,7 +274,23 @@ public class DungeonBuilder {
     }
 
     private void spawnOtherEntities(Dungeon dungeon){
-
+        //宝箱生成
+        Random rand = new Random();
+        Room boxRoom = (Room) dungeon.getFloors().parallelStream()
+                .filter(x -> x.getClass().equals(Room.class))
+                .findAny()
+                .get();
+        Vec2d spawnRange = boxRoom.size().sub(2);
+        dungeon.spawnEntity(new BoxEntity(spawnRange.random(rand).add(boxRoom.getUpperLeft()).add(1), dungeon, Items.INVISIBLE_POTION, true));
+        //トラップ生成
+        List<Room> rooms = dungeon.getFloors().stream()
+                .filter(x -> x.getClass().equals(Room.class))
+                .map(x -> (Room)x)
+                .collect(Collectors.toList());
+        for(int i = 0; i < spawnTrapCount; i++){
+            Room room = rooms.get(rand.nextInt(rooms.size()));
+            dungeon.spawnEntity(new TrapEntity(room.size().random(rand).add(room.getUpperLeft()), dungeon));
+        }
     }
 
     private void spawnDropItems(Dungeon dungeon) {
@@ -283,20 +302,20 @@ public class DungeonBuilder {
         //武器
         spannableWeapons.forEach(x -> {
             Room room = rooms.get(rand.nextInt(rooms.size()));
-            Vec2d spawnPos = new Vec2d(rand.nextInt(room.size().getX()), rand.nextInt(room.size().getY())).add(room.getUpperLeft());
+            Vec2d spawnPos = room.size().random(rand).add(room.getUpperLeft());
             dungeon.spawnEntity(new DropItemEntity(spawnPos, dungeon, x));
         });
         //防具
         getSpannableArmors.forEach(x -> {
             Room room = rooms.get(rand.nextInt(rooms.size()));
-            Vec2d spawnPos = new Vec2d(rand.nextInt(room.size().getX()), rand.nextInt(room.size().getY())).add(room.getUpperLeft());
+            Vec2d spawnPos = room.size().random(rand).add(room.getUpperLeft());
             dungeon.spawnEntity(new DropItemEntity(spawnPos, dungeon, x));
         });
         //その他アイテム
         rooms.forEach(x -> {
             int spawnCnt = rand.nextInt(spawnItemsPerRoom + 1) + rand.nextInt(spawnItemsPerRoom + 1);
             for(int i = 0; i < spawnCnt; i++){
-                Vec2d spawnPos = new Vec2d(rand.nextInt(x.size().getX()), rand.nextInt(x.size().getY())).add(x.getUpperLeft());
+                Vec2d spawnPos = x.size().random(rand).add(x.getUpperLeft());
                 Item item = spannableItems.get(rand.nextInt(spannableItems.size()));
                 dungeon.spawnEntity(new DropItemEntity(spawnPos, dungeon, item));
             }

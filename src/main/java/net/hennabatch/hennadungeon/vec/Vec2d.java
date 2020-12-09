@@ -1,9 +1,6 @@
 package net.hennabatch.hennadungeon.vec;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Vec2d implements IVec, Cloneable{
@@ -124,6 +121,10 @@ public class Vec2d implements IVec, Cloneable{
             vecs.addAll(Arrays.stream(EnumDirection.values()).map(i -> new Vec2d(finalX, y).rotate(i).add(this)).collect(Collectors.toList()));
         }
         return vecs;
+    }
+
+    public Vec2d random(Random rand){
+        return new Vec2d(rand.nextInt(getX()), rand.nextInt(getY()));
     }
 
     @Override
