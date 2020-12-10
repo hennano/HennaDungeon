@@ -23,9 +23,10 @@ public class ShowRuleScene extends Scene{
                             "行動するごとにHPが一定値ずつ減少\n" +
                             "HPが0になるとゲームオーバー\n" +
                 Reference.config.keyConfig().getChar(EnumKeyInput.UP) + "で上," +
-                Reference.config.keyConfig().getChar(EnumKeyInput.LEFT) + "で下," +
+                Reference.config.keyConfig().getChar(EnumKeyInput.LEFT) + "で左," +
                 Reference.config.keyConfig().getChar(EnumKeyInput.RIGHT) +"で右," +
-                Reference.config.keyConfig().getChar(EnumKeyInput.DOWN) + "で下に移動";
+                Reference.config.keyConfig().getChar(EnumKeyInput.DOWN) + "で下に移動\n" +
+                "英文字は敵、記号はそれ以外";
 
         screen.setRow((Reference.SCREEN_WIDTH / 2) - (title.length() / 2), 0, title, false, false);
         Vec2d overViewEnd =  screen.setRow(0, 2, overview, true, false);

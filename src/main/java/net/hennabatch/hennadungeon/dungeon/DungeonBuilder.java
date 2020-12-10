@@ -320,6 +320,10 @@ public class DungeonBuilder {
                 dungeon.spawnEntity(new DropItemEntity(spawnPos, dungeon, item));
             }
         });
+        //鍵
+        Room room = rooms.get(rand.nextInt(rooms.size()));
+        Vec2d spawnPos = room.size().random(rand).add(room.getUpperLeft());
+        dungeon.spawnEntity(new DropItemEntity(spawnPos, dungeon, Items.KEY));
     }
 
 
