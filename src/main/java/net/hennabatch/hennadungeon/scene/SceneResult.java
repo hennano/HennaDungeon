@@ -1,11 +1,11 @@
 package net.hennabatch.hennadungeon.scene;
 
-public class SceneResult<T>{
+public class SceneResult {
 
     private final boolean isChildSceneContinue;
-    private final T data;
+    private final Object data;
 
-    public SceneResult(boolean isChildSceneContinue, T data){
+    public SceneResult(boolean isChildSceneContinue, Object data){
         this.isChildSceneContinue = isChildSceneContinue;
         this.data = data;
     }
@@ -14,7 +14,7 @@ public class SceneResult<T>{
         return isChildSceneContinue;
     }
 
-    public T data(){
+    public Object data(){
         return data;
     }
 }

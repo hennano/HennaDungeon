@@ -21,7 +21,7 @@ public class HennaDungeon {
 
 
         try(Terminal terminal = TerminalBuilder.terminal()){
-            while (root.inputKey(getkeyInput(terminal)).isChildSceneContinue()){
+            while (root.inputKey(getKeyInput(terminal)).isChildSceneContinue()){
                 Reference.logger.logScreen().overWrite(root.drawScreen(new Screen(Reference.SCREEN_WIDTH, Reference.SCREEN_HEIGHT))).println();
             }
         } catch (IOException e) {
@@ -29,7 +29,7 @@ public class HennaDungeon {
         }
     }
 
-    private static EnumKeyInput getkeyInput(Terminal terminal)throws IOException{
+    private static EnumKeyInput getKeyInput(Terminal terminal)throws IOException{
         int ch;
         EnumKeyInput input = null;
         while (input == null) {
@@ -37,7 +37,7 @@ public class HennaDungeon {
             char c = (char) ch;
             input = Reference.config.keyConfig().getByChar(c);
         }
-        Reference.logger.debug("inputkey: " + input.name());
+        Reference.logger.debug("inputKey: " + input.name());
         return input;
     }
 }

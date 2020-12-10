@@ -22,8 +22,7 @@ public class AddEffectPotion extends Item {
 
     @Override
     public boolean canUse(Entity entity) {
-        if(!(entity instanceof BreakableEntity)) return false;
-        return true;
+        return entity instanceof BreakableEntity;
     }
 
     @Override

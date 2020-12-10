@@ -31,7 +31,7 @@ public abstract class Scene {
     }
 
     //シーン内ループ用メイン
-    protected abstract SceneResult<?> run(EnumKeyInput key, SceneResult<?> childSceneResult);
+    protected abstract SceneResult run(EnumKeyInput key, SceneResult childSceneResult);
 
     public Screen drawScreen(Screen screen){
         return this.childScene != null ? this.childScene.drawScreen(draw(screen)): draw(screen);
@@ -56,8 +56,8 @@ public abstract class Scene {
     }
 
     //子シーンの処理結果を反映させる
-    protected SceneResult<?> onExitChildScene(SceneResult<?> result){
-        return new SceneResult<>(true, false);
+    protected SceneResult onExitChildScene(SceneResult result){
+        return new SceneResult(true, false);
     }
 
 }

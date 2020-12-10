@@ -12,9 +12,9 @@ public class AvoidAi<T extends Entity> extends AiBase<T>{
     private Entity target;
     private int keepDistance;
 
-    public AvoidAi(T owner, Entity targe, int distance) {
+    public AvoidAi(T owner, Entity target, int distance) {
         super(owner);
-        this.target = targe;
+        this.target = target;
         this.keepDistance = distance;
     }
 

@@ -23,8 +23,8 @@ public class PlayerDeadEvent extends Event{
     }
 
     @Override
-    protected SceneResult<?> run(EnumKeyInput key, SceneResult<?> childSceneResult) {
-        if(getEventSequence() == 1) return new SceneResult<>(false, RootEvent.SceneTransition.GameOverScene);
-        return new SceneResult<>(true, null);
+    protected SceneResult run(EnumKeyInput key, SceneResult childSceneResult) {
+        if(getEventSequence() == 1) return new SceneResult(false, RootEvent.SceneTransition.GameOverScene);
+        return new SceneResult(true, null);
     }
 }

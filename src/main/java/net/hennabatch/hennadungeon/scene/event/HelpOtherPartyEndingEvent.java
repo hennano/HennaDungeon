@@ -35,7 +35,7 @@ public class HelpOtherPartyEndingEvent extends Event{
     }
 
     @Override
-    protected SceneResult<?> run(EnumKeyInput key, SceneResult<?> childSceneResult) {
+    protected SceneResult run(EnumKeyInput key, SceneResult childSceneResult) {
         if(getEventSequence() == 1) {
             createChildScene(new EndMenuScene());
             return new SceneResult(true, null);
@@ -43,7 +43,7 @@ public class HelpOtherPartyEndingEvent extends Event{
         return childSceneResult;
     }
 
-    private class EndMenuScene extends MenuScene {
+    private static class EndMenuScene extends MenuScene {
         @Override
         protected String getTitle() {
             return "True Ending";

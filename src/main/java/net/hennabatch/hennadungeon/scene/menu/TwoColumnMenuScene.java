@@ -17,7 +17,7 @@ public abstract class TwoColumnMenuScene extends Scene {
     private int selectLower = 0;
 
     @Override
-    protected SceneResult<?> run(EnumKeyInput key, SceneResult<?> childSceneResult) {
+    protected SceneResult run(EnumKeyInput key, SceneResult childSceneResult) {
         switch (key){
             case UP:
                 if(pointer > 0) pointer--;
@@ -30,9 +30,9 @@ public abstract class TwoColumnMenuScene extends Scene {
             case ENTER:
                 return onSelected(pointer);
             case CANCEL:
-                return new SceneResult<>(false ,null);
+                return new SceneResult(false ,null);
         }
-        return new SceneResult<>(true, null);
+        return new SceneResult(true, null);
     }
 
     @Override

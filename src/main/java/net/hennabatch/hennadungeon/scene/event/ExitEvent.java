@@ -8,7 +8,7 @@ import net.hennabatch.hennadungeon.scene.MessageScene;
 import net.hennabatch.hennadungeon.scene.SceneResult;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ExitEvent extends Event{
@@ -21,14 +21,14 @@ public class ExitEvent extends Event{
 
     @Override
     protected void initializeScene() {
-        createChildScene(new MessageScene(new ArrayList<>(Arrays.asList("ダンジョンから脱出した!"))));
+        createChildScene(new MessageScene(new ArrayList<>(Collections.singletonList("ダンジョンから脱出した!"))));
     }
 
     @Override
-    protected SceneResult<?> run(EnumKeyInput key, SceneResult<?> childSceneResult) {
-        if(missions.stream().filter(x -> x instanceof BossMission).anyMatch(x -> x.isComplete())) return new SceneResult<>(false, RootEvent.SceneTransition.PartyKillEndingScene);
-        if(missions.stream().filter(x -> x instanceof HelpOtherPartyMission).anyMatch(x -> x.isComplete())) return new SceneResult<>(false, RootEvent.SceneTransition.HelpOtherPartyEndingScene);
-        return new SceneResult<>(false, RootEvent.SceneTransition.SociallyDeadEndingScene);
+    protected SceneResult run(EnumKeyInput key, SceneResult childSceneResult) {
+        if(missions.stream().filter(x -> x instanceof BossMission).anyMatch(Mission::isComplete)) return new SceneResult(false, RootEvent.SceneTransition.PartyKillEndingScene);
+        if(missions.stream().filter(x -> x instanceof HelpOtherPartyMission).anyMatch(Mission::isComplete)) return new SceneResult(false, RootEvent.SceneTransition.HelpOtherPartyEndingScene);
+        return new SceneResult(false, RootEvent.SceneTransition.SociallyDeadEndingScene);
     }
 
 

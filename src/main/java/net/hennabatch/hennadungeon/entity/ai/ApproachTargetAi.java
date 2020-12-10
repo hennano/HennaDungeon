@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ApproachaTagetAi<T extends Entity> extends AiBase<T>{
+public class ApproachTargetAi<T extends Entity> extends AiBase<T>{
 
     private Entity target;
     private double range;
 
-    public ApproachaTagetAi(T owner, Entity target, double range) {
+    public ApproachTargetAi(T owner, Entity target, double range) {
         super(owner);
         this.target = target;
         this.range = range;

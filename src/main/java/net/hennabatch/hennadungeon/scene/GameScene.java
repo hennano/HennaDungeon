@@ -136,7 +136,7 @@ public class GameScene extends Scene {
         for(int sx = 1; sx < screen.getWidth() - 1; sx++){
             for (int sy = 2; sy < screen.getHeight() - 2; sy++){
                 List<Entity> entities = dungeon.getEntitiesByIVec(new Vec2d(sx - ((screen.getWidth() - 2) / 2), sy - ((screen.getHeight() - 4) / 2)).add(dungeon.getPlayer()));
-                if(entities.stream().filter(x -> !x.isHidden()).count() > 0){
+                if(entities.stream().anyMatch(x -> !x.isHidden())){
                     Entity entity;
                     if(entities.stream().filter(x -> !x.isHidden()).anyMatch(x -> x instanceof CollidableEntity)){
                         entity = entities.stream().filter(x -> !x.isHidden()).filter(x -> x instanceof CollidableEntity)
@@ -158,7 +158,7 @@ public class GameScene extends Scene {
 
     private void drawExitPath(Screen screen){
         Vec2d playerPos = new Vec2d(dungeon.getPlayer());
-        Floor currentFloor = dungeon.getInnerFloors(playerPos).stream().min(Comparator.comparing(x -> x.exitRoomDistance())).get();
+        Floor currentFloor = dungeon.getInnerFloors(playerPos).stream().min(Comparator.comparing(Floor::exitRoomDistance)).get();
         if(currentFloor instanceof ExitRoom) return;
         Floor exitFloor = currentFloor.getPathToExit().getFloor();
         for(int sx = 1; sx < screen.getWidth() - 1; sx++){

@@ -8,7 +8,7 @@ import net.hennabatch.hennadungeon.vec.Vec2d;
 public class ShowRuleScene extends Scene{
     @Override
     protected SceneResult run(EnumKeyInput key, SceneResult childSceneResult) {
-        return new SceneResult<>(false, RootEvent.SceneTransition.StartScene);
+        return new SceneResult(false, RootEvent.SceneTransition.StartScene);
     }
 
     @Override

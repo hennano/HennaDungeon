@@ -13,7 +13,7 @@ public abstract class MenuScene extends Scene {
     private int pointer = 0;
 
     @Override
-    protected SceneResult<?> run(EnumKeyInput key, SceneResult<?> childSceneResult) {
+    protected SceneResult run(EnumKeyInput key, SceneResult childSceneResult) {
         switch (key){
             case UP:
                 if(pointer > 0) pointer--;
@@ -26,7 +26,7 @@ public abstract class MenuScene extends Scene {
             case ENTER:
                 return onSelected(pointer);
         }
-        return new SceneResult<>(true, null);
+        return new SceneResult(true, null);
     }
 
     @Override

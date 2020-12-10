@@ -26,7 +26,7 @@ public class MessageScene extends Scene{
     }
 
     @Override
-    protected SceneResult<?> run(EnumKeyInput key, SceneResult<?> childSceneResult) {
+    protected SceneResult run(EnumKeyInput key, SceneResult childSceneResult) {
         switch (key){
             case ENTER:
                 return new SceneResult(showNextMessage(), null);
@@ -49,7 +49,7 @@ public class MessageScene extends Scene{
 
     private boolean skipMessages(){
         if(messages.size() < messagesIndex + 1) return false;
-        messages.subList(messagesIndex + 1, messages.size()).stream().forEach(x -> Reference.logger.info(x));
+        messages.subList(messagesIndex + 1, messages.size()).forEach(Reference.logger::info);
         return false;
     }
 

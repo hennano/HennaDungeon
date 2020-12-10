@@ -4,7 +4,7 @@ import net.hennabatch.hennadungeon.config.EnumKeyInput;
 import net.hennabatch.hennadungeon.util.Reference;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 
 public class YNMessageScene extends MessageScene{
 
@@ -15,11 +15,11 @@ public class YNMessageScene extends MessageScene{
     }
 
     public YNMessageScene(int width, String message, boolean canStretch) {
-        super(width, new ArrayList<>(Arrays.asList(message)), canStretch);
+        super(width, new ArrayList<>(Collections.singletonList(message)), canStretch);
     }
 
     @Override
-    protected SceneResult<?> run(EnumKeyInput key, SceneResult<?> childSceneResult) {
+    protected SceneResult run(EnumKeyInput key, SceneResult childSceneResult) {
         switch (key){
             case LEFT:
                 pointer = 0;
@@ -29,9 +29,9 @@ public class YNMessageScene extends MessageScene{
                 break;
             case ENTER:
                 Reference.logger.debug("selected at " + (pointer == 0 ? "yes" : "no"));
-                return new SceneResult<>(false, pointer == 0);
+                return new SceneResult(false, pointer == 0);
         }
-        return new SceneResult<>(true, null);
+        return new SceneResult(true, null);
     }
 
     @Override

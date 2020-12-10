@@ -33,7 +33,7 @@ public abstract class Event extends Scene {
     }
 
     @Override
-    protected SceneResult<?> onExitChildScene(SceneResult<?> result) {
+    protected SceneResult onExitChildScene(SceneResult result) {
         return result;
     }
 

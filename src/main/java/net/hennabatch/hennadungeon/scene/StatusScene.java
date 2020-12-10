@@ -15,8 +15,8 @@ public class StatusScene extends Scene{
     }
 
     @Override
-    protected SceneResult<?> run(EnumKeyInput key, SceneResult<?> childSceneResult) {
-        return new SceneResult<>(false, null);
+    protected SceneResult run(EnumKeyInput key, SceneResult childSceneResult) {
+        return new SceneResult(false, null);
     }
 
     @Override

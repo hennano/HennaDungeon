@@ -4,7 +4,7 @@ import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.entity.DropItemTable;
 import net.hennabatch.hennadungeon.entity.EnemyEntity;
 import net.hennabatch.hennadungeon.entity.Status;
-import net.hennabatch.hennadungeon.entity.ai.ApproachaTagetAi;
+import net.hennabatch.hennadungeon.entity.ai.ApproachTargetAi;
 import net.hennabatch.hennadungeon.entity.ai.AttackMeleeAi;
 import net.hennabatch.hennadungeon.entity.ai.BlinkAi;
 import net.hennabatch.hennadungeon.entity.ai.StayAi;
@@ -23,7 +23,7 @@ public class WitchEntity extends EnemyEntity {
     @Override
     public void initializeAi() {
         tasks.addTask(0, new StayAi<>(this));
-        tasks.addTask(1, new ApproachaTagetAi<>(this, getDungeon().getPlayer(), 5.0));
+        tasks.addTask(1, new ApproachTargetAi<>(this, getDungeon().getPlayer(), 5.0));
         tasks.addTask(2, new AttackMeleeAi<>(this, getDungeon().getPlayer(), getEquipmentWeapon()));
         tasks.addTask(3, new BlinkAi<>(this, 1, 3, 5, 5, x -> true));
     }

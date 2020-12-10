@@ -21,7 +21,7 @@ public class GameOverScene extends MenuScene {
 
     @Override
     protected SceneResult onSelected(int pointer) {
-        return new SceneResult<>(false, EnumGameOverSceneResult.byPointer(pointer).getNext());
+        return new SceneResult(false, EnumGameOverSceneResult.byPointer(pointer).getNext());
     }
 
     private enum EnumGameOverSceneResult{

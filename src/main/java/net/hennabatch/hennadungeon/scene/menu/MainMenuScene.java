@@ -61,10 +61,10 @@ public class MainMenuScene extends TwoColumnMenuScene {
     }
 
     @Override
-    protected SceneResult<?> onExitChildScene(SceneResult<?> result) {
+    protected SceneResult onExitChildScene(SceneResult result) {
         if(result.data() instanceof Boolean){
             if((Boolean) result.data()){
-                return new SceneResult<>(false, RootEvent.SceneTransition.Exit);
+                return new SceneResult(false, RootEvent.SceneTransition.Exit);
             }
         }
         return super.onExitChildScene(result);

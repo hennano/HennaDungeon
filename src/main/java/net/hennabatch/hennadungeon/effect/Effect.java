@@ -38,5 +38,5 @@ public abstract class Effect{
 
     public abstract String name();
 
-    public abstract <T extends Effect> T cloneEffect();
+    public abstract Effect cloneEffect();
 }

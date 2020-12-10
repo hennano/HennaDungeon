@@ -29,7 +29,7 @@ public class FindPlayerPhase extends Phase {
         String debuffer = new RoleDebufferEntity(new Vec2d(0, 0), null).name();
         String carrier = new PlayerEntity(new Vec2d(0, 0), null).name();
 
-        List<String> messsage = new ArrayList<>(Arrays.asList(
+        List<String> message = new ArrayList<>(Arrays.asList(
                 tanker + ":\nよし、脱出まですぐだ",
                 attacker + ":\n散々だったわ",
                 debuffer + ":\n…脱出したら" + carrier + "の捜索願い出さないと",
@@ -49,6 +49,6 @@ public class FindPlayerPhase extends Phase {
         ));
         //出口の削除
         getDungeon().removeIfEntity(x -> x instanceof ExitEntity);
-        getDungeon().executeScene(new MessageScene(messsage));
+        getDungeon().executeScene(new MessageScene(message));
     }
 }

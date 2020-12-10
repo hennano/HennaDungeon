@@ -1,9 +1,7 @@
 package net.hennabatch.hennadungeon.scene;
 
-import net.hennabatch.hennadungeon.config.EnumKeyInput;
 import net.hennabatch.hennadungeon.scene.event.RootEvent;
 import net.hennabatch.hennadungeon.scene.menu.MenuScene;
-import net.hennabatch.hennadungeon.util.Reference;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +21,7 @@ public class StartScene extends MenuScene {
 
     @Override
     protected SceneResult onSelected(int pointer) {
-        return new SceneResult<>(false, EnumStartSceneResult.byPointer(pointer).getNext());
+        return new SceneResult(false, EnumStartSceneResult.byPointer(pointer).getNext());
     }
 
     public enum EnumStartSceneResult{

@@ -51,7 +51,7 @@ public class ItemMenuScene extends TwoColumnMenuScene {
     }
 
     @Override
-    protected SceneResult<?> onExitChildScene(SceneResult<?> result) {
+    protected SceneResult onExitChildScene(SceneResult result) {
         if(result.data() instanceof EnumSelect){
             switch ((EnumSelect)result.data()){
                 case USE:
@@ -103,7 +103,7 @@ public class ItemMenuScene extends TwoColumnMenuScene {
         }
 
         @Override
-        protected SceneResult<?> run(EnumKeyInput key, SceneResult<?> childSceneResult) {
+        protected SceneResult run(EnumKeyInput key, SceneResult childSceneResult) {
             switch (key){
                 case UP:
                     pointer = Math.max(0, pointer - 1);
@@ -112,11 +112,11 @@ public class ItemMenuScene extends TwoColumnMenuScene {
                     pointer = Math.min(EnumSelect.values().length -1, pointer + 1);
                     break;
                 case ENTER:
-                    return new SceneResult<>(false, EnumSelect.byPointer(pointer));
+                    return new SceneResult(false, EnumSelect.byPointer(pointer));
                 case CANCEL:
-                    return new SceneResult<>(false, EnumSelect.CANCEL);
+                    return new SceneResult(false, EnumSelect.CANCEL);
             }
-            return new SceneResult<>(true, null);
+            return new SceneResult(true, null);
         }
 
         @Override
