@@ -39,7 +39,7 @@ public class TrapEntity extends Entity {
 
     @Override
     public String getIcon() {
-        return "Tr";
+        return "＿";
     }
 
     @Override

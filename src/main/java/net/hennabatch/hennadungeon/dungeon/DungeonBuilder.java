@@ -147,7 +147,7 @@ public class DungeonBuilder {
                 .map(x -> x.room)
                 .findFirst().get();
         dungeon.spawnEntity(new PlayerEntity(startRoom.size().div(2).add(startRoom.getUpperLeft()), dungeon));
-        dungeon.spawnEntity(new DropItemEntity(startRoom.size().div(2).add(startRoom.getUpperLeft()).add(1), dungeon, Items.DEF_BUFF_POTION));
+        dungeon.spawnEntity(new TrapEntity(startRoom.size().div(2).add(startRoom.getUpperLeft()).add(1), dungeon));
         spawnEnemies(dungeon);
         spawnOtherEntities(dungeon);
         spawnDropItems(dungeon);

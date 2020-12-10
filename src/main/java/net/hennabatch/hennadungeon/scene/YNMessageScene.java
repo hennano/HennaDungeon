@@ -11,7 +11,7 @@ public class YNMessageScene extends MessageScene{
     private int pointer = 0;
 
     public YNMessageScene(String message) {
-        super(new ArrayList<>(Arrays.asList(message)));
+        this(Reference.SCREEN_WIDTH, message, false);
     }
 
     public YNMessageScene(int width, String message, boolean canStretch) {
@@ -36,7 +36,7 @@ public class YNMessageScene extends MessageScene{
 
     @Override
     protected Screen draw(Screen screen) {
-         drawMessage(screen, messages.peekFirst());
+         drawMessage(screen, messages.get(0));
 
          String yes = "はい";
          String no = "いいえ";
