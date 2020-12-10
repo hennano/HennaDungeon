@@ -30,7 +30,7 @@ public class BlinkAi<T extends Entity> extends AdvancedAiBase<T>{
         List<Vec2d> vecs = new Vec2d(owner).rangeMax(range);
         Vec2d targetPos = vecs.parallelStream()
                 .filter(x -> owner.getDungeon().isInner(x))
-                .filter(x -> owner.getDungeon().getEntitiesByIVec(x) == null)
+                .filter(x -> owner.getDungeon().getEntitiesByIVec(x).size() == 0)
                 .findAny().orElse(null);
         if(targetPos == null){
             Reference.logger.info(owner.name() + "はワープに失敗した");
