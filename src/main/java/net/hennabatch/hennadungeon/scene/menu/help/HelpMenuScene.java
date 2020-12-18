@@ -44,6 +44,9 @@ public class HelpMenuScene extends TwoColumnMenuScene {
             case STATUS:
                 createChildScene(new StatusHelpScene());
                 break;
+            case EFFECT:
+                createChildScene(new EffectHelpScene());
+                break;
             case BACK:
                 return new SceneResult(false, null);
         }
