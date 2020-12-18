@@ -15,6 +15,11 @@ public class InvisibleEffect extends TurnEffect{
     }
 
     @Override
+    public String description() {
+        return "透明化状態";
+    }
+
+    @Override
     public InvisibleEffect cloneEffect() {
         return new InvisibleEffect(getDurationTime());
     }

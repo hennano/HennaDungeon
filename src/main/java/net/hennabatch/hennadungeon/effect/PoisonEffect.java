@@ -28,6 +28,11 @@ public class PoisonEffect extends TurnEffect{
     }
 
     @Override
+    public String description() {
+        return "毒状態\n一定時間継続ダメージを受ける";
+    }
+
+    @Override
     public PoisonEffect cloneEffect() {
         return new PoisonEffect(getDurationTime(), val);
     }

@@ -27,6 +27,11 @@ public class BleedingEffect extends TurnEffect{
     }
 
     @Override
+    public String description() {
+        return "怪我をして出血している状態\n継続ダメージを受ける";
+    }
+
+    @Override
     public BleedingEffect cloneEffect() {
         return new BleedingEffect(getDurationTime(), val);
     }

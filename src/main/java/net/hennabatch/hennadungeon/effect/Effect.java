@@ -40,5 +40,7 @@ public abstract class Effect{
 
     public abstract String name();
 
+    public abstract String description();
+
     public abstract Effect cloneEffect();
 }

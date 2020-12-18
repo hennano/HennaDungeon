@@ -14,6 +14,11 @@ public class BuffEffect extends StatusEffect{
     }
 
     @Override
+    public String description() {
+        return "指定された能力値が上昇している状態";
+    }
+
+    @Override
     public BuffEffect cloneEffect() {
         return new BuffEffect(getDurationTime(), getTargetStatus(), getVal(), isMagnification());
     }

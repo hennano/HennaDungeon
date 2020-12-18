@@ -26,6 +26,11 @@ public class RegenerationEffect extends TurnEffect{
     }
 
     @Override
+    public String description() {
+        return "再生状態\n一定時間継続回復する";
+    }
+
+    @Override
     public RegenerationEffect cloneEffect() {
         return new RegenerationEffect(getDurationTime(), getVal());
     }

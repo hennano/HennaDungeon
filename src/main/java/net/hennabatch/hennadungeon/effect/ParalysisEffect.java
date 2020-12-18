@@ -12,6 +12,11 @@ public class ParalysisEffect extends TurnEffect implements IUnmovable{
     }
 
     @Override
+    public String description() {
+        return "麻痺状態\n一定時間動けなくなる";
+    }
+
+    @Override
     public ParalysisEffect cloneEffect() {
         return new ParalysisEffect(this.getDurationTime());
     }

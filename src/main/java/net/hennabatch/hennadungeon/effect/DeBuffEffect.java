@@ -14,6 +14,11 @@ public class DeBuffEffect extends StatusEffect {
     }
 
     @Override
+    public String description() {
+        return "指定された能力値が減少している状態";
+    }
+
+    @Override
     public DeBuffEffect cloneEffect() {
         return new DeBuffEffect(getDurationTime(), getTargetStatus(), getVal(), isMagnification());
     }
