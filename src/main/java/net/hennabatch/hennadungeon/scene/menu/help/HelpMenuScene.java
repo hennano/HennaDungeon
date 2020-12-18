@@ -38,6 +38,9 @@ public class HelpMenuScene extends TwoColumnMenuScene {
             case CONTROL:
                 createChildScene(new ControlHelpScene());
                 break;
+            case ACTION:
+                createChildScene(new ActionHelpScene());
+                break;
             case BACK:
                 return new SceneResult(false, null);
         }
@@ -53,7 +56,7 @@ public class HelpMenuScene extends TwoColumnMenuScene {
     public enum HelpMenuSceneResult{
 
         CONTROL(0, "操作方法", "操作方法についての説明"),
-        ATTACK(1, "戦闘", "戦闘についての説明"),
+        ACTION(1, "行動", "行動についての説明"),
         STATUS(2, "ステータス", "ステータスについての説明"),
         EFFECT(3, "エフェクト", "エフェクトにていての説明"),
         ICON(4, "マップアイコン", "マップアイコンについての説明"),
