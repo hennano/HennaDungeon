@@ -10,6 +10,7 @@ import net.hennabatch.hennadungeon.scene.Screen;
 import net.hennabatch.hennadungeon.scene.StatusScene;
 import net.hennabatch.hennadungeon.scene.YNMessageScene;
 import net.hennabatch.hennadungeon.scene.event.RootEvent;
+import net.hennabatch.hennadungeon.scene.menu.help.HelpMenuScene;
 import net.hennabatch.hennadungeon.util.Reference;
 
 import java.util.Arrays;
@@ -50,6 +51,9 @@ public class MainMenuScene extends TwoColumnMenuScene {
                 break;
             case EQUIP:
                 createChildScene(new EquipmentMenuScene(dungeon));
+                break;
+            case HELP:
+                createChildScene(new HelpMenuScene(dungeon));
                 break;
             case BACK:
                 return new SceneResult(false, null);
@@ -95,7 +99,8 @@ public class MainMenuScene extends TwoColumnMenuScene {
         STATUS(1, "ステータス"),
         ITEM(2, "アイテム"),
         EQUIP(3, "装備"),
-        EXIT(4, "やめる");
+        HELP(4, "ヘルプ"),
+        EXIT(5, "やめる");
 
         private int pointer;
         private String name;

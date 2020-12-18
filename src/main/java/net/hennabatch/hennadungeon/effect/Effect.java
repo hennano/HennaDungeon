@@ -1,6 +1,7 @@
 package net.hennabatch.hennadungeon.effect;
 
 import net.hennabatch.hennadungeon.entity.BreakableEntity;
+import net.hennabatch.hennadungeon.util.Reference;
 
 public abstract class Effect{
 
@@ -28,6 +29,7 @@ public abstract class Effect{
         durationTime--;
         if(durationTime == 0) {
             setDestroy(true);
+            Reference.logger.info(name() + "の効果が切れた");
             onDestroy(entity);
         }
     }

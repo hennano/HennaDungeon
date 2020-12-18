@@ -10,4 +10,5 @@ public enum EnumKeyInput {
     MENU(),
     SKILL(),
     SEEPATH()
+
 }

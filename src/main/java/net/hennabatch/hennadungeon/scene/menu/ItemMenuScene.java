@@ -39,7 +39,7 @@ public class ItemMenuScene extends TwoColumnMenuScene {
 
     @Override
     protected int getDivPos(Screen screen) {
-        return 10;
+        return 11;
     }
 
     @Override

@@ -143,18 +143,23 @@ public class DungeonBuilder {
         setExitPath(sections.stream().map(x -> x.room).filter(x -> x instanceof ExitRoom).findFirst().get());
 
         Dungeon dungeon = new Dungeon(scene, Stream.concat(sections.stream().map(x -> x.room), mainPassages.stream()).collect(Collectors.toList()), difficulty);
+        Reference.logger.debug("Entity Spawning...");
         Room startRoom =  sections.stream().filter(x -> x.room instanceof StartRoom)
                 .map(x -> x.room)
                 .findFirst().get();
         dungeon.spawnEntity(new PlayerEntity(startRoom.size().div(2).add(startRoom.getUpperLeft()), dungeon));
-        dungeon.spawnEntity(new TrapEntity(startRoom.size().div(2).add(startRoom.getUpperLeft()).add(1), dungeon));
+        Reference.logger.debug("Entity Spawning...");
         spawnEnemies(dungeon);
+        Reference.logger.debug("Object Spawning...");
         spawnOtherEntities(dungeon);
+        Reference.logger.debug("Item Spawning...");
         spawnDropItems(dungeon);
+        Reference.logger.debug("Mission Adding...");
         dungeon.addMission(new TutorialMission());
         dungeon.addMission(new BossMission());
         dungeon.addMission(new HelpOtherPartyMission());
         exportFloor(dungeon);
+        Reference.logger.debug("Done");
         return dungeon;
     }
 

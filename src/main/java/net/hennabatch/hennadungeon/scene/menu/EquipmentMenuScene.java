@@ -46,7 +46,7 @@ public class EquipmentMenuScene extends TwoColumnMenuScene {
 
     @Override
     protected int getDivPos(Screen screen) {
-        return 5;
+        return 6;
     }
 
     @Override
