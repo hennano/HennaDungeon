@@ -52,4 +52,9 @@ public class RoleTankerEntity extends EnemyEntity {
     public String name() {
         return "ウラジーミル";
     }
+
+    @Override
+    public String description() {
+        return "パーティでタンクを担当していた人\n戦闘センスは眼を見張るものがあるが他人を見下す癖がある";
+    }
 }

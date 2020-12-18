@@ -26,6 +26,11 @@ public class WallEntity extends CollidableEntity {
 
     @Override
     public String name() {
-        return "壁";
+        return "封鎖壁";
+    }
+
+    @Override
+    public String description() {
+        return "通路を塞いでいる壁\n一定条件を満たすといつの間にか消えている";
     }
 }

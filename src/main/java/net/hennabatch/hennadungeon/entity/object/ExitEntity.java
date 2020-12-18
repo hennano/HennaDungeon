@@ -25,11 +25,16 @@ public class ExitEntity extends Entity {
 
     @Override
     public String getIcon() {
-        return "◢ ";
+        return "＃";
     }
 
     @Override
     public String name() {
-        return "階段";
+        return "出口";
+    }
+
+    @Override
+    public String description() {
+        return "ダンジョンの出口\n外から光が差している";
     }
 }

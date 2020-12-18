@@ -1,6 +1,5 @@
 package net.hennabatch.hennadungeon.scene.menu.help;
 
-import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.scene.SceneResult;
 import net.hennabatch.hennadungeon.scene.Screen;
 import net.hennabatch.hennadungeon.scene.menu.TwoColumnMenuScene;
@@ -10,12 +9,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class HelpMenuScene extends TwoColumnMenuScene {
-
-    private Dungeon dungeon;
-
-    public HelpMenuScene(Dungeon dungeon){
-        this.dungeon = dungeon;
-    }
 
     @Override
     protected String getTitle() {
@@ -46,6 +39,9 @@ public class HelpMenuScene extends TwoColumnMenuScene {
                 break;
             case EFFECT:
                 createChildScene(new EffectHelpScene());
+                break;
+            case ICON:
+                createChildScene(new IconHelpScene());
                 break;
             case BACK:
                 return new SceneResult(false, null);

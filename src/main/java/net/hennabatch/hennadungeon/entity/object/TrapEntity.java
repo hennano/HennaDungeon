@@ -48,6 +48,11 @@ public class TrapEntity extends Entity {
     }
 
     @Override
+    public String description() {
+        return "ダンジョンに設置されているトラップ\n最初はみえないが一度踏むと見えるようになる";
+    }
+
+    @Override
     protected void onTrigger(Entity triggeredEntity) {
         if(!(triggeredEntity instanceof BreakableEntity)) return;
         setHidden(false);

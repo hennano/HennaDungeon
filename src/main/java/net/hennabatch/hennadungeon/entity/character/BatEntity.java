@@ -52,12 +52,17 @@ public class BatEntity extends EnemyEntity {
 
     @Override
     public String getIcon() {
-        return "Bd";
+        return "Bt";
     }
 
     @Override
     public String name() {
         return "コウモリ";
+    }
+
+    @Override
+    public String description() {
+        return "ダンジョンの天井にぶら下がっているコウモリ\n小さくてすばしっこいので攻撃を当てにくい";
     }
 
     @Override

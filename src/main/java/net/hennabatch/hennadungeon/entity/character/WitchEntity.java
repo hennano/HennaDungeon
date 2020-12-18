@@ -54,6 +54,11 @@ public class WitchEntity extends EnemyEntity {
     }
 
     @Override
+    public String description() {
+        return "魔法を操る魔女\n近づかれる前に倒すのをモットーとしているため火力に比重をおいている";
+    }
+
+    @Override
     public DropItemTable getDropItemTable() {
         return new DropItemTable().addItem(Items.MDEF_BUFF_POTION, 0.2);
     }

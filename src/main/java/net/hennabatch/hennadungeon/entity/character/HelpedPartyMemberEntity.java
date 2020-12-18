@@ -59,6 +59,11 @@ public class HelpedPartyMemberEntity extends AiEntity {
     }
 
     @Override
+    public String description() {
+        return "ダンジョンを攻略していたパーティのメンバー\n美人";
+    }
+
+    @Override
     public void onCollision(Entity collidedEntity) {
         if(!(collidedEntity instanceof ITalkable)){
             super.onCollision(collidedEntity);

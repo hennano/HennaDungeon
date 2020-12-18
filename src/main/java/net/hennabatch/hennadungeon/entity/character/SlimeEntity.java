@@ -52,6 +52,11 @@ public class SlimeEntity extends EnemyEntity {
     }
 
     @Override
+    public String description() {
+        return "ダンジョンに生息する軟体生物\n物理攻撃は受け流してしまうため剣士に嫌われている";
+    }
+
+    @Override
     public DropItemTable getDropItemTable() {
         return new DropItemTable().addItem(Items.DEF_BUFF_POTION, 0.2);
     }

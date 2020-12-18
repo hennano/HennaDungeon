@@ -52,4 +52,9 @@ public class BoxEntity extends CollidableEntity {
     public String name() {
         return "宝箱";
     }
+
+    @Override
+    public String description() {
+        return "中に何かが入っている箱\n鍵がかかっている場合がある";
+    }
 }

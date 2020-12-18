@@ -55,4 +55,9 @@ public class OakEntity extends EnemyEntity {
     public String name() {
         return "オーク";
     }
+
+    @Override
+    public String description() {
+        return "大型の人形生物\nオスしか確認されておらず生態が未だわかっていない";
+    }
 }

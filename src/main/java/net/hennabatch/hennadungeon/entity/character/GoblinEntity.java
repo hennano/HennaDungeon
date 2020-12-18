@@ -52,6 +52,11 @@ public class GoblinEntity extends EnemyEntity {
     }
 
     @Override
+    public String description() {
+        return "ダンジョンでよく見かける人形の生物\n回復できるポーションを持っているが何故か使わない";
+    }
+
+    @Override
     public DropItemTable getDropItemTable() {
         return new DropItemTable().addItem(Items.HEAL_POTION, 0.5)
                     .addItem(Items.REGENRATION_POTION, 0.5);

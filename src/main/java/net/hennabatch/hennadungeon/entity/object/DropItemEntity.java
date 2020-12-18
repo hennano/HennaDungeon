@@ -41,4 +41,9 @@ public class DropItemEntity extends Entity {
     public String name() {
         return "ドロップアイテム[" + item.name() + "]";
     }
+
+    @Override
+    public String description() {
+        return "ダンジョンに落ちているアイテム\n何故か拾わないとアイテムが判別できない";
+    }
 }

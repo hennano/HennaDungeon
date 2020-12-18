@@ -58,4 +58,9 @@ public class RoleAttackerEntity extends EnemyEntity {
     public String name() {
         return "アリエテ";
     }
+
+    @Override
+    public String description() {
+        return "パーティで攻撃を担当していた人\n後先考えずとりあえず魔法を使用するのでいつも尻拭いさせられる";
+    }
 }

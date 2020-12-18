@@ -91,6 +91,8 @@ public abstract class Entity implements IVec {
 
     public abstract String name();
 
+    public abstract String description();
+
     public boolean isHidden() {
         return isHidden;
     }

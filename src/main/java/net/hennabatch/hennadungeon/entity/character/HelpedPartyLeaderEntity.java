@@ -31,6 +31,11 @@ public class HelpedPartyLeaderEntity extends HelpedPartyMemberEntity{
     }
 
     @Override
+    public String description() {
+        return "ダンジョンを攻略していたパーティのリーダー\nギルドではいつも周りに人がたかっている気がする";
+    }
+
+    @Override
     public void onCollision(Entity collidedEntity) {
         if(!(collidedEntity instanceof ITalkable)){
             super.onCollision(collidedEntity);

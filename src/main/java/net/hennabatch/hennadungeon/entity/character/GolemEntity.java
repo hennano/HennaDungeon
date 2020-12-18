@@ -61,6 +61,11 @@ public class GolemEntity extends EnemyEntity {
     }
 
     @Override
+    public String description() {
+        return "このダンジョンにはいないと思われていた魔法生物\n岩で構成されているがスムーズに動く";
+    }
+
+    @Override
     public DropItemTable getDropItemTable() {
         return new DropItemTable().addItem(Items.CRYSTAL, 1.0);
     }

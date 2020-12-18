@@ -106,6 +106,11 @@ public class PlayerEntity extends BreakableEntity implements ITalkable, IHasInve
     }
 
     @Override
+    public String description() {
+        return "パーティの荷物持ちをしている人\nあまり触れられていないが様々な武器を人並みに使用できる";
+    }
+
+    @Override
     public Inventory getInventory() {
         return inventory;
     }

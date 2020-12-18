@@ -51,4 +51,9 @@ public class RoleDebufferEntity extends EnemyEntity {
     public String name() {
         return "ドラコーン";
     }
+
+    @Override
+    public String description() {
+        return "パーティで斥候を担当していた人\n無口だが"+ new PlayerEntity(new Vec2d(0,0), null).name() +"に対してはよく話すようになった\nパーティの良心";
+    }
 }
