@@ -62,10 +62,11 @@ public class IconHelpScene extends TwoColumnMenuScene {
         BAT(11, new BatEntity(new Vec2d(0, 0), null)),
         OAK(12, new OakEntity(new Vec2d(0, 0), null)),
         WITCH(13, new WitchEntity(new Vec2d(0, 0), null)),
-        GOLEM(14, new GolemEntity(new Vec2d(0, 0), null)),
-        ATTACKER(15, new RoleAttackerEntity(new Vec2d(0, 0), null)),
-        DEBUFFER(16, new RoleDebufferEntity(new Vec2d(0, 0), null)),
-        TANKER(17, new RoleTankerEntity(new Vec2d(0, 0), null));
+        MIMIC(14, new MimicEntity(new Vec2d(0, 0), null).name(), new MimicEntity(new Vec2d(0, 0), null).getTrueIcon(), new MimicEntity(new Vec2d(0, 0), null).description()),
+        GOLEM(15, new GolemEntity(new Vec2d(0, 0), null)),
+        ATTACKER(16, new RoleAttackerEntity(new Vec2d(0, 0), null)),
+        DEBUFFER(17, new RoleDebufferEntity(new Vec2d(0, 0), null)),
+        TANKER(18, new RoleTankerEntity(new Vec2d(0, 0), null));
 
         private int pointer;
         private String name;

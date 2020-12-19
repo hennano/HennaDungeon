@@ -2,10 +2,7 @@ package net.hennabatch.hennadungeon.util;
 
 import net.hennabatch.hennadungeon.config.Config;
 import net.hennabatch.hennadungeon.entity.EnemyEntity;
-import net.hennabatch.hennadungeon.entity.character.BatEntity;
-import net.hennabatch.hennadungeon.entity.character.GoblinEntity;
-import net.hennabatch.hennadungeon.entity.character.SlimeEntity;
-import net.hennabatch.hennadungeon.entity.character.WitchEntity;
+import net.hennabatch.hennadungeon.entity.character.*;
 import net.hennabatch.hennadungeon.item.Item;
 import net.hennabatch.hennadungeon.item.Items;
 
@@ -44,7 +41,8 @@ public class Reference {
             BatEntity.class,
             GoblinEntity.class,
             SlimeEntity.class,
-            WitchEntity.class
+            WitchEntity.class,
+            MimicEntity.class
     ));
     public static final List<Item> SPANNABLE_ITEMS = new ArrayList<>(Arrays.asList(
             Items.HEAL_POTION,
