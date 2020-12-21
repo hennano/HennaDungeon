@@ -69,7 +69,7 @@ public class FindOtherPartyPhase extends Phase {
 
     private void deathOtherParty(){
         List<Entity> party = getDungeon().getEntities().stream().filter(x -> x instanceof HelpedPartyMemberEntity).collect(Collectors.toList());
-        party.forEach(Entity::destroy);
+        party.forEach(x -> x.setDestroy(true));
         getDungeon().executeScene(new MessageScene(new ArrayList<>(Arrays.asList("キャーーー!!!"))));
     }
 }

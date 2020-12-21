@@ -125,8 +125,8 @@ public class DungeonBuilder {
         Reference.logger.debug("Room generating...");
         sections.get(sections.size() - 1).generateStartRoom();
         sections.get(0).generateExitRoom();
-        //sections.get(sections.size() / 2 + 1).generateOtherPartyRoom();
-        sections.get(sections.size() - 2).generateOtherPartyRoom();
+        sections.get(sections.size() / 2 + 1).generateOtherPartyRoom();
+        //sections.get(sections.size() - 2).generateOtherPartyRoom();
         sections.parallelStream().filter(x -> x.room == null).forEach(Section::generateRoom);
         sections.forEach( x-> Reference.logger.debug(x.room.toString()));
         //通路生成
@@ -143,7 +143,7 @@ public class DungeonBuilder {
         setExitPath(sections.stream().map(x -> x.room).filter(x -> x instanceof ExitRoom).findFirst().get());
 
         Dungeon dungeon = new Dungeon(scene, Stream.concat(sections.stream().map(x -> x.room), mainPassages.stream()).collect(Collectors.toList()), difficulty);
-        Reference.logger.debug("Entity Spawning...");
+        Reference.logger.debug("Player Spawning...");
         Room startRoom =  sections.stream().filter(x -> x.room instanceof StartRoom)
                 .map(x -> x.room)
                 .findFirst().get();
