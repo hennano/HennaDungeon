@@ -1,6 +1,7 @@
 package net.hennabatch.hennadungeon.item.potion;
 
 import net.hennabatch.hennadungeon.effect.Effect;
+import net.hennabatch.hennadungeon.effect.StatusEffect;
 import net.hennabatch.hennadungeon.entity.BreakableEntity;
 import net.hennabatch.hennadungeon.entity.Entity;
 import net.hennabatch.hennadungeon.item.Item;
@@ -27,6 +28,7 @@ public class AddEffectPotion extends Item {
 
     @Override
     public String name() {
+        if(effect instanceof StatusEffect && ((StatusEffect) effect).isMagnification()) return "マルチプル" + effect.name() + "ポーション";
         return effect.name() + "ポーション";
     }
 

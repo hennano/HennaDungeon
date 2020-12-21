@@ -16,9 +16,12 @@ public class Items {
 
     public static final Item HEAL_POTION = new HealPotionItem();
     public static final Item REGENRATION_POTION = new AddEffectPotion(new RegenerationEffect(10, 40));
-    public static final Item ATK_BUFF_POTION = new AddEffectPotion(new BuffEffect(5, Status.EnumStatus.ATK, 10, false));
-    public static final Item DEF_BUFF_POTION = new AddEffectPotion(new BuffEffect(5, Status.EnumStatus.DEF, 10, false));
-    public static final Item MDEF_BUFF_POTION = new AddEffectPotion(new BuffEffect(5, Status.EnumStatus.MDEF, 10, false));
+    public static final Item ATK_BUFF_POTION = new AddEffectPotion(new BuffEffect(10, Status.EnumStatus.ATK, 10, false));
+    public static final Item MULTIPLE_ATK_BUFF_POTION = new AddEffectPotion(new BuffEffect(5, Status.EnumStatus.ATK, 1.5, true));
+    public static final Item DEF_BUFF_POTION = new AddEffectPotion(new BuffEffect(10, Status.EnumStatus.DEF, 10, false));
+    public static final Item MULTIPLE_DEF_BUFF_POTION = new AddEffectPotion(new BuffEffect(5, Status.EnumStatus.DEF, 1.5, true));
+    public static final Item MDEF_BUFF_POTION = new AddEffectPotion(new BuffEffect(10, Status.EnumStatus.MDEF, 10, false));
+    public static final Item MULTIPLE_MDEF_BUFF_POTION = new AddEffectPotion(new BuffEffect(5, Status.EnumStatus.MDEF, 1.5, true));
     public static final Item INVISIBLE_POTION = new AddEffectPotion(new InvisibleEffect(20));
 
     public static final Item HAND = new HandWeaponItem();
