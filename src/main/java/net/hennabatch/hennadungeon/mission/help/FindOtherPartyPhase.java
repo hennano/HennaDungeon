@@ -4,10 +4,7 @@ import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.dungeon.floor.OtherPartyRoom;
 import net.hennabatch.hennadungeon.entity.EnemyEntity;
 import net.hennabatch.hennadungeon.entity.Entity;
-import net.hennabatch.hennadungeon.entity.character.GoblinEntity;
-import net.hennabatch.hennadungeon.entity.character.HelpedPartyLeaderEntity;
-import net.hennabatch.hennadungeon.entity.character.HelpedPartyMemberEntity;
-import net.hennabatch.hennadungeon.entity.character.PlayerEntity;
+import net.hennabatch.hennadungeon.entity.character.*;
 import net.hennabatch.hennadungeon.mission.Phase;
 import net.hennabatch.hennadungeon.scene.MessageScene;
 import net.hennabatch.hennadungeon.vec.EnumDirection;
@@ -59,9 +56,15 @@ public class FindOtherPartyPhase extends Phase {
         EnumDirection direction = room.size().getX() < room.size().getY() ? EnumDirection.Y : EnumDirection.X;
 
         Vec2d center = room.getUpperLeft().add(room.size().div(2));
-        EnemyEntity enemy = new GoblinEntity(center.add(new Vec2d(2, 0).rotate(direction)),getDungeon());
-        enemy.addTag(new EnemyTag());
-        getDungeon().spawnEntity(enemy);
+        EnemyEntity goblin1 = new GoblinEntity(center.add(new Vec2d(2, 0).rotate(direction)),getDungeon());
+        EnemyEntity goblin2 = new GoblinEntity(center.add(new Vec2d(2, 2).rotate(direction)),getDungeon());
+        EnemyEntity oak = new OakEntity(center.add(new Vec2d(2, 1).rotate(direction)),getDungeon());
+        goblin1.addTag(new EnemyTag());
+        goblin2.addTag(new EnemyTag());
+        oak.addTag(new EnemyTag());
+        getDungeon().spawnEntity(goblin1);
+        getDungeon().spawnEntity(goblin2);
+        getDungeon().spawnEntity(oak);
     }
 
     private void deathOtherParty(){

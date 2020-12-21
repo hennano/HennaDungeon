@@ -4,7 +4,7 @@ import net.hennabatch.hennadungeon.entity.Status;
 
 public class DeBuffEffect extends StatusEffect {
 
-    public DeBuffEffect(int durationTime, Status.EnumStatus targetStatus, int val, Boolean isMagnification) {
+    public DeBuffEffect(int durationTime, Status.EnumStatus targetStatus, double val, Boolean isMagnification) {
         super(durationTime, targetStatus, val, isMagnification);
     }
 

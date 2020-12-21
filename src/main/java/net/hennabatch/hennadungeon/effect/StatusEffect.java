@@ -5,10 +5,10 @@ import net.hennabatch.hennadungeon.entity.Status;
 public abstract class StatusEffect extends Effect{
 
     private final Status.EnumStatus targetStatus;
-    private final int val;
+    private final double val;
     private final boolean isMagnification;
 
-    public StatusEffect(int durationTime, Status.EnumStatus targetStatus, int val, Boolean isMagnification){
+    public StatusEffect(int durationTime, Status.EnumStatus targetStatus, double val, Boolean isMagnification){
         super(durationTime);
         this.targetStatus = targetStatus;
         this.val = val;
@@ -19,7 +19,7 @@ public abstract class StatusEffect extends Effect{
         return targetStatus;
     }
 
-    public int getVal() {
+    public double getVal() {
         return val;
     }
 
