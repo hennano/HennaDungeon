@@ -28,12 +28,12 @@ public class Reference {
     public static final String CROSS = "＋";
 
     //dungeon
-    public static final int DUNGEON_WIDTH = 100;
-    public static final int DUNGEON_HEIGHT = 100;
+    public static final int DUNGEON_WIDTH = 75;
+    public static final int DUNGEON_HEIGHT = 75;
     public static final int DUNGEON_MAXROOMS = 25;
     public static final int DUNGEON_MIN_ROOMWIDTH = 5;
     public static final int DUNGEON_MIN_ROOMHEIGTH = 5;
-    public static final double DUNGEON_CONNECT_CHANCE = 0.3;
+    public static final double DUNGEON_CONNECT_CHANCE = 0.5;
     public static final int PLAYER_SKILL_COOLTIME = 20;
     public static final int SPAWN_ENEMIES_PER_ROOM = 2;
     public static final int SPAWN_ITEMS_PER_ROOM = 1;
