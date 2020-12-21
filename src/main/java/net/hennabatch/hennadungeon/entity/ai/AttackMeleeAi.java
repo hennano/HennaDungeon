@@ -20,7 +20,7 @@ public class AttackMeleeAi<T extends EnemyEntity> extends AiBase<T>{
 
     @Override
     protected boolean shouldExecute() {
-        return Arrays.stream(EnumDirection.values()).anyMatch(x -> weapon.isInnerRange(owner, target, x));
+        return Arrays.stream(EnumDirection.values()).anyMatch(x -> weapon.isInnerRange(owner, target, x)) && !target.isHidden();
     }
 
     @Override

@@ -22,7 +22,7 @@ public class ApproachTargetAi<T extends Entity> extends AiBase<T>{
 
     @Override
     protected boolean shouldExecute() {
-        return new Vec2d(this.owner).distance(target) < range;
+        return new Vec2d(this.owner).distance(target) < range && !target.isHidden();
     }
 
     @Override

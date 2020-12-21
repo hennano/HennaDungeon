@@ -3,6 +3,7 @@ package net.hennabatch.hennadungeon.entity.character;
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
 import net.hennabatch.hennadungeon.entity.DropItemTable;
 import net.hennabatch.hennadungeon.entity.EnemyEntity;
+import net.hennabatch.hennadungeon.entity.IMimicable;
 import net.hennabatch.hennadungeon.entity.Status;
 import net.hennabatch.hennadungeon.entity.ai.ApproachTargetAi;
 import net.hennabatch.hennadungeon.entity.ai.AttackMeleeAi;
@@ -13,16 +14,18 @@ import net.hennabatch.hennadungeon.item.Items;
 import net.hennabatch.hennadungeon.item.WeaponItem;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
-public class MimicEntity extends EnemyEntity {
+public class MimicEntity extends EnemyEntity implements IMimicable {
 
     private Status status = new Status(50, 40, 30, 15);
     private boolean isMimicking = true;
     private String mimickingIcon;
 
+    @Override
     public boolean isMimicking() {
         return isMimicking;
     }
 
+    @Override
     public void setMimicking(boolean mimicking) {
         isMimicking = mimicking;
     }
