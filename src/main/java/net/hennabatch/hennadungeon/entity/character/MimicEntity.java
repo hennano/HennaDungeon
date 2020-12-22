@@ -83,6 +83,9 @@ public class MimicEntity extends EnemyEntity implements IMimicable {
 
     @Override
     public DropItemTable getDropItemTable() {
-        return new DropItemTable().addItem(Items.ATK_BUFF_POTION, 1);
+        return new DropItemTable().addItem(Items.MULTIPLE_ATK_BUFF_POTION, 0.3)
+                .addItem(Items.MULTIPLE_DEF_BUFF_POTION, 0.3)
+                .addItem(Items.MULTIPLE_MDEF_BUFF_POTION, 0.3)
+                .addItem(Items.HEAL_POTION, 1);
     }
 }

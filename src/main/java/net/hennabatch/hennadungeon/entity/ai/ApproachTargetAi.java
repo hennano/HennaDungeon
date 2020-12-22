@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class ApproachTargetAi<T extends Entity> extends AiBase<T>{
 
-    private Entity target;
+    protected Entity target;
     private double range;
 
     public ApproachTargetAi(T owner, Entity target, double range) {
