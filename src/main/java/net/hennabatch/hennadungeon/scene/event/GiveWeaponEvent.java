@@ -55,7 +55,7 @@ public class GiveWeaponEvent extends Event{
                         //報酬のドロップ
                         dungeon.spawnEntity(new DropItemEntity(new Vec2d(dungeon.getEntities().stream().filter(x -> x instanceof HelpedPartyLeaderEntity).findFirst().get()), dungeon, giveRandomPotion()));
                         //パーティの削除
-                        dungeon.getEntities().removeIf(x -> x instanceof HelpedPartyMemberEntity);
+                        dungeon.getEntities().stream().filter(x -> x instanceof HelpedPartyMemberEntity).forEach(x -> x.setDestroy(true));
                     }else{
                         createChildScene(new MessageScene(new ArrayList<>(Arrays.asList("武器を装備していないので渡せない"))));
                         return new SceneResult(true, null);

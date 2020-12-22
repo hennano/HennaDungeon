@@ -164,7 +164,7 @@ public class GameScene extends Scene {
         for(int sx = 1; sx < screen.getWidth() - 1; sx++){
             for (int sy = 2; sy < screen.getHeight() - 2; sy++){
                 if(exitFloor.isInner(new Vec2d(sx - ((screen.getWidth() - 2) / 2), sy - ((screen.getHeight() - 4) / 2)).add(playerPos))){
-                    screen.setPos(sx, sy, Reference.DUNGEON_EXITPATH);
+                    screen.setPos(sx, sy, exitFloor instanceof ExitRoom ? Reference.DUNGEON_EXITROOM : Reference.DUNGEON_EXITPATH);
                 }
             }
         }

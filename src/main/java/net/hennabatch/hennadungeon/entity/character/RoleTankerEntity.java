@@ -11,6 +11,7 @@ import net.hennabatch.hennadungeon.entity.ai.ApproachTargetInaFloorAi;
 import net.hennabatch.hennadungeon.entity.ai.AttackMeleeAi;
 import net.hennabatch.hennadungeon.entity.ai.StayAi;
 import net.hennabatch.hennadungeon.item.ArmorItem;
+import net.hennabatch.hennadungeon.item.Items;
 import net.hennabatch.hennadungeon.item.WeaponItem;
 import net.hennabatch.hennadungeon.vec.Vec2d;
 
@@ -43,7 +44,7 @@ public class RoleTankerEntity extends EnemyEntity {
 
     @Override
     public WeaponItem getEquipmentWeapon() {
-        return null;
+        return (WeaponItem) Items.SWORD;
     }
 
     @Override

@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class FindOtherPartyPhase extends Phase {
 
-    private int limit = 150;
+    private int limit = 250;
 
     @Override
     public void initialize(Dungeon dungeon) {
