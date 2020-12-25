@@ -1,10 +1,8 @@
 package net.hennabatch.hennadungeon.entity.character;
 
 import net.hennabatch.hennadungeon.dungeon.Dungeon;
-import net.hennabatch.hennadungeon.entity.DropItemTable;
-import net.hennabatch.hennadungeon.entity.EnemyEntity;
-import net.hennabatch.hennadungeon.entity.IMimicable;
-import net.hennabatch.hennadungeon.entity.Status;
+import net.hennabatch.hennadungeon.effect.Effect;
+import net.hennabatch.hennadungeon.entity.*;
 import net.hennabatch.hennadungeon.entity.ai.ApproachTargetAi;
 import net.hennabatch.hennadungeon.entity.ai.AttackMeleeAi;
 import net.hennabatch.hennadungeon.entity.ai.MimicUntilRangeAi;
@@ -13,6 +11,8 @@ import net.hennabatch.hennadungeon.entity.object.BoxEntity;
 import net.hennabatch.hennadungeon.item.Items;
 import net.hennabatch.hennadungeon.item.WeaponItem;
 import net.hennabatch.hennadungeon.vec.Vec2d;
+
+import java.util.List;
 
 public class MimicEntity extends EnemyEntity implements IMimicable {
 
@@ -87,5 +87,11 @@ public class MimicEntity extends EnemyEntity implements IMimicable {
                 .addItem(Items.MULTIPLE_DEF_BUFF_POTION, 0.3)
                 .addItem(Items.MULTIPLE_MDEF_BUFF_POTION, 0.3)
                 .addItem(Items.HEAL_POTION, 1);
+    }
+
+    @Override
+    public boolean onAttacked(Entity attackedEntity, int atk, boolean isMagic, boolean isMelee, List<Effect> additionalEffects) {
+        if(this.isMimicking()) setMimicking(false);
+        return super.onAttacked(attackedEntity, atk, isMagic, isMelee, additionalEffects);
     }
 }
