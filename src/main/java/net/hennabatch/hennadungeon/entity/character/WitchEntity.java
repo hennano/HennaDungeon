@@ -14,7 +14,7 @@ import net.hennabatch.hennadungeon.vec.Vec2d;
 
 public class WitchEntity extends EnemyEntity {
 
-    private Status status = new Status(50, 10, 30, 5);
+    private Status status = new Status(40, 10, 30, 5);
 
     public WitchEntity(Vec2d pos, Dungeon dungeon) {
         super(pos, dungeon);

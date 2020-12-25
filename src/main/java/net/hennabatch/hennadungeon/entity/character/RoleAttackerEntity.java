@@ -49,7 +49,7 @@ public class RoleAttackerEntity extends EnemyEntity {
 
     @Override
     public int getMaxHP() {
-        return 700;
+        return 250;
     }
 
     @Override

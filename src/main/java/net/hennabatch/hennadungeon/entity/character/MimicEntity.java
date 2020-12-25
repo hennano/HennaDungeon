@@ -59,7 +59,7 @@ public class MimicEntity extends EnemyEntity implements IMimicable {
 
     @Override
     public int getMaxHP() {
-        return 250;
+        return 400;
     }
 
     @Override

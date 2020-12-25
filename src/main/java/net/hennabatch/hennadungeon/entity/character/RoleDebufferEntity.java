@@ -49,7 +49,7 @@ public class RoleDebufferEntity extends EnemyEntity {
 
     @Override
     public int getMaxHP() {
-        return 500;
+        return 700;
     }
 
     @Override
