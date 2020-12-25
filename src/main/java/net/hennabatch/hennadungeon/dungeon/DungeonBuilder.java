@@ -49,16 +49,18 @@ public class DungeonBuilder {
         return spawnEnemiesPerRoom;
     }
 
-    public void setSpawnEnemiesPerRoom(int spawnEnemiesPerRoom) {
+    public DungeonBuilder setSpawnEnemiesPerRoom(int spawnEnemiesPerRoom) {
         this.spawnEnemiesPerRoom = spawnEnemiesPerRoom;
+        return this;
     }
 
     public double getRoomConnectChance() {
         return roomConnectChance;
     }
 
-    public void setRoomConnectChance(double roomConnectChance) {
+    public DungeonBuilder setRoomConnectChance(double roomConnectChance) {
         this.roomConnectChance = roomConnectChance;
+        return this;
     }
 
     public int getMinRoomWidth() {
@@ -125,7 +127,7 @@ public class DungeonBuilder {
         Reference.logger.debug("Room generating...");
         sections.get(sections.size() - 1).generateStartRoom();
         sections.get(0).generateExitRoom();
-        sections.get(sections.size() / 2 + 1).generateOtherPartyRoom();
+        sections.get(sections.size() / 2).generateOtherPartyRoom();
         //sections.get(sections.size() - 2).generateOtherPartyRoom();
         sections.parallelStream().filter(x -> x.room == null).forEach(Section::generateRoom);
         sections.forEach( x-> Reference.logger.debug(x.room.toString()));
@@ -158,7 +160,7 @@ public class DungeonBuilder {
         dungeon.addMission(new TutorialMission());
         dungeon.addMission(new BossMission());
         dungeon.addMission(new HelpOtherPartyMission());
-        //exportFloor(dungeon);
+        exportFloor(dungeon);
         Reference.logger.debug("Done");
         return dungeon;
     }
@@ -213,25 +215,24 @@ public class DungeonBuilder {
         }
 
         Random rand = new Random();
+        Passage passage = null;
         if(direction.equals(EnumDirection.NX)){
             int lRx = section1.room.getUpperLeft().getX();
             int lRy = rand.nextInt(section1.room.size().getY()) + section1.room.getUpperLeft().getY();
             int uLx = section2.room.getLowerRight().getX();
             int uLy = rand.nextInt(section2.room.size().getY()) + section2.room.getUpperLeft().getY();
-            Passage passage = new Passage(new Vec2d(uLx, uLy), new Vec2d(lRx, lRy), new Vec2d(section1.upperLeft.getX(), 0));
+            passage = new Passage(new Vec2d(uLx, uLy), new Vec2d(lRx, lRy), new Vec2d(section1.upperLeft.getX(), 0));
             connectFromRoomToRoomByPassage(section1.room, section2.room, passage, EnumDirection.NX);
-            return passage;
         }
         if(direction.equals(EnumDirection.NY)){
             int lRx = rand.nextInt(section1.room.size().getX()) + section1.room.getUpperLeft().getX();
             int lRy = section1.room.getUpperLeft().getY();
             int uLx = rand.nextInt(section2.room.size().getX()) + section2.room.getUpperLeft().getX();
             int uLy = section2.room.getLowerRight().getY();
-            Passage passage = new Passage(new Vec2d(uLx, uLy), new Vec2d(lRx, lRy), new Vec2d(0, section1.upperLeft.getY()));
+            passage = new Passage(new Vec2d(uLx, uLy), new Vec2d(lRx, lRy), new Vec2d(0, section1.upperLeft.getY()));
             connectFromRoomToRoomByPassage(section1.room, section2.room, passage, EnumDirection.NY);
-            return passage;
         }
-        return null;
+        return passage;
     }
 
     private void connectFromRoomToRoomByPassage(Room room1, Room room2, Passage passage, EnumDirection direction){
