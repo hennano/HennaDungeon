@@ -111,7 +111,7 @@ public class ItemMenuScene extends TwoColumnMenuScene {
                 case DOWN:
                     pointer = Math.min(EnumSelect.values().length -1, pointer + 1);
                     break;
-                case ENTER:
+                case SUBMIT:
                     return new SceneResult(false, EnumSelect.byPointer(pointer));
                 case CANCEL:
                     return new SceneResult(false, EnumSelect.CANCEL);

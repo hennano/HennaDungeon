@@ -25,6 +25,7 @@ public class SystemLogger {
 
     public void debug(String message){
         logger.debug(message);
+        if(Reference.config == null) return;
         if(Reference.config.runMode().equals(EnumRunMode.DEBUG)){
             logQueue.add(message);
         }

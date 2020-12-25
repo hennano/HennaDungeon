@@ -50,7 +50,7 @@ public class ControlHelpScene extends TwoColumnMenuScene {
         DOWN(1, EnumKeyInput.DOWN, "下方向へのキャラクターまたはカーソルの移動が行えます"),
         LEFT(2, EnumKeyInput.LEFT, "左方向へのキャラクターまたはカーソルの移動が行えます"),
         RIGHT(3, EnumKeyInput.RIGHT, "右方向へのキャラクターまたはカーソルの移動が行えます"),
-        ENTER(4, EnumKeyInput.ENTER, "選択の決定、メッセージ送りが行えます\nまた、ダンジョン内で入力すると攻撃準備状態になります"),
+        ENTER(4, EnumKeyInput.SUBMIT, "選択の決定、メッセージ送りが行えます\nまた、ダンジョン内で入力すると攻撃準備状態になります"),
         CANCEL(5, EnumKeyInput.CANCEL, "選択の取り消し、メッセージのスキップが行えます\nまた、メニュー内で入力すると一つ前の画面に戻ります"),
         MENU(6, EnumKeyInput.MENU, "ダンジョン内で入力するとメニューの表示が行えます"),
         SKILL(7, EnumKeyInput.SKILL, "ダンジョン内で入力するとスキルを使用できます"),

@@ -5,7 +5,7 @@ public enum EnumKeyInput {
     DOWN(),
     LEFT(),
     RIGHT(),
-    ENTER(),
+    SUBMIT(),
     CANCEL(),
     MENU(),
     SKILL(),

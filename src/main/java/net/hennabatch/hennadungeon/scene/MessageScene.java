@@ -28,7 +28,7 @@ public class MessageScene extends Scene{
     @Override
     protected SceneResult run(EnumKeyInput key, SceneResult childSceneResult) {
         switch (key){
-            case ENTER:
+            case SUBMIT:
                 return new SceneResult(showNextMessage(), null);
             case CANCEL:
                 return new SceneResult(skipMessages(), null);

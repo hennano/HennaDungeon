@@ -70,7 +70,7 @@ public class GameScene extends Scene {
             case MENU:
                 createChildScene(new MainMenuScene(dungeon));
                 break;
-            case ENTER:
+            case SUBMIT:
                 toggleReadyToAttack();
                 break;
             case SKILL:

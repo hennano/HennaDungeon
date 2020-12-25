@@ -158,7 +158,7 @@ public class DungeonBuilder {
         dungeon.addMission(new TutorialMission());
         dungeon.addMission(new BossMission());
         dungeon.addMission(new HelpOtherPartyMission());
-        exportFloor(dungeon);
+        //exportFloor(dungeon);
         Reference.logger.debug("Done");
         return dungeon;
     }

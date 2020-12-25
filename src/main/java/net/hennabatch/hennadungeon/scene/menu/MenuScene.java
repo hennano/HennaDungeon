@@ -23,7 +23,7 @@ public abstract class MenuScene extends Scene {
                 if(pointer < getOptions().size() - 1) pointer++;
                 onCursor(pointer);
                 break;
-            case ENTER:
+            case SUBMIT:
                 return onSelected(pointer);
         }
         return new SceneResult(true, null);

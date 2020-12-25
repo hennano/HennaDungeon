@@ -27,7 +27,7 @@ public abstract class TwoColumnMenuScene extends Scene {
                 if(pointer < getOptions().size() - 1) pointer++;
                 onCursor(pointer);
                 break;
-            case ENTER:
+            case SUBMIT:
                 return onSelected(pointer);
             case CANCEL:
                 return new SceneResult(false ,null);

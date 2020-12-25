@@ -27,7 +27,7 @@ public class YNMessageScene extends MessageScene{
             case RIGHT:
                 pointer = 1;
                 break;
-            case ENTER:
+            case SUBMIT:
                 Reference.logger.debug("selected at " + (pointer == 0 ? "yes" : "no"));
                 return new SceneResult(false, pointer == 0);
         }

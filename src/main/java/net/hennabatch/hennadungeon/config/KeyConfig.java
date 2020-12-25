@@ -12,8 +12,8 @@ public class KeyConfig {
         this.keys.put('s', EnumKeyInput.DOWN);
         this.keys.put('a', EnumKeyInput.LEFT);
         this.keys.put('d', EnumKeyInput.RIGHT);
-        this.keys.put(';', EnumKeyInput.ENTER);
-        this.keys.put('\'', EnumKeyInput.CANCEL);
+        this.keys.put('l', EnumKeyInput.SUBMIT);
+        this.keys.put(';', EnumKeyInput.CANCEL);
         this.keys.put('q', EnumKeyInput.MENU);
         this.keys.put('e', EnumKeyInput.SKILL);
         this.keys.put('f', EnumKeyInput.SEEPATH);
@@ -30,5 +30,10 @@ public class KeyConfig {
 
     public char getChar(EnumKeyInput key){
         return this.keys.entrySet().stream().filter(x -> x.getValue() == key).map(Map.Entry::getKey).findFirst().orElse(null);
+    }
+
+    public void replaceKey(EnumKeyInput key, char c){
+        keys.remove(key);
+        keys.put(c, key);
     }
 }

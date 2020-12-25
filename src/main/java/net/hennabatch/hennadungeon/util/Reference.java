@@ -6,14 +6,19 @@ import net.hennabatch.hennadungeon.entity.character.*;
 import net.hennabatch.hennadungeon.item.Item;
 import net.hennabatch.hennadungeon.item.Items;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Reference {
 
+    //config
+    public static final Path CONFIG_PATH = Paths.get("config.ini").toAbsolutePath();
+
     public static final SystemLogger logger = new SystemLogger();
-    public static final Config config = new Config();
+    public static final Config config = Config.loadConfig(CONFIG_PATH);
 
     //screen
     public static final int SCREEN_WIDTH = 20;
