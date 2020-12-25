@@ -33,7 +33,7 @@ public class KeyConfig {
     }
 
     public void replaceKey(EnumKeyInput key, char c){
-        keys.remove(key);
+        keys.remove(getChar(key));
         keys.put(c, key);
     }
 }
